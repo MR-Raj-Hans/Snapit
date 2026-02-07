@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Sign in</title>
+
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="sign-in.css">
+</head>
+
+<body>
+
+  <!-- CARD -->
+  <div class="card">
+
+    <div class="bolt">
+      <a href="landing.html" style="display:block; text-decoration:none;">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none">
+          <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" fill="white" />
+        </svg>
+      </a>
+    </div>
+
+    <div class="field">
+      <input type="email">
+      <label>Email</label>
+    </div>
+
+    <div class="field">
+      <input type="password" id="pwd">
+      <label>Password</label>
+      <div class="eye" onclick="togglePwd()">👁</div>
+    </div>
+
+    <div class="forgot">Forgot password?</div>
+
+    <button class="btn" id="signinBtn">Sign in</button>
+
+    <div class="or">Sign in with</div>
+
+    <div class="socials">
+      <div class="social google">G</div>
+      <div class="social facebook">f</div>
+      <div class="social apple"></div>
+    </div>
+    <div class="signup">
+      Don't have an account?
+      <a href="sign-up.html" style="color:#a77bff; text-decoration:none;">
+        Sign up
+      </a>
+    </div>
+
+    <div class="signup" style="margin-top:12px;">
+      <a href="landing.html" style="color:#a77bff; text-decoration:none;">
+        ← Back to Home
+      </a>
+    </div>
+
+  </div>
+
+  <!-- TEXT -->
+  <div class="hero">
+    <h1>
+      Let’s find<br>
+      you the<br>
+      <span>best deal.</span>
+    </h1>
+  </div>
+
+  <!-- Theme Toggle Button -->
+  <div class="theme-btn" id="themeBtn" style="position: absolute; top: 20px; left: 20px; z-index: 100;">🌙</div>
+
+  <script src="theme.js"></script>
+  <script src="sign-in.js"></script>
+
+</body>
+
+</html>

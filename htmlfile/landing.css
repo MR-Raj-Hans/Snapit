@@ -1,0 +1,315 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Euclid Circular B", Inter, system-ui, sans-serif;
+}
+
+body {
+    height: 100vh;
+    /* Fixed height */
+    overflow: hidden;
+    /* Hide scrollbar */
+    background:
+        radial-gradient(circle at left, #9b6cff 0%, transparent 45%),
+        linear-gradient(90deg, #0b0f1a 0%, #12082b 55%, #0b0f1a 100%);
+    color: #fff;
+}
+
+/* ===== NAVBAR ===== */
+/* ===== NAVBAR & DROPDOWN (Synced with product.css) ===== */
+/* ===== NAVBAR & DROPDOWN (Synced with product.css) ===== */
+.navbar {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    /* Removed top margin to fix layout issue */
+    padding: 14px 24px;
+    border-radius: 40px;
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(20px);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    z-index: 1000;
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    top: 20px;
+    /* Optional: Add small top offset if needed, or keep 0 */
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: 600;
+    text-decoration: none;
+    color: #fff;
+    flex-shrink: 0;
+}
+
+.logo span {
+    color: #b68cff;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    font-size: 14px;
+    margin-left: auto;
+    padding-right: 32px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: #fff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.profile-wrapper {
+    position: relative;
+    z-index: 100;
+}
+
+.profile {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    text-decoration: none;
+}
+
+.profile:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: #fff;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 1024px) {
+    .main {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin-top: 40px;
+    }
+
+    .hero {
+        margin-bottom: 60px;
+        max-width: 80%;
+    }
+
+    .hero h1 {
+        font-size: 48px;
+    }
+
+    .hero p {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .features {
+        grid-template-columns: repeat(2, 1fr);
+        width: 100%;
+        max-width: 600px;
+    }
+
+    .card {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-wrap: wrap;
+        padding: 16px;
+        gap: 20px;
+        justify-content: center;
+    }
+
+    .nav-links {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        gap: 24px;
+        margin-left: 0;
+        padding-right: 0;
+    }
+
+    .profile-wrapper {
+        position: absolute;
+        right: 24px;
+        top: 18px;
+    }
+
+    .hero h1 {
+        font-size: 36px;
+    }
+
+    .features {
+        grid-template-columns: 1fr;
+        max-width: 350px;
+    }
+
+    .card {
+        height: auto;
+        min-height: 200px;
+    }
+}
+
+/* ===== MAIN ===== */
+.main {
+    width: 90%;
+    max-width: 1200px;
+    margin: 80px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+/* LEFT */
+.hero {
+    max-width: 520px;
+    animation: fadeIn 0.8s ease-out;
+}
+
+.hero h1 {
+    font-size: 64px;
+    /* Bigger */
+    line-height: 1.1;
+    font-weight: 700;
+    margin-bottom: 24px;
+    background: linear-gradient(to right, #fff, #b68cff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+    font-size: 18px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 40px;
+    max-width: 450px;
+}
+
+.cta {
+    padding: 16px 32px;
+    border-radius: 30px;
+    border: none;
+    background: linear-gradient(135deg, #e91e63, #9b6cff);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(233, 30, 99, 0.3);
+    transition: all 0.3s ease;
+}
+
+.cta:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 15px 40px rgba(233, 30, 99, 0.4);
+}
+
+/* RIGHT */
+.features {
+    display: grid;
+    grid-template-columns: repeat(2, 260px);
+    gap: 24px;
+    animation: fadeIn 0.8s ease-out 0.2s backwards;
+}
+
+.card {
+    width: 260px;
+    height: 240px;
+    padding: 24px;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    background: rgba(255, 255, 255, 0.07);
+    transform: translateY(-10px);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.card h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.card p {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.6;
+}
+
+/* ICONS */
+.icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 900px) {
+    .main {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .features {
+        margin-top: 40px;
+    }
+
+    .hero {
+        margin-bottom: 40px;
+    }
+
+    .hero p {
+        margin: 0 auto 30px;
+    }
+}

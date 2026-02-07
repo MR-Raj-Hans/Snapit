@@ -1,0 +1,559 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Euclid Circular B", Inter, system-ui, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at left, #9b6cff 0%, transparent 45%),
+        linear-gradient(90deg, #0b0f1a 0%, #12082b 55%, #0b0f1a 100%);
+    color: #fff;
+    overflow-x: hidden;
+}
+
+/* NAVBAR */
+.navbar {
+    width: 92%;
+    max-width: 1200px;
+    margin: 20px auto 12px;
+    padding: 10px 24px;
+    border-radius: 40px;
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(20px);
+    display: flex;
+    position: relative;
+    /* Ensure z-index works */
+    z-index: 2000;
+    /* Force navbar on top of grid/products */
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex: 1;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: 600;
+    white-space: nowrap;
+    text-decoration: none;
+    color: #fff;
+}
+
+.logo span {
+    color: #b68cff;
+}
+
+.search {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    overflow: hidden;
+}
+
+.search.active {
+    width: 100%;
+    flex: 1;
+    max-width: 500px;
+    padding: 0 16px;
+    justify-content: flex-start;
+    background: rgba(255, 255, 255, 0.12);
+    cursor: text;
+}
+
+.search span {
+    font-size: 16px;
+    min-width: 40px;
+    /* Keep icon sizing constant */
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 14px;
+    opacity: 0;
+    transform: translateX(10px);
+    transition: all 0.3s ease;
+    width: 0;
+    pointer-events: none;
+    /* Prevent clicks when hidden */
+}
+
+.search.active input {
+    opacity: 1;
+    transform: translateX(0);
+    width: auto;
+    pointer-events: auto;
+    margin-left: 8px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 32px;
+    font-size: 14px;
+    align-items: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: #fff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.profile-wrapper {
+    position: relative;
+    z-index: 100;
+}
+
+.profile {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.profile:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: #fff;
+}
+
+/* PROFILE DROPDOWN */
+.profile-dropdown {
+    position: absolute;
+    top: 120%;
+    right: 0;
+    width: 250px;
+    background: rgba(30, 20, 50, 0.95);
+    backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+
+    display: none;
+    flex-direction: column;
+    gap: 16px;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.profile-dropdown.active {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #FF6B6B, #556270);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-name {
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.user-since {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 11px;
+}
+
+.sign-out-btn {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    color: #ff4d4d;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+}
+
+.sign-out-btn:hover {
+    background: rgba(255, 77, 77, 0.1);
+    border-color: rgba(255, 77, 77, 0.3);
+}
+
+/* LOCATION BAR */
+/* LOCATION WRAPPER */
+.location-wrapper {
+    position: relative;
+    z-index: 100;
+}
+
+.location-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.08);
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.2s;
+}
+
+.location-pill:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.location-pill span:first-child {
+    color: #e91e63;
+    font-size: 16px;
+}
+
+.location-dropdown {
+    position: absolute;
+    top: 120%;
+    right: 0;
+    left: auto;
+    width: 500px;
+    background: rgba(30, 20, 50, 0.98);
+    backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+
+    display: none;
+    flex-direction: column;
+    gap: 20px;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 1000;
+}
+
+.location-dropdown.active {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.current-location-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.current-location-btn span {
+    font-size: 20px;
+    color: #e91e63;
+}
+
+.current-location-btn:hover {
+    opacity: 0.8;
+}
+
+.divider-text {
+    font-size: 14px;
+    color: #fff;
+    font-weight: 500;
+}
+
+.address-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+/* 2 inputs per row logic */
+.addr-input {
+    width: calc(50% - 6px);
+    padding: 12px;
+    border-radius: 6px;
+    border: none;
+    background: #fff;
+    color: #000;
+    font-size: 14px;
+    outline: none;
+}
+
+.addr-input::placeholder {
+    color: #777;
+}
+
+.save-addr-btn {
+    padding: 10px 24px;
+    border-radius: 4px;
+    border: none;
+    background: #e0e0e0;
+    color: #000;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 4px;
+    width: auto;
+}
+
+
+/* ===== PRODUCT GRID ===== */
+.products-grid {
+    width: 92%;
+    max-width: 1200px;
+    margin: 24px auto 40px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+/* NEW DETAILED CARD STYLES FOR PRODUCTS */
+.product-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    /* Lighter border */
+    border-radius: 24px;
+    /* More rounded */
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.product-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Card Header: Title */
+.card-header h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 4px;
+}
+
+/* Card Body: Image + List */
+.card-body {
+    display: flex;
+    gap: 20px;
+}
+
+/* Left: Product Image Placeholder */
+.product-preview {
+    width: 120px;
+    height: 120px;
+    background: linear-gradient(135deg, #7b4dff, #4a2b99);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    flex-shrink: 0;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Right: Price List */
+.price-list {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Single Price Row */
+.price-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14px;
+    padding: 4px 0;
+}
+
+.store-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 120px;
+    /* Fixed width for alignment */
+}
+
+/* Badges */
+.store-badge {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+    flex-shrink: 0;
+}
+
+.store-badge.offline {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.store-badge.blinkit {
+    background: #F8CB46;
+    color: #000;
+}
+
+.store-badge.zepto {
+    background: #5D3FD3;
+}
+
+.store-badge.flipkart {
+    background: #2874F0;
+}
+
+.store-badge.amazon {
+    background: #FF9900;
+    color: #000;
+}
+
+.store-badge.instamart {
+    background: #E9612F;
+}
+
+.store-name {
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+}
+
+/* Middle: Delivery Time */
+.delivery-time {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 12px;
+    text-align: left;
+    flex: 1;
+    padding-left: 10px;
+}
+
+/* Right: Price */
+.price-val {
+    font-weight: 600;
+    color: #fff;
+    text-align: right;
+}
+
+/* Special styling for "Store near you" (Top row) */
+.price-row.main-store .store-name {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.divider-line {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 4px 0;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .products-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .navbar {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 16px;
+        padding: 16px;
+    }
+
+    .search {
+        order: 3;
+        width: 100%;
+        min-width: 100%;
+    }
+
+    .nav-links {
+        margin-left: auto;
+    }
+
+    .card-body {
+        flex-direction: column;
+    }
+
+    .product-preview {
+        width: 100%;
+        height: 120px;
+    }
+}

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Snap It – History</title>
+
+  <link rel="stylesheet" href="history.css">
+  <link rel="stylesheet" href="theme.css">
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <div class="navbar">
+
+    <!-- LEFT SIDE -->
+    <div class="nav-left">
+      <a href="landing.html" class="logo">Snap It<span>⚡</span></a>
+
+      <div class="search" id="searchBar">
+        <span id="searchIcon">🔍</span>
+        <input type="text" placeholder="Search history..." id="searchInput">
+      </div>
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="nav-right">
+      <div class="location-wrapper">
+        <div class="location-pill" id="locationPill">
+          <span>📍</span> <span id="locationText">Your Location</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="white">
+            <path d="M7 10l5 5 5-5z" />
+          </svg>
+        </div>
+
+        <div class="location-dropdown" id="locationDropdown">
+          <div class="current-location-btn" id="currentLocationBtn">
+            <span>🎯</span> Use Current Location
+          </div>
+
+          <div class="divider-text">OR</div>
+
+          <div class="address-form">
+            <input type="text" placeholder="Pincode" class="addr-input" id="addrPin">
+            <input type="text" placeholder="Area / Colony" class="addr-input" id="addrArea">
+            <input type="text" placeholder="Road Name" class="addr-input" id="addrRoad">
+            <input type="text" placeholder="Apartment / Flat No." class="addr-input" id="addrFlat">
+            <button class="save-addr-btn" id="saveAddrBtn">Save Location</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-links">
+        <a href="landing.html">Home</a>
+        <a href="product.html">Product</a>
+        <a href="history.html" class="active">History</a>
+      </div>
+
+      <div class="theme-btn" id="themeBtn">🌙</div>
+
+      <div class="profile-wrapper">
+        <div class="profile" id="profileBtn">👤</div>
+
+        <div class="profile-dropdown" id="profileDropdown">
+          <div class="user-info">
+            <div class="user-avatar">J</div>
+            <div class="user-details">
+              <div class="user-name">John User</div>
+              <div class="user-since">Member since 2024</div>
+            </div>
+          </div>
+          <button class="sign-out-btn">Sign Out</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="product.js"></script>
+
+  <!-- MAIN CONTENT -->
+  <div class="main">
+    <div class="header-row"
+      style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+      <div>
+        <h1>Search History</h1>
+        <p class="subtitle">Your recent product comparisons and purchases</p>
+      </div>
+      <button id="clearAllBtn" class="clear-all-btn">Clear All</button>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-bar">
+      <div class="stat-card">
+        <div class="value" id="totalSaved">₹0</div>
+        <div class="label">Total Saved</div>
+      </div>
+      <div class="stat-card">
+        <div class="value" id="totalSearches">0</div>
+        <div class="label">Searches</div>
+      </div>
+      <div class="stat-card">
+        <div class="value" id="bestDeals">0</div>
+        <div class="label">Best Deals Found</div>
+      </div>
+    </div>
+
+    <!-- TABS -->
+    <div class="tabs">
+      <div class="tab active">All</div>
+      <div class="tab">This Week</div>
+      <div class="tab">This Month</div>
+      <div class="tab">Saved Items</div>
+    </div>
+
+    <!-- HISTORY LIST -->
+    <div class="history-list">
+
+      <!-- Today -->
+      <div class="date-header">Today</div>
+
+      <!-- Card 1 -->
+      <div class="history-card">
+        <div class="delete-btn">×</div>
+        <div class="product-icon">📱</div>
+        <div class="history-card-content">
+          <h3>Samsung Galaxy S23</h3>
+          <div class="date">You viewed • 12:30 PM</div>
+        </div>
+        <div class="price-info">
+          <span class="price">₹74,999</span>
+          <span class="saved">Saved ₹4000</span>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="history-card">
+        <div class="delete-btn">×</div>
+        <div class="product-icon">🥛</div>
+        <div class="history-card-content">
+          <h3>Amul Toned Milk 1L</h3>
+          <div class="date">You viewed • 10:15 AM</div>
+        </div>
+        <div class="price-info">
+          <span class="price">₹46</span>
+          <span class="saved">Saved ₹6</span>
+        </div>
+      </div>
+
+      <!-- Yesterday -->
+      <div class="date-header">Yesterday</div>
+
+      <!-- Card 3 -->
+      <div class="history-card">
+        <div class="delete-btn">×</div>
+        <div class="product-icon">🥤</div>
+        <div class="history-card-content">
+          <h3>Coca Cola 2L</h3>
+          <div class="date">You viewed • Yesterday</div>
+        </div>
+        <div class="price-info">
+          <span class="price">₹72</span>
+          <span class="saved">Saved ₹23</span>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="history-card">
+        <div class="delete-btn">×</div>
+        <div class="product-icon">🍞</div>
+        <div class="history-card-content">
+          <h3>Britannia Bread</h3>
+          <div class="date">You viewed • Yesterday</div>
+        </div>
+        <div class="price-info">
+          <span class="price">₹35</span>
+          <span class="saved">Saved ₹5</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="history.js"></script>
+  <script src="theme.js"></script>
+
+</body>
+
+</html>

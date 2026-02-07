@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Snap It – PRODUCT</title>
+  <link rel="stylesheet" href="product.css">
+  <link rel="stylesheet" href="theme.css">
+  <style>
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <!-- NAVBAR -->
+  <div class="navbar">
+
+    <!-- LEFT SIDE -->
+    <div class="nav-left">
+      <a href="landing.html" class="logo">Snap It<span>⚡</span></a>
+
+      <div class="search" id="searchBar">
+        <span id="searchIcon">🔍</span>
+        <input type="text" placeholder="Search the product" id="searchInput">
+      </div>
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="nav-right">
+      <div class="location-wrapper">
+        <div class="location-pill" id="locationPill">
+          <span>📍</span> <span id="locationText">Your Location</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="white">
+            <path d="M7 10l5 5 5-5z" />
+          </svg>
+        </div>
+
+        <div class="location-dropdown" id="locationDropdown">
+          <div class="current-location-btn" id="currentLocationBtn">
+            <span>🎯</span> Use Current Location
+          </div>
+
+          <div class="divider-text">OR</div>
+
+          <div class="address-form">
+            <input type="text" placeholder="Pincode" class="addr-input" id="addrPin">
+            <input type="text" placeholder="Area / Colony" class="addr-input" id="addrArea">
+            <input type="text" placeholder="Road Name" class="addr-input" id="addrRoad">
+            <input type="text" placeholder="Apartment / Flat No." class="addr-input" id="addrFlat">
+            <button class="save-addr-btn" id="saveAddrBtn">Save Location</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-links">
+        <a href="landing.html">Home</a> <!-- Added Home link for convenience -->
+        <a href="product.html">Product</a>
+        <a href="history.html">History</a>
+      </div>
+
+      <div class="theme-btn" id="themeBtn">🌙</div>
+
+      <div class="profile-wrapper">
+        <div class="profile" id="profileBtn">👤</div>
+
+        <div class="profile-dropdown" id="profileDropdown">
+          <div class="user-info">
+            <div class="user-avatar">J</div>
+            <div class="user-details">
+              <div class="user-name">John User</div>
+              <div class="user-since">Member since 2024</div>
+            </div>
+          </div>
+          <button class="sign-out-btn">Sign Out</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- LOCATION BAR REMOVED -->
+
+  <!-- GRID -->
+  <div id="statusMessage" class="status-message">Search for a product to see prices.</div>
+  <div class="actions-row" style="width:92%;max-width:1200px;margin:8px auto 0;display:flex;gap:12px;justify-content:flex-end;align-items:center;">
+    <button id="loadLatestBtn" style="padding:10px 14px;border-radius:12px;border:none;background:#7b5cff;color:#fff;font-weight:600;cursor:pointer;box-shadow:0 10px 30px rgba(123,92,255,0.3);">Load Latest</button>
+  </div>
+  <div class="products-grid" id="productsGrid"></div>
+
+  <script src="product.js"></script>
+  <script src="theme.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,308 @@
+:root {
+    /* Dark Theme (Default) */
+    --bg-body: radial-gradient(circle at left, #9b6cff 0%, transparent 45%),
+        linear-gradient(90deg, #0b0f1a 0%, #12082b 55%, #0b0f1a 100%);
+    --bg-light: linear-gradient(135deg, #f0f2f5 0%, #d9e2ec 100%);
+    /* Added for curtain flow */
+    --bg-navbar: rgba(255, 255, 255, 0.06);
+    --bg-card: rgba(255, 255, 255, 0.05);
+    --bg-card-hover: rgba(255, 255, 255, 0.08);
+    --text-main: #fff;
+    --text-secondary: rgba(255, 255, 255, 0.7);
+    --text-muted: rgba(255, 255, 255, 0.5);
+    --border-color: rgba(255, 255, 255, 0.05);
+    --shadow-card: 0 10px 40px rgba(0, 0, 0, 0.4);
+    --icon-bg: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="light"] {
+    /* Light Theme */
+    --bg-body: linear-gradient(135deg, #f0f2f5 0%, #d9e2ec 100%);
+    --bg-navbar: rgba(255, 255, 255, 0.85);
+    --bg-card: rgba(255, 255, 255, 0.95);
+    --bg-card-hover: #fff;
+    --text-main: #1a1a1a;
+    --text-secondary: #4a4a4a;
+    --text-muted: #666;
+    --border-color: rgba(0, 0, 0, 0.08);
+    --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.08);
+    --icon-bg: rgba(0, 0, 0, 0.04);
+}
+
+html {
+    /* Removed background so body can propagate */
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background: var(--bg-body);
+    background-attachment: fixed !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    color: var(--text-main) !important;
+    transition: color 5s ease-in-out;
+    position: relative;
+    z-index: 0;
+    min-height: 100vh;
+    /* Hide scrollbar */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    display: none;
+}
+
+/* Curtain Flow Animation Layer */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100vh;
+    background: var(--bg-light);
+    background-attachment: fixed !important;
+    z-index: -2;
+    opacity: 0;
+    transition: opacity 5s ease-in-out;
+    pointer-events: none;
+}
+
+[data-theme="light"] body::before {
+    opacity: 1;
+}
+
+/* Common Element overrides */
+.navbar {
+    background: var(--bg-navbar) !important;
+    border-color: var(--border-color) !important;
+    box-shadow: var(--shadow-card) !important;
+    transition: background 5s, border-color 5s, box-shadow 5s !important;
+}
+
+[data-theme="light"] .logo {
+    color: #333 !important;
+    transition: color 5s !important;
+}
+
+[data-theme="light"] .nav-links a {
+    color: #555 !important;
+    transition: color 5s !important;
+}
+
+[data-theme="light"] .nav-links a:hover,
+[data-theme="light"] .nav-links a.active {
+    color: #000 !important;
+    text-shadow: none !important;
+}
+
+/* Card overrides */
+.product-card,
+.history-card,
+.card {
+    background: var(--bg-card) !important;
+    border-color: var(--border-color) !important;
+    box-shadow: var(--shadow-card) !important;
+    transition: background 5s, border-color 5s, box-shadow 5s, color 5s !important;
+}
+
+.product-card:hover,
+.card:hover {
+    background: var(--bg-card-hover) !important;
+}
+
+[data-theme="light"] .product-card h3,
+[data-theme="light"] .card h3 {
+    color: #000 !important;
+}
+
+[data-theme="light"] .price-val {
+    color: #000 !important;
+}
+
+/* Toggle Button Style */
+.theme-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    background: var(--bg-card);
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 20px;
+    transition: all 0.2s;
+    margin-left: 24px;
+    margin-right: 16px;
+}
+
+.theme-btn:hover {
+    transform: scale(1.1);
+    background: var(--bg-card-hover);
+}
+
+/* Light Mode Specific Overrides */
+[data-theme="light"] .hero h1 {
+    background: linear-gradient(to right, #4a2b99, #9b6cff) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+}
+
+[data-theme="light"] .logo span {
+    color: #7b4dff !important;
+}
+
+[data-theme="light"] .card h3,
+[data-theme="light"] .product-card h3,
+[data-theme="light"] .history-card h3 {
+    color: #1a1a1a !important;
+}
+
+[data-theme="light"] .store-name {
+    color: #333 !important;
+}
+
+[data-theme="light"] body {
+    color: #1a1a1a !important;
+}
+
+/* --- LIGHT MODE --- */
+[data-theme="light"] .hero p {
+    color: #4a4a4a !important;
+    font-weight: 500 !important;
+}
+
+[data-theme="light"] .card p {
+    color: #555 !important;
+    font-weight: 500 !important;
+}
+
+/* 1. Location Pill & Text */
+[data-theme="light"] .location-pill {
+    background: #fff !important;
+    color: #333 !important;
+    border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+[data-theme="light"] .store-name,
+[data-theme="light"] .price-row.main-store .store-name {
+    color: #333 !important;
+}
+
+[data-theme="light"] .delivery-time {
+    color: #666 !important;
+}
+
+/* 2. Search Bar */
+[data-theme="light"] .search {
+    background: rgba(0, 0, 0, 0.05) !important;
+    color: #333 !important;
+}
+
+[data-theme="light"] .search input {
+    color: #333 !important;
+}
+
+[data-theme="light"] .search span {
+    /* Search Icon */
+    opacity: 1;
+    /* Make sure it's visible */
+}
+
+/* 3. Helper Text (Subtitles, Date Headers, Tabs) */
+[data-theme="light"] .subtitle {
+    color: #666 !important;
+}
+
+[data-theme="light"] .date-header {
+    color: #666 !important;
+    font-weight: 700 !important;
+}
+
+[data-theme="light"] .tab {
+    color: #555 !important;
+    background: rgba(0, 0, 0, 0.05) !important;
+    border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+[data-theme="light"] .tab.active,
+[data-theme="light"] .tab:hover {
+    background: #4a2b99 !important;
+    /* Keep purple for active/hover */
+    color: #fff !important;
+}
+
+/* 4. History Card Details */
+[data-theme="light"] .history-card .date {
+    color: #888 !important;
+}
+
+[data-theme="light"] .no-history-msg {
+    color: #666 !important;
+}
+
+/* 5. Delete Button  */
+[data-theme="light"] .delete-btn {
+    background: rgba(0, 0, 0, 0.1) !important;
+    color: #333 !important;
+}
+
+[data-theme="light"] .delete-btn:hover {
+    background: #ff4081 !important;
+    color: #fff !important;
+}
+
+/* 6. Dropdowns (Location & Profile) */
+[data-theme="light"] .location-dropdown,
+[data-theme="light"] .profile-dropdown {
+    background: rgba(255, 255, 255, 0.95) !important;
+    border-color: rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15) !important;
+}
+
+[data-theme="light"] .current-location-btn {
+    color: #333 !important;
+}
+
+[data-theme="light"] .divider-text {
+    color: #666 !important;
+}
+
+[data-theme="light"] .addr-input {
+    background: #f0f2f5 !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    color: #333 !important;
+}
+
+[data-theme="light"] .save-addr-btn {
+    background: #333 !important;
+    color: #fff !important;
+}
+
+/* Profile Dropdown Specifics */
+[data-theme="light"] .user-name {
+    color: #333 !important;
+}
+
+[data-theme="light"] .user-since {
+    color: #666 !important;
+}
+
+[data-theme="light"] .user-info {
+    border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+[data-theme="light"] .sign-out-btn {
+    background: rgba(255, 77, 77, 0.1) !important;
+    border-color: rgba(255, 77, 77, 0.2) !important;
+}

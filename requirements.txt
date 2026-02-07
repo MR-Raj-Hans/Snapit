@@ -1,0 +1,12 @@
+# How to install (inside your venv):
+# pip install -r requirements.txt
+
+# What this file is for:
+# - Lists Python dependencies required by scraped.py so you can install them in one shot.
+# - Keep it versioned with the project to track the exact libraries the scraper needs.
+
+# Dependencies (pinned):
+selenium==4.21.0                # browser automation (DOM interactions)
+undetected-chromedriver==3.5.5  # stealthier Chrome driver for sites that detect automation
+pymongo==4.6.3                  # optional MongoDB client; scraper skips DB writes if not configured
+Flask==2.3.3                    # lightweight API server to trigger scraper from product page
