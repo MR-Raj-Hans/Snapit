@@ -425,31 +425,43 @@ body {
 }
 
 /* Right: Price List */
-.price-list {
+/* Compare grid for side-by-side Zepto vs Blinkit */
+.compare-grid {
     flex: 1;
     display: flex;
     flex-direction: column;
     gap: 12px;
 }
 
-/* Single Price Row */
-.price-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 14px;
-    padding: 4px 0;
+.compare-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
 }
 
-.store-info {
+.compare-col {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 12px;
     display: flex;
-    align-items: center;
-    gap: 10px;
-    width: 120px;
-    /* Fixed width for alignment */
+    flex-direction: column;
+    gap: 6px;
+    min-height: 100px;
+    transition: all 0.2s ease;
 }
 
-/* Badges */
+.compare-col:hover {
+    border-color: rgba(255, 255, 255, 0.16);
+    transform: translateY(-2px);
+}
+
+.store-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
 .store-badge {
     width: 24px;
     height: 24px;
@@ -493,23 +505,19 @@ body {
 
 .store-name {
     color: rgba(255, 255, 255, 0.9);
-    font-weight: 500;
-}
-
-/* Middle: Delivery Time */
-.delivery-time {
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 12px;
-    text-align: left;
-    flex: 1;
-    padding-left: 10px;
-}
-
-/* Right: Price */
-.price-val {
     font-weight: 600;
+}
+
+.compare-price {
+    font-size: 18px;
+    font-weight: 700;
     color: #fff;
-    text-align: right;
+}
+
+.compare-qty {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 13px;
+    min-height: 18px;
 }
 
 /* Special styling for "Store near you" (Top row) */

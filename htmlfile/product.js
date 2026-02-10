@@ -137,6 +137,21 @@ document.addEventListener('DOMContentLoaded', () => {
         return { label: platform[0].toUpperCase(), cls: 'offline' };
     }
 
+    const normalizeName = (str = '') => str.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
+
+    const dedupeByKey = (rows) => {
+        const seen = new Set();
+        const out = [];
+        rows.forEach((r) => {
+            const key = [r.platform || '', r.product_name || '', r.price || '', r.quantity || '', r.url || ''].join('|');
+            if (!seen.has(key)) {
+                seen.add(key);
+                out.push(r);
+            }
+        });
+        return out;
+    };
+
     function renderProducts(items, priorityTerm = null) {
         if (!grid) return;
         grid.innerHTML = '';
@@ -145,17 +160,33 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Group by product_name
-        const groups = {};
-        items.forEach(item => {
-            const key = item.product_name || item.search_term || 'Unknown';
-            if (!groups[key]) groups[key] = [];
-            groups[key].push(item);
+        const groups = new Map();
+        items.forEach((item) => {
+            const name = item.product_name || item.search_term || 'Unknown';
+            const norm = normalizeName(name);
+            if (!groups.has(norm)) {
+                groups.set(norm, { name, term: item.search_term || '', zepto: [], blinkit: [], other: [] });
+            }
+            const bucket = groups.get(norm);
+            // prefer the longest/most descriptive name for display
+            if ((item.product_name || '').length > bucket.name.length) bucket.name = item.product_name;
+            if (!bucket.term && item.search_term) bucket.term = item.search_term;
+            const plat = (item.platform || '').toLowerCase();
+            if (plat.includes('zept')) bucket.zepto.push(item);
+            else if (plat.includes('blink')) bucket.blinkit.push(item);
+            else bucket.other.push(item);
         });
 
-        const orderedEntries = Object.entries(groups).sort((a, b) => {
-            const aTerm = (a[1][0]?.search_term || '').toLowerCase();
-            const bTerm = (b[1][0]?.search_term || '').toLowerCase();
+        // dedupe within each source
+        groups.forEach((g) => {
+            g.zepto = dedupeByKey(g.zepto);
+            g.blinkit = dedupeByKey(g.blinkit);
+            g.other = dedupeByKey(g.other);
+        });
+
+        const orderedEntries = Array.from(groups.entries()).sort((a, b) => {
+            const aTerm = (a[1].term || '').toLowerCase();
+            const bTerm = (b[1].term || '').toLowerCase();
             const p = (priorityTerm || '').toLowerCase();
             if (p) {
                 if (aTerm === p && bTerm !== p) return -1;
@@ -164,46 +195,56 @@ document.addEventListener('DOMContentLoaded', () => {
             return 0;
         });
 
-        orderedEntries.forEach(([name, rows]) => {
+        orderedEntries.forEach(([, group]) => {
+            const name = group.name;
+            const term = group.term;
+            const zRow = group.zepto[0] || null;
+            const bRow = group.blinkit[0] || null;
+
             const card = document.createElement('div');
             card.className = 'product-card';
             card.innerHTML = `
                 <div class="card-header">
                     <h3>${name}</h3>
-                    <div class="subtitle">${rows[0]?.search_term || ''}</div>
+                    <div class="subtitle">${term || ''}</div>
                 </div>
                 <div class="card-body">
                     <div class="product-preview">🛍️</div>
-                    <div class="price-list"></div>
+                    <div class="compare-grid"></div>
                 </div>
             `;
 
-            const priceList = card.querySelector('.price-list');
-            rows.forEach(row => {
-                const { label, cls } = platformBadge(row.platform || row.store_name || '');
-                const price = row.price || '—';
-                const quantity = row.quantity || row.raw_text || '';
-                const loc = row.location || '';
-                const url = row.url || '#';
+            const gridEl = card.querySelector('.compare-grid');
 
-                const rowEl = document.createElement('div');
-                rowEl.className = 'price-row';
-                rowEl.innerHTML = `
-                    <div class="store-info">
+            const buildCol = (labelTxt, row) => {
+                const hasRow = !!row;
+                const { label, cls } = platformBadge(labelTxt);
+                const price = row?.price || '—';
+                const qty = row?.quantity || row?.raw_text || '';
+                const url = row?.url || '';
+                const col = document.createElement('div');
+                col.className = 'compare-col';
+                col.innerHTML = `
+                    <div class="store-head">
                         <div class="store-badge ${cls}">${label}</div>
-                        <div class="store-name">${row.platform || 'Store'}</div>
+                        <div class="store-name">${labelTxt}</div>
                     </div>
-                    <div class="delivery-time">${loc || quantity || ''}</div>
-                    <div class="price-val">${price}</div>
+                    <div class="compare-price">${price}</div>
+                    <div class="compare-qty">${qty || 'Not available'}</div>
                 `;
-
-                if (url && url !== '#') {
-                    rowEl.style.cursor = 'pointer';
-                    rowEl.addEventListener('click', () => window.open(url, '_blank'));
+                if (hasRow && url) {
+                    col.style.cursor = 'pointer';
+                    col.addEventListener('click', () => window.open(url, '_blank'));
                 }
+                return col;
+            };
 
-                priceList.appendChild(rowEl);
-            });
+            const rowWrap = document.createElement('div');
+            rowWrap.className = 'compare-row';
+            rowWrap.appendChild(buildCol('Zepto', zRow));
+            rowWrap.appendChild(buildCol('Blinkit', bRow));
+
+            gridEl.appendChild(rowWrap);
 
             grid.appendChild(card);
         });

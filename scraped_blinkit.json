@@ -118,5 +118,125 @@
         "location": "",
         "url": "https://www.blinkit.com/s/?q=ice",
         "raw_text": "33% OFF\n30 MINS\nATLANTIS Instacup Lemon Ice Tea Premix Single Serve Sachets\n15 pcs\n₹180\n₹270\nADD"
+    },
+    {
+        "search_term": "bread",
+        "product_name": "The Health Factory Zero Maida Whole Wheat Bread",
+        "price": "₹54",
+        "quantity": "The Health Factory Zero Maida Whole Wheat Bread",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=bread",
+        "raw_text": "17 MINS\nThe Health Factory Zero Maida Whole Wheat Bread\n250 g\n₹54\n₹55\nADD"
+    },
+    {
+        "search_term": "bread",
+        "product_name": "Harvest Gold White Bread",
+        "price": "₹30",
+        "quantity": "Harvest Gold White Bread",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=bread",
+        "raw_text": "17 MINS\nHarvest Gold White Bread\n350 g\n₹30\nADD"
+    },
+    {
+        "search_term": "bread",
+        "product_name": "Harvest Gold 100% Atta Whole Wheat Bread",
+        "price": "₹60",
+        "quantity": "Harvest Gold 100% Atta Whole Wheat Bread",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=bread",
+        "raw_text": "17 MINS\nHarvest Gold 100% Atta Whole Wheat Bread\n450 g\n₹60\nADD"
+    },
+    {
+        "search_term": "bread",
+        "product_name": "English Oven Premium White Bread 350 g",
+        "price": "₹30",
+        "quantity": "English Oven Premium White Bread 350 g",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=bread",
+        "raw_text": "17 MINS\nEnglish Oven Premium White Bread 350 g\n350 g\n₹30\nADD"
+    },
+    {
+        "search_term": "bread",
+        "product_name": "Mother Dairy Ultimate White Bread",
+        "price": "₹34",
+        "quantity": "Mother Dairy Ultimate White Bread",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=bread",
+        "raw_text": "15% OFF\n17 MINS\nMother Dairy Ultimate White Bread\n450 g\n₹34\n₹40\nADD"
+    },
+    {
+        "search_term": "bread",
+        "product_name": "English Oven Zero maida 100% Atta/ Wheat Bread",
+        "price": "₹55",
+        "quantity": "English Oven Zero maida 100% Atta/ Wheat Bread",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=bread",
+        "raw_text": "17 MINS\nEnglish Oven Zero maida 100% Atta/ Wheat Bread\n400 g\n₹55\nADD"
+    },
+    {
+        "search_term": "bread",
+        "product_name": "English Oven Brown Bread",
+        "price": "₹55",
+        "quantity": "English Oven Brown Bread",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=bread",
+        "raw_text": "17 MINS\nEnglish Oven Brown Bread\n400 g\n₹55\nADD"
+    },
+    {
+        "search_term": "bread",
+        "product_name": "Harvest Gold Hearty Brown Bread",
+        "price": "₹55",
+        "quantity": "Harvest Gold Hearty Brown Bread",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=bread",
+        "raw_text": "17 MINS\nHarvest Gold Hearty Brown Bread\n400 g\n₹55\nADD"
+    },
+    {
+        "search_term": "bread",
+        "product_name": "Harvest Gold Milk Bread",
+        "price": "₹50",
+        "quantity": "Harvest Gold Milk Bread",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=bread",
+        "raw_text": "17 MINS\nHarvest Gold Milk Bread\n400 g\n₹50\nADD"
+    },
+    {
+        "search_term": "bread",
+        "product_name": "English Oven Milk Bread",
+        "price": "₹50",
+        "quantity": "English Oven Milk Bread",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=bread",
+        "raw_text": "17 MINS\nEnglish Oven Milk Bread\n400 g\n₹50\nADD"
+    },
+    {
+        "search_term": "bread",
+        "product_name": "English Oven Zero Maida Multigrain Bread",
+        "price": "₹70",
+        "quantity": "English Oven Zero Maida Multigrain Bread",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=bread",
+        "raw_text": "17 MINS\nEnglish Oven Zero Maida Multigrain Bread\n400 g\n₹70\nADD"
+    },
+    {
+        "search_term": "bread",
+        "product_name": "Harvest Gold Multigrain Bread",
+        "price": "₹70",
+        "quantity": "Harvest Gold Multigrain Bread",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=bread",
+        "raw_text": "17 MINS\nHarvest Gold Multigrain Bread\n450 g\n₹70\nADD"
     }
 ]
