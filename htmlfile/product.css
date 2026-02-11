@@ -397,11 +397,40 @@ body {
 }
 
 /* Card Header: Title */
+.card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+}
+
 .card-header h3 {
     font-size: 18px;
     font-weight: 600;
     color: #fff;
     margin-bottom: 4px;
+}
+
+.save-btn {
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.save-btn:hover {
+    background: rgba(255, 255, 255, 0.16);
+}
+
+.save-btn.saved {
+    background: #7b5cff;
+    border-color: #7b5cff;
 }
 
 /* Card Body: Image + List */

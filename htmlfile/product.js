@@ -166,6 +166,56 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const normalizeName = (str = '') => str.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
 
+    const parsePrice = (value = '') => {
+        const cleaned = String(value).replace(/[^0-9.]/g, '');
+        const num = Number.parseFloat(cleaned);
+        return Number.isNaN(num) ? null : num;
+    };
+
+    const loadSaved = () => {
+        try {
+            return JSON.parse(localStorage.getItem('snapit_saved') || '[]');
+        } catch (e) {
+            return [];
+        }
+    };
+
+    const saveSaved = (entries) => {
+        localStorage.setItem('snapit_saved', JSON.stringify(entries));
+    };
+
+    const toggleSaved = (key) => {
+        const entries = loadSaved();
+        const idx = entries.indexOf(key);
+        if (idx >= 0) {
+            entries.splice(idx, 1);
+        } else {
+            entries.unshift(key);
+        }
+        saveSaved(entries.slice(0, 100));
+        return idx < 0;
+    };
+
+    const loadHistory = () => {
+        try {
+            return JSON.parse(localStorage.getItem('snapit_history') || '[]');
+        } catch (e) {
+            return [];
+        }
+    };
+
+    const saveHistory = (entries) => {
+        localStorage.setItem('snapit_history', JSON.stringify(entries));
+    };
+
+    const addHistoryEntry = (entry) => {
+        const entries = loadHistory();
+        const key = `${entry.term}::${entry.name}`.toLowerCase();
+        const filtered = entries.filter((e) => `${e.term}::${e.name}`.toLowerCase() !== key);
+        filtered.unshift(entry);
+        saveHistory(filtered.slice(0, 50));
+    };
+
     const dedupeByKey = (rows) => {
         const seen = new Set();
         const out = [];
@@ -222,24 +272,44 @@ document.addEventListener('DOMContentLoaded', () => {
             return 0;
         });
 
-        orderedEntries.forEach(([, group]) => {
+        let firstGroup = null;
+        const savedSet = new Set(loadSaved());
+        orderedEntries.forEach(([, group], idx) => {
             const name = group.name;
             const term = group.term;
             const zRow = group.zepto[0] || null;
             const bRow = group.blinkit[0] || null;
+            const saveKey = `${(term || '').toLowerCase()}::${normalizeName(name)}`;
+            const isSaved = savedSet.has(saveKey);
+
+            if (idx === 0) firstGroup = { name, term, zRow, bRow };
 
             const card = document.createElement('div');
             card.className = 'product-card';
             card.innerHTML = `
                 <div class="card-header">
-                    <h3>${name}</h3>
-                    <div class="subtitle">${term || ''}</div>
+                    <div>
+                        <h3>${name}</h3>
+                        <div class="subtitle">${term || ''}</div>
+                    </div>
+                    <button class="save-btn ${isSaved ? 'saved' : ''}" data-key="${saveKey}">${isSaved ? 'Saved' : 'Save'}</button>
                 </div>
                 <div class="card-body">
                     <div class="product-preview">🛍️</div>
                     <div class="compare-grid"></div>
                 </div>
             `;
+
+            const saveBtn = card.querySelector('.save-btn');
+            if (saveBtn) {
+                saveBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const key = saveBtn.getAttribute('data-key') || '';
+                    const nowSaved = toggleSaved(key);
+                    saveBtn.classList.toggle('saved', nowSaved);
+                    saveBtn.textContent = nowSaved ? 'Saved' : 'Save';
+                });
+            }
 
             const gridEl = card.querySelector('.compare-grid');
 
@@ -275,6 +345,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
             grid.appendChild(card);
         });
+
+        if (firstGroup && (firstGroup.zRow || firstGroup.bRow)) {
+            const zPrice = parsePrice(firstGroup.zRow?.price);
+            const bPrice = parsePrice(firstGroup.bRow?.price);
+            let bestPrice = null;
+            let saved = 0;
+            if (zPrice != null && bPrice != null) {
+                bestPrice = Math.min(zPrice, bPrice);
+                saved = Math.abs(zPrice - bPrice);
+            } else {
+                bestPrice = zPrice ?? bPrice;
+            }
+            addHistoryEntry({
+                term: priorityTerm || firstGroup.term || '',
+                name: firstGroup.name || 'Unknown',
+                price: bestPrice != null ? `₹${bestPrice}` : '—',
+                saved: saved > 0 ? `Saved ₹${saved}` : 'Saved ₹0',
+                viewed_at: new Date().toISOString()
+            });
+        }
 
         setStatus('');
         staggerIn();
