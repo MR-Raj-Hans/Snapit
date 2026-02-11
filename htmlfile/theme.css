@@ -187,6 +187,58 @@ body::before {
     font-weight: 500 !important;
 }
 
+/* Sign-in / Sign-up card in light mode */
+[data-theme="light"] .card {
+    background: #ffffff !important;
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12) !important;
+}
+
+[data-theme="light"] .field input {
+    background: #f7f7fb !important;
+    border: 1px solid rgba(0, 0, 0, 0.12) !important;
+    color: #1a1a1a !important;
+}
+
+[data-theme="light"] .field label {
+    color: #666 !important;
+}
+
+[data-theme="light"] .forgot,
+[data-theme="light"] .or,
+[data-theme="light"] .signup,
+[data-theme="light"] .footer {
+    color: #666 !important;
+}
+
+[data-theme="light"] .hero h1 {
+    color: #2a2a2a !important;
+}
+
+[data-theme="light"] .welcome {
+    color: #2a2a2a !important;
+}
+
+[data-theme="light"] .card-title {
+    color: #1a1a1a !important;
+}
+
+[data-theme="light"] .card-title span {
+    color: #7b4dff !important;
+}
+
+[data-theme="light"] .bolt {
+    box-shadow: 0 0 35px rgba(123, 92, 255, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.4) !important;
+}
+
+[data-theme="light"] .btn {
+    box-shadow: 0 10px 24px rgba(123, 92, 255, 0.35) !important;
+}
+
+[data-theme="light"] .socials .social {
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12) !important;
+}
+
 /* 1. Location Pill & Text */
 [data-theme="light"] .location-pill {
     background: #fff !important;
@@ -201,6 +253,20 @@ body::before {
 
 [data-theme="light"] .delivery-time {
     color: #666 !important;
+}
+
+/* Compare cards (product page) */
+[data-theme="light"] .compare-col {
+    background: #ffffff !important;
+    border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+[data-theme="light"] .compare-price {
+    color: #111 !important;
+}
+
+[data-theme="light"] .compare-qty {
+    color: #555 !important;
 }
 
 /* 2. Search Bar */

@@ -187,3 +187,15 @@ body {
 .footer a:hover {
     text-decoration: underline;
 }
+
+/* Title inside card */
+.card-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 18px;
+}
+
+.card-title span {
+    color: #a77bff;
+}
