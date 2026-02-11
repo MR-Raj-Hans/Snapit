@@ -3,14 +3,38 @@ import json
 import os
 import subprocess
 import sys
+from datetime import datetime
+from werkzeug.security import generate_password_hash, check_password_hash
 import mongo_client
 
 app = Flask(__name__)
 
 ZEPTO_DB = os.getenv("MONGO_DB", "snapit_zepto")
 INSTAMART_DB = os.getenv("INSTAMART_DB", "snapit_instamart")
+AUTH_DB = os.getenv("AUTH_DB", "snapit_auth")
+AUTH_COLLECTION = os.getenv("AUTH_COLLECTION", "users")
 
 LAST_TERM_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'last_search_term.txt')
+
+def _auth_collection():
+    col = mongo_client.get_collection(AUTH_COLLECTION, db_name=AUTH_DB)
+    try:
+        col.create_index("email", unique=True)
+    except Exception:
+        pass
+    return col
+
+def _serialize_user(user_doc):
+    if not user_doc:
+        return None
+    created_at = user_doc.get("created_at")
+    if isinstance(created_at, datetime):
+        created_at = created_at.isoformat()
+    return {
+        "name": user_doc.get("name", ""),
+        "email": user_doc.get("email", ""),
+        "created_at": created_at
+    }
 
 # Simple CORS allow-all for local dev
 @app.after_request
@@ -61,6 +85,48 @@ def scrape():
         return jsonify({"error": "scrape timed out"}), 504
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+
+@app.route('/auth/signup', methods=['POST'])
+def auth_signup():
+    data = request.get_json(silent=True) or {}
+    name = (data.get('name') or '').strip()
+    email = (data.get('email') or '').strip().lower()
+    password = data.get('password') or ''
+
+    if not name or not email or not password:
+        return jsonify({"error": "name, email, and password are required"}), 400
+
+    col = _auth_collection()
+    existing = col.find_one({"email": email})
+    if existing:
+        return jsonify({"error": "email already registered"}), 409
+
+    user_doc = {
+        "name": name,
+        "email": email,
+        "password_hash": generate_password_hash(password),
+        "created_at": datetime.utcnow()
+    }
+    col.insert_one(user_doc)
+    return jsonify({"user": _serialize_user(user_doc)}), 201
+
+
+@app.route('/auth/login', methods=['POST'])
+def auth_login():
+    data = request.get_json(silent=True) or {}
+    email = (data.get('email') or '').strip().lower()
+    password = data.get('password') or ''
+
+    if not email or not password:
+        return jsonify({"error": "email and password are required"}), 400
+
+    col = _auth_collection()
+    user_doc = col.find_one({"email": email})
+    if not user_doc or not check_password_hash(user_doc.get("password_hash", ""), password):
+        return jsonify({"error": "invalid email or password"}), 401
+
+    return jsonify({"user": _serialize_user(user_doc)}), 200
 
 
 @app.route('/scrape/instamart', methods=['POST'])

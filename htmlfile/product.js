@@ -4,6 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const grid = document.getElementById('productsGrid');
     const statusMessage = document.getElementById('statusMessage');
     const loadLatestBtn = document.getElementById('loadLatestBtn');
+    const userNameEl = document.getElementById('userName');
+    const userSinceEl = document.getElementById('userSince');
+    const userAvatarEl = document.getElementById('userAvatar');
+    const signOutBtn = document.getElementById('signOutBtn');
 
     const staggerIn = () => {
         const products = document.querySelectorAll('.product-card');
@@ -16,6 +20,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 product.style.transform = 'translateY(0)';
             }, 80 * index);
         });
+    };
+
+    const loadUserProfile = () => {
+        const raw = localStorage.getItem('snapit_user');
+        if (!raw) return;
+        try {
+            const user = JSON.parse(raw);
+            if (userNameEl && user.name) userNameEl.textContent = user.name;
+            if (userSinceEl && user.created_at) {
+                const year = new Date(user.created_at).getFullYear();
+                if (!Number.isNaN(year)) userSinceEl.textContent = `Member since ${year}`;
+            }
+            if (userAvatarEl && user.name) userAvatarEl.textContent = user.name.trim()[0].toUpperCase();
+        } catch (e) {
+            console.error(e);
+        }
     };
 
     // 2. Search Filter Logic & Expandable Bar
@@ -88,6 +108,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 clearRetries();
                 runSearch(term, 1, 3);
             }
+        });
+    }
+
+    if (signOutBtn) {
+        signOutBtn.addEventListener('click', () => {
+            localStorage.removeItem('snapit_user');
+            window.location.href = 'sign in.html';
         });
     }
 
@@ -232,7 +259,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="compare-price">${price}</div>
                     <div class="compare-qty">${qty || 'Not available'}</div>
                 `;
-                if (hasRow && url) {
+                if (hasRow && url && url !== '#') {
                     col.style.cursor = 'pointer';
                     col.addEventListener('click', () => window.open(url, '_blank'));
                 }
@@ -409,6 +436,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Auto-load latest on page open so user sees freshly scraped data without typing.
     fetchLatestCombined();
+    loadUserProfile();
 
     // 4. Location Dropdown Logic
     const locationPill = document.getElementById('locationPill');
