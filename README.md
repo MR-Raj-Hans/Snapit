@@ -92,6 +92,7 @@ python server.py
 - Single Enter starts the flow and leaves the term in the box; auto-retries happen in the background.
 - Groups by `product_name` and shows platform badges (Z for Zepto, B for Blinkit).
 - Opens product URL in a new tab when a price row is clicked (if URL is present).
+- Price comparison: groups similar names (token overlap) so minor naming differences merge; parses quantities (g/kg/ml/l) and computes unit price (per 100g/100ml) when possible. Best price/savings use unit price if available, else raw price. See `htmlfile/product.js` and `price_comparison_algorithm.txt` for details.
 
 ## Troubleshooting
 - Ensure Chrome is installed; if the driver download stalls, re-run the scraper. You can set `HEADLESS=0` to watch the browser.
