@@ -63,6 +63,28 @@
             <button class="ghost" id="bulkUploadBtn">Bulk upload</button>
           </div>
         </header>
+        <div id="productInlineEditor" class="inline-editor hidden">
+          <div class="inline-card">
+            <div class="inline-head">
+              <h4>Add product</h4>
+              <button class="ghost" id="prodCloseBtn" type="button">✕</button>
+            </div>
+            <div class="form-grid">
+              <label>Product name<input id="pName" type="text" placeholder="e.g., Packaged Drinking Water 1L"></label>
+              <label>Category<input id="pCategory" type="text" placeholder="e.g., Beverages"></label>
+              <label>Price<input id="pPrice" type="number" min="0" step="0.01" placeholder="e.g., 20"></label>
+              <label>Stock<input id="pStock" type="number" min="0" step="1" placeholder="e.g., 200"></label>
+              <label>Status<select id="pStatus"><option value="Live" selected>Live</option><option value="Draft">Draft</option><option value="Out of stock">Out of stock</option></select></label>
+              <label>Expiry date<input id="pExpiry" type="date"></label>
+              <label>Quality condition<input id="pQuality" type="text" placeholder="Fresh / Good / Damaged"></label>
+              <label>Description<textarea id="pDesc" rows="3" placeholder="Short description"></textarea></label>
+            </div>
+            <div class="inline-actions">
+              <button class="ghost" id="prodCancelBtn" type="button">Cancel</button>
+              <button class="primary" id="prodSaveBtn" type="button">Save product</button>
+            </div>
+          </div>
+        </div>
         <div class="table" id="productsTable">
           <div class="row head">
             <div>Name</div><div>Category</div><div>Price</div><div>Stock</div><div>Status</div>

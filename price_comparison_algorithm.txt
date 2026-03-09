@@ -41,6 +41,9 @@ Entry points
 - renderProducts(items, priorityTerm): orchestrates grouping, ordering, rendering, and history logging.
 - fetchAndRender(term): fetches /results from Zepto (5000) and Blinkit (5001), then calls renderProducts.
 
+Recent note
+- Blinkit collections are created as `blinkit_<term>`; product page and `/results` already handle this naming.
+
 Server/API context
 - Data sources: Flask APIs
   * server.py (Zepto) listens on 5000

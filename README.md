@@ -120,3 +120,20 @@ python server.py
 2) Start `server.py` (5000) and `server_blinkit.py` (5001) with venv Python.
 3) Open `htmlfile/product.html` and search a term. Wait for auto-retries if needed.
 4) Verify data in Mongo (`snapit_zepto` / `snapit_blinkit`) or JSON fallbacks.
+
+## Handy commands and recent updates
+- Blinkit scrape (headless) saving to Mongo + JSON:
+	```powershell
+	$env:SEARCH_TERMS='milk,bread,eggs'
+	$env:OUTPUT_FILE='scraped_blinkit.json'
+	$env:BLINKIT_MONGO_URI='mongodb://localhost:27017'
+	$env:BLINKIT_DB='snapit_blinkit'
+	$env:HEADLESS='1'
+	$env:DUMP_HTML='1'
+	python scraped_blinkit.py
+	```
+	This creates collections `blinkit_<term>` and appends to `scraped_blinkit.json`.
+
+- Seller dashboard (frontend): `htmlfile/seller-dashboard.html` now has inline editors for profile, contacts (OTP demo), and add-product. All calls use `API_BASE` (defaults to `http://localhost:5000`); ensure the seller endpoints in `server.py` are running on port 5000.
+
+- If you need to inspect Blinkit selectors, run with `HEADLESS=0` and `DUMP_HTML=1` to capture `blinkit_<term>_page.html` for troubleshooting when the site markup changes.

@@ -16,6 +16,10 @@ function getUser() {
   }
 }
 
+function getSellerId(user) {
+  return user?.id || user?._id || user?.seller_id || user?.sellerId || null;
+}
+
 function hydrateProfile(user) {
   if (!user || !user.sellerDetails) return;
   const d = user.sellerDetails;
@@ -119,7 +123,7 @@ function bindControls(user) {
 async function fetchProducts(user) {
   const table = document.getElementById("productsTable");
   if (!table) return;
-  const sellerId = user?.id;
+  const sellerId = getSellerId(user);
   if (!sellerId) {
     table.innerHTML = `<div class="row"><div class="empty">Login again to load products.</div></div>`;
     return;
@@ -163,41 +167,87 @@ function renderProducts(items) {
 }
 
 async function addProductFlow(user) {
-  if (!user?.id) {
+  const sellerId = getSellerId(user);
+  if (!sellerId) {
     alert("Please login again.");
     return;
   }
-  const name = prompt("Product name?");
-  if (!name) return;
-  const price = Number(prompt("Price? (number)"));
-  const stock = Number(prompt("Stock quantity? (number)"));
-  const description = prompt("Description?") || "";
-  const expiry_date = prompt("Expiry date? (e.g., 2026-12-31)") || "";
-  const quality_condition = prompt("Quality condition? (e.g., Fresh, Good, Damaged)") || "";
-  const category = prompt("Category?") || "";
+  const mount = document.getElementById("productInlineEditor");
+  if (!mount) return;
 
-  try {
-    const resp = await fetch(`${API_BASE}/seller/products`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        seller_id: user.id,
-        name,
-        price: Number.isFinite(price) ? price : undefined,
-        stock: Number.isFinite(stock) ? stock : undefined,
-        description,
-        expiry_date,
-        quality_condition,
-        category,
-      }),
+  const nameInput = mount.querySelector("#pName");
+  const categoryInput = mount.querySelector("#pCategory");
+  const priceInput = mount.querySelector("#pPrice");
+  const stockInput = mount.querySelector("#pStock");
+  const statusSelect = mount.querySelector("#pStatus");
+  const expiryInput = mount.querySelector("#pExpiry");
+  const qualityInput = mount.querySelector("#pQuality");
+  const descInput = mount.querySelector("#pDesc");
+
+  const close = () => mount.classList.add("hidden");
+  const reset = () => {
+    if (nameInput) nameInput.value = "";
+    if (categoryInput) categoryInput.value = "";
+    if (priceInput) priceInput.value = "";
+    if (stockInput) stockInput.value = "";
+    if (statusSelect) statusSelect.value = "Live";
+    if (expiryInput) expiryInput.value = "";
+    if (qualityInput) qualityInput.value = "";
+    if (descInput) descInput.value = "";
+  };
+
+  if (!mount.dataset.wired) {
+    mount.querySelector("#prodCloseBtn")?.addEventListener("click", close);
+    mount.querySelector("#prodCancelBtn")?.addEventListener("click", close);
+
+    mount.querySelector("#prodSaveBtn")?.addEventListener("click", async () => {
+      const name = nameInput?.value.trim() || "";
+      const category = categoryInput?.value.trim() || "";
+      const priceVal = priceInput?.value;
+      const stockVal = stockInput?.value;
+      const status = statusSelect?.value || "Live";
+      const expiry_date = expiryInput?.value || "";
+      const quality_condition = qualityInput?.value.trim() || "";
+      const description = descInput?.value.trim() || "";
+
+      if (!name) {
+        alert("Product name is required.");
+        return;
+      }
+
+      const price = priceVal ? Number(priceVal) : undefined;
+      const stock = stockVal ? Number(stockVal) : undefined;
+
+      try {
+        const resp = await fetch(`${API_BASE}/seller/products`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            seller_id: sellerId,
+            name,
+            price: Number.isFinite(price) ? price : undefined,
+            stock: Number.isFinite(stock) ? stock : undefined,
+            description,
+            expiry_date,
+            quality_condition,
+            category,
+            status,
+          }),
+        });
+        if (!resp.ok) throw new Error("Add failed");
+        await fetchProducts(user);
+        close();
+      } catch (err) {
+        console.error(err);
+        alert("Could not add product.");
+      }
     });
-    if (!resp.ok) throw new Error("Add failed");
-    await fetchProducts(user);
-    alert("Product added.");
-  } catch (err) {
-    console.error(err);
-    alert("Could not add product.");
+
+    mount.dataset.wired = "1";
   }
+
+  reset();
+  mount.classList.remove("hidden");
 }
 
 async function editProfileFlow(user) {
@@ -240,7 +290,7 @@ async function editProfileFlow(user) {
 }
 
 async function editContactFlow(user) {
-  if (!user?.id) return alert("Please login again.");
+  if (!getSellerId(user)) return alert("Please login again.");
   let otpCode = null;
   const mount = document.getElementById("contactInlineEditor");
   if (!mount) return;
@@ -301,7 +351,7 @@ async function editContactFlow(user) {
 }
 
 async function editOwnerFlow(user) {
-  if (!user?.id) return alert("Please login again.");
+  if (!getSellerId(user)) return alert("Please login again.");
   const owner = prompt("Owner name?", user.sellerDetails?.owner || "") || "";
   await updateProfile(user, { ...user.sellerDetails, owner });
 }
@@ -311,7 +361,7 @@ async function updateProfile(user, sellerDetails) {
     const resp = await fetch(`${API_BASE}/seller/profile/update`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ seller_id: user.id, sellerDetails }),
+      body: JSON.stringify({ seller_id: getSellerId(user), sellerDetails }),
     });
     if (!resp.ok) throw new Error("Update failed");
     const newUser = { ...user, sellerDetails };
@@ -325,7 +375,8 @@ async function updateProfile(user, sellerDetails) {
 }
 
 async function addNoticeFlow(user) {
-  if (!user?.id) return alert("Please login again.");
+  const sellerId = getSellerId(user);
+  if (!sellerId) return alert("Please login again.");
   const title = prompt("Notice title?") || "";
   if (!title) return;
   const message = prompt("Notice message?") || "";
@@ -333,7 +384,7 @@ async function addNoticeFlow(user) {
     const resp = await fetch(`${API_BASE}/seller/notices`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ seller_id: user.id, title, message }),
+      body: JSON.stringify({ seller_id: sellerId, title, message }),
     });
     if (!resp.ok) throw new Error("Add failed");
     await fetchNotices(user);
@@ -346,13 +397,14 @@ async function addNoticeFlow(user) {
 async function fetchNotices(user) {
   const list = document.getElementById("updatesList");
   if (!list) return;
-  if (!user?.id) {
+  const sellerId = getSellerId(user);
+  if (!sellerId) {
     list.innerHTML = `<div class="empty">Login again to load notices.</div>`;
     return;
   }
   list.innerHTML = `<div class="empty">Loading notices...</div>`;
   try {
-    const resp = await fetch(`${API_BASE}/seller/notices?seller_id=${encodeURIComponent(user.id)}`);
+    const resp = await fetch(`${API_BASE}/seller/notices?seller_id=${encodeURIComponent(sellerId)}`);
     if (!resp.ok) throw new Error("Load failed");
     const data = await resp.json();
     const items = data.items || [];
@@ -368,9 +420,10 @@ async function fetchNotices(user) {
 }
 
 async function viewHistory(user) {
-  if (!user?.id) return alert("Please login again.");
+  const sellerId = getSellerId(user);
+  if (!sellerId) return alert("Please login again.");
   try {
-    const resp = await fetch(`${API_BASE}/seller/history?seller_id=${encodeURIComponent(user.id)}`);
+    const resp = await fetch(`${API_BASE}/seller/history?seller_id=${encodeURIComponent(sellerId)}`);
     if (!resp.ok) throw new Error("Load failed");
     const data = await resp.json();
     const lines = (data.items || []).map(h => `${h.created_at || ""} • ${h.action || ""}`);
