@@ -302,7 +302,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const name = item.product_name || item.search_term || 'Unknown';
             const key = chooseKey(name);
             if (!groups.has(key)) {
-                groups.set(key, { name, term: item.search_term || '', zepto: [], blinkit: [], other: [] });
+                groups.set(key, { name, term: item.search_term || '', zepto: [], blinkit: [], offline: [], other: [] });
             }
             const bucket = groups.get(key);
             // prefer the longest/most descriptive name for display
@@ -311,6 +311,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const plat = (item.platform || '').toLowerCase();
             if (plat.includes('zept')) bucket.zepto.push(item);
             else if (plat.includes('blink')) bucket.blinkit.push(item);
+            else if (plat.includes('offline')) bucket.offline.push(item);
             else bucket.other.push(item);
         });
 
@@ -318,6 +319,7 @@ document.addEventListener('DOMContentLoaded', () => {
         groups.forEach((g) => {
             g.zepto = dedupeByKey(g.zepto);
             g.blinkit = dedupeByKey(g.blinkit);
+            g.offline = dedupeByKey(g.offline);
             g.other = dedupeByKey(g.other);
         });
 
@@ -339,10 +341,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const term = group.term;
             const zRow = group.zepto[0] || null;
             const bRow = group.blinkit[0] || null;
+            const oRow = group.offline[0] || null;
             const saveKey = `${(term || '').toLowerCase()}::${normalizeName(name)}`;
             const isSaved = savedSet.has(saveKey);
 
-            if (idx === 0) firstGroup = { name, term, zRow, bRow };
+            if (idx === 0) firstGroup = { name, term, zRow, bRow, oRow };
 
             const card = document.createElement('div');
             card.className = 'product-card';
@@ -403,24 +406,23 @@ document.addEventListener('DOMContentLoaded', () => {
             rowWrap.className = 'compare-row';
             rowWrap.appendChild(buildCol('Zepto', zRow));
             rowWrap.appendChild(buildCol('Blinkit', bRow));
+            rowWrap.appendChild(buildCol('Offline', oRow));
 
             gridEl.appendChild(rowWrap);
 
             grid.appendChild(card);
         });
 
-        if (firstGroup && (firstGroup.zRow || firstGroup.bRow)) {
+        if (firstGroup && (firstGroup.zRow || firstGroup.bRow || firstGroup.oRow)) {
             const zComp = computeComparablePrice(firstGroup.zRow);
             const bComp = computeComparablePrice(firstGroup.bRow);
-            const zVal = zComp.unitPrice ?? zComp.price;
-            const bVal = bComp.unitPrice ?? bComp.price;
-            let bestPrice = null;
+            const oComp = computeComparablePrice(firstGroup.oRow);
+            const vals = [zComp.unitPrice ?? zComp.price, bComp.unitPrice ?? bComp.price, oComp.unitPrice ?? oComp.price].filter((v) => v != null);
+            let bestPrice = vals.length ? Math.min(...vals) : null;
             let saved = 0;
-            if (zVal != null && bVal != null) {
-                bestPrice = Math.min(zVal, bVal);
-                saved = Math.abs(zVal - bVal);
-            } else {
-                bestPrice = zVal ?? bVal;
+            if (vals.length >= 2 && bestPrice != null) {
+                const maxVal = Math.max(...vals);
+                saved = Math.abs(maxVal - bestPrice);
             }
             addHistoryEntry({
                 term: priorityTerm || firstGroup.term || '',
@@ -440,9 +442,10 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             setStatus(`Loading results for "${term}" ...`);
 
-            const [zepRes, blkRes] = await Promise.allSettled([
+            const [zepRes, blkRes, offRes] = await Promise.allSettled([
                 fetch(`http://localhost:5000/results?term=${encodeURIComponent(term)}`),
-                fetch(`http://localhost:5001/results?term=${encodeURIComponent(term)}`)
+                fetch(`http://localhost:5001/results?term=${encodeURIComponent(term)}`),
+                fetch(`http://localhost:5000/results/offline?term=${encodeURIComponent(term)}`)
             ]);
 
             let items = [];
@@ -467,6 +470,22 @@ document.addEventListener('DOMContentLoaded', () => {
             if (blkRes.status === 'fulfilled') {
                 try {
                     const resp = blkRes.value;
+                    const body = await resp.json();
+                    if (resp.ok) {
+                        items = items.concat(body.items || []);
+                    } else {
+                        hadError = true;
+                    }
+                } catch (e) {
+                    hadError = true;
+                }
+            } else {
+                hadError = true;
+            }
+
+            if (offRes.status === 'fulfilled') {
+                try {
+                    const resp = offRes.value;
                     const body = await resp.json();
                     if (resp.ok) {
                         items = items.concat(body.items || []);
@@ -503,9 +522,10 @@ document.addEventListener('DOMContentLoaded', () => {
     async function fetchLatestCombined() {
         try {
             setStatus('Loading latest Zepto + Blinkit results ...');
-            const [zepRes, blkRes] = await Promise.allSettled([
+            const [zepRes, blkRes, offRes] = await Promise.allSettled([
                 fetch('http://localhost:5000/latest'),
-                fetch('http://localhost:5001/latest')
+                fetch('http://localhost:5001/latest'),
+                fetch('http://localhost:5000/latest/offline')
             ]);
 
             let items = [];
@@ -532,6 +552,23 @@ document.addEventListener('DOMContentLoaded', () => {
             if (blkRes.status === 'fulfilled') {
                 try {
                     const resp = blkRes.value;
+                    const body = await resp.json();
+                    if (resp.ok) {
+                        items = items.concat(body.items || []);
+                        lastTerm = lastTerm || body.last_term || null;
+                    } else {
+                        hadError = true;
+                    }
+                } catch (e) {
+                    hadError = true;
+                }
+            } else {
+                hadError = true;
+            }
+
+            if (offRes.status === 'fulfilled') {
+                try {
+                    const resp = offRes.value;
                     const body = await resp.json();
                     if (resp.ok) {
                         items = items.concat(body.items || []);

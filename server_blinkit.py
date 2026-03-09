@@ -92,17 +92,6 @@ def results():
             ENSURE_INDEXES(alt_col, alt_name, BLINKIT_DB, BLINKIT_URI)
             cursor = alt_col.find({"search_term": {"$regex": term, "$options": "i"}}).sort("_id", -1).limit(100)
             items = [{**doc, '_id': str(doc.get('_id'))} for doc in cursor]
-        if not items and os.path.exists(DATA_FILE):
-            try:
-                with open(DATA_FILE, 'r', encoding='utf-8') as fh:
-                    data: List[Dict[str, Any]] = json.load(fh) or []
-            except Exception:
-                data = []
-            for row in data:
-                if term.lower() in (row.get('search_term', '').lower()) and (row.get('platform') or '').lower().startswith('blink'):
-                    if '_id' in row and not isinstance(row['_id'], str):
-                        row['_id'] = str(row['_id'])
-                    items.append(row)
         return jsonify({"items": items}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
@@ -129,12 +118,6 @@ def latest():
             ENSURE_INDEXES(alt_col, alt_name, BLINKIT_DB, BLINKIT_URI)
             cursor = alt_col.find().sort("_id", -1).limit(100)
             items = [{**doc, '_id': str(doc.get('_id'))} for doc in cursor]
-        if not items and os.path.exists(DATA_FILE):
-            try:
-                with open(DATA_FILE, 'r', encoding='utf-8') as fh:
-                    items = cast(List[Dict[str, Any]], json.load(fh) or [])
-            except Exception:
-                items = []
         return jsonify({"items": items, "last_term": last_term}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500

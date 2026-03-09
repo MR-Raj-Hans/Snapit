@@ -18,7 +18,8 @@ def _now() -> datetime:
 
 app = Flask(__name__)
 
-ZEPTO_DB = os.getenv("MONGO_DB", "snapit_zepto")
+ZEPTO_DB = os.getenv("ZEPTO_DB", "snapit_zepto")
+ZEPTO_URI = os.getenv("ZEPTO_MONGO_URI", os.getenv("MONGO_URI", "mongodb://localhost:27017"))
 INSTAMART_DB = os.getenv("INSTAMART_DB", "snapit_instamart")
 AUTH_DB = os.getenv("AUTH_DB", "snapit_auth")
 AUTH_COLLECTION = os.getenv("AUTH_COLLECTION", "users")
@@ -133,6 +134,8 @@ def scrape():
 
     env = os.environ.copy()
     env['SEARCH_TERMS'] = term
+    env['ZEPTO_DB'] = ZEPTO_DB
+    env['ZEPTO_MONGO_URI'] = ZEPTO_URI
 
     try:
         result = subprocess.run(
@@ -529,8 +532,8 @@ def results():
         return jsonify({"error": "term is required"}), 400
 
     try:
-        col = mongo_client.get_collection(term, db_name=ZEPTO_DB)
-        mongo_client.ensure_indexes(col, term, db_name=ZEPTO_DB)
+        col = mongo_client.get_collection(term, db_name=ZEPTO_DB, uri=ZEPTO_URI)
+        mongo_client.ensure_indexes(col, term, db_name=ZEPTO_DB, uri=ZEPTO_URI)
 
         # Use case-insensitive partial match within the term-specific collection.
         regex = {"$regex": term, "$options": "i"}
@@ -540,23 +543,6 @@ def results():
         for doc in cursor:
             doc['_id'] = str(doc.get('_id'))
             items.append(doc)
-
-        # Fallback to local JSON if Mongo is empty or unreachable.
-        if not items:
-            data_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'scraped_data.json')
-            try:
-                if os.path.exists(data_path):
-                    with open(data_path, 'r', encoding='utf-8') as fh:
-                        data = cast(list[JsonDict], json.load(fh) or [])
-                    for row in data:
-                        if term.lower() in (row.get('search_term', '').lower()):
-                            # Normalize _id for JSON compatibility
-                            if '_id' in row and not isinstance(row['_id'], str):
-                                row['_id'] = str(row['_id'])
-                            items.append(row)
-            except Exception:
-                # If the fallback fails, continue with whatever we have (likely empty).
-                pass
 
         return jsonify({"items": items}), 200
     except Exception as e:
@@ -616,24 +602,14 @@ def latest():
                 pass
 
         # Decide which collection to read: last term if available, else default
-        col = mongo_client.get_collection(last_term, db_name=ZEPTO_DB)
-        mongo_client.ensure_indexes(col, last_term, db_name=ZEPTO_DB)
+        col = mongo_client.get_collection(last_term, db_name=ZEPTO_DB, uri=ZEPTO_URI)
+        mongo_client.ensure_indexes(col, last_term, db_name=ZEPTO_DB, uri=ZEPTO_URI)
 
         cursor = col.find().sort("_id", -1).limit(100)
         items: list[JsonDict] = []
         for doc in cursor:
             doc['_id'] = str(doc.get('_id'))
             items.append(doc)
-
-        # Fallback to JSON if Mongo is empty
-        if not items:
-            data_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'scraped_data.json')
-            try:
-                if os.path.exists(data_path):
-                    with open(data_path, 'r', encoding='utf-8') as fh:
-                        items = cast(list[JsonDict], json.load(fh) or [])
-            except Exception:
-                items = []
 
         return jsonify({"items": items, "last_term": last_term}), 200
     except Exception as e:
@@ -673,6 +649,48 @@ def latest_instamart():
                 items = []
 
         return jsonify({"items": items, "last_term": last_term}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route('/results/offline', methods=['GET'])
+def results_offline():
+    term = (request.args.get('term') or '').strip()
+    if not term:
+        return jsonify({"error": "term is required"}), 400
+
+    try:
+        col = _seller_collection(SELLER_PRODUCTS_COLLECTION)
+        regex = {"$regex": term, "$options": "i"}
+        cursor = col.find({"name": regex}).sort("_id", -1).limit(100)
+
+        items: list[JsonDict] = []
+        for doc in cursor:
+            doc['_id'] = str(doc.get('_id'))
+            doc['seller_id'] = str(doc.get('seller_id'))
+            doc['platform'] = doc.get('platform') or 'Offline Store'
+            doc['search_term'] = term
+            items.append(doc)
+
+        return jsonify({"items": items}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route('/latest/offline', methods=['GET'])
+def latest_offline():
+    try:
+        col = _seller_collection(SELLER_PRODUCTS_COLLECTION)
+        cursor = col.find().sort("_id", -1).limit(100)
+        items: list[JsonDict] = []
+        for doc in cursor:
+            doc['_id'] = str(doc.get('_id'))
+            doc['seller_id'] = str(doc.get('seller_id'))
+            doc['platform'] = doc.get('platform') or 'Offline Store'
+            doc['search_term'] = doc.get('name', '')
+            items.append(doc)
+
+        return jsonify({"items": items, "last_term": None}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
