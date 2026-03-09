@@ -1,25 +1,39 @@
+# pyright: reportMissingTypeStubs=false, reportUnknownMemberType=false, reportUnknownArgumentType=false, reportUnknownVariableType=false, reportUnnecessaryCast=false
+
 import sys
 import io
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
-import undetected_chromedriver as uc
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException
 import time
 import json
 import os
-import importlib
-from typing import TYPE_CHECKING
+from collections.abc import Sequence
+from typing import Any, TypedDict, cast
+
+import undetected_chromedriver as uc  # type: ignore[import]
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.remote.webdriver import WebDriver
+from selenium.webdriver.remote.webelement import WebElement
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
 
 import mongo_client
 
-if TYPE_CHECKING:
-    from pymongo import MongoClient  # pragma: no cover
 
-def load_search_terms():
+class SearchRow(TypedDict):
+    search_term: str
+    product_name: str
+    price: str
+    quantity: str
+    platform: str
+    location: str
+    url: str | None
+    image_url: str | None
+    raw_text: str
+
+def load_search_terms() -> list[str]:
     """Load search terms from SEARCH_TERMS env (comma/newline-separated), search_terms.txt, or CLI args. No defaults."""
     env_terms = os.getenv("SEARCH_TERMS", "").strip()
     if env_terms:
@@ -49,10 +63,10 @@ def load_search_terms():
     print(" No search terms provided. Set SEARCH_TERMS env, add to search_terms.txt, or pass a term as an argument.")
     return []
 
-PRODUCTS_TO_SEARCH = load_search_terms()
+PRODUCTS_TO_SEARCH: list[str] = load_search_terms()
 
 # Optional MongoDB settings (set environment variables to enable)
-MONGO_URI = os.getenv("MONGO_URI", "")
+MONGO_URI = os.getenv("MONGO_URI", "mongodb://localhost:27017")
 # Default Zepto DB under the snapit connection
 MONGO_DB = os.getenv("MONGO_DB", "snapit_zepto")
 MONGO_COLLECTION = os.getenv("MONGO_COLLECTION", "prices")
@@ -61,12 +75,12 @@ ZEPTO_LOCATIONS = [loc.strip() for loc in os.getenv("ZEPTO_LOCATIONS", "").split
 OUTPUT_FILE = os.getenv("OUTPUT_FILE", "scraped_data.json")
 MAX_RESULTS = int(os.getenv("ZEPTO_MAX_RESULTS", "12"))
 
-def scrape_zepto():
+def scrape_zepto() -> None:
     if not PRODUCTS_TO_SEARCH:
         print(" No search terms provided. Exiting without running browser.")
         return
 
-    options = uc.ChromeOptions()
+    options: Any = uc.ChromeOptions()
     # Adding a realistic user agent
     options.add_argument('--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36')
     options.add_argument('--headless=new')
@@ -75,29 +89,29 @@ def scrape_zepto():
     options.add_argument('--disable-dev-shm-usage')
 
     # Pin to installed Chrome version to avoid mismatch
-    driver = None
+    driver: WebDriver | None = None
     try:
-        driver = uc.Chrome(options=options, version_main=144)
+        driver = cast(WebDriver, uc.Chrome(options=options, version_main=144))
     except Exception as e:
         try:
             import traceback
             print("DRIVER_INIT_FAILED (retry without pin)", e)
             traceback.print_exc()
-            driver = uc.Chrome(options=options)
+            driver = cast(WebDriver, uc.Chrome(options=options))
         except Exception as e2:
             print("DRIVER_INIT_FAILED final", e2)
             import traceback
             traceback.print_exc()
             return
-    wait = WebDriverWait(driver, 20) # This is our "patience" timer
-    scraped_results = []
+    wait: WebDriverWait[WebDriver] = WebDriverWait(driver, 20) # This is our "patience" timer
+    scraped_results: list[SearchRow] = []
 
-    def extract_image(element):
+    def extract_image(element: WebElement) -> str | None:
         """Pull the best image URL from a card if present."""
         try:
-            img = element.find_element(By.XPATH, ".//img")
+            img = cast(WebElement, element.find_element(By.XPATH, ".//img"))
             for attr in ["src", "data-src", "data-srcset", "srcset"]:
-                val = img.get_attribute(attr)
+                val: str | None = cast(str | None, img.get_attribute(attr))
                 if val:
                     # If srcset-style, take the first URL
                     if " " in val and "http" in val:
@@ -107,36 +121,37 @@ def scrape_zepto():
             return None
         return None
 
-    def get_search_input():
+    def get_search_input() -> WebElement:
         # Prefer a real input field first
         input_xpath = '//input[contains(@placeholder, "Search")] | //input[@type="text"]'
         try:
-            return wait.until(EC.element_to_be_clickable((By.XPATH, input_xpath)))
+            return cast(WebElement, wait.until(EC.element_to_be_clickable((By.XPATH, input_xpath))))
         except TimeoutException:
             pass
 
         # Fall back to clicking a search trigger (if any), then re-find input
         trigger_xpath = '//span[contains(text(), "Search")]'
-        triggers = wait.until(EC.presence_of_all_elements_located((By.XPATH, trigger_xpath)))
+        triggers = cast(list[WebElement], wait.until(EC.presence_of_all_elements_located((By.XPATH, trigger_xpath))))
         for trigger in triggers:
             try:
                 driver.execute_script("arguments[0].click();", trigger)
                 time.sleep(1)
-                return wait.until(EC.element_to_be_clickable((By.XPATH, input_xpath)))
+                return cast(WebElement, wait.until(EC.element_to_be_clickable((By.XPATH, input_xpath))))
             except Exception:
                 continue
 
         raise TimeoutException("Search input not found")
 
-    def try_set_location(location_text: str):
-        """Location handling disabled; proceed with default site location."""
-        print(" Skipping location selection (using site default).")
-
-    def save_to_mongo(records, collection_name: str):
+    def save_to_mongo(records: Sequence[SearchRow], collection_name: str) -> None:
         if not records:
             return
         try:
-            inserted = mongo_client.save_records(records, collection_name=collection_name, db_name=MONGO_DB)
+            inserted = mongo_client.save_records(
+                cast(Sequence[dict[str, Any]], records),
+                collection_name=collection_name,
+                db_name=MONGO_DB,
+                uri=MONGO_URI,
+            )
             print(f" Saved {inserted} records to MongoDB collection '{collection_name}' in db '{MONGO_DB}'.")
         except Exception as e:
             print(f" MongoDB save failed for {collection_name}: {e}")
@@ -148,7 +163,7 @@ def scrape_zepto():
 
         print(f"🔍 Search terms this run: {PRODUCTS_TO_SEARCH}")
 
-        locations_to_test = [""]
+        locations_to_test: list[str] = [""]
 
         for location_text in locations_to_test:
             print("\n=== Using default/current location (no changes) ===")
@@ -162,11 +177,11 @@ def scrape_zepto():
                 continue
 
             for item in PRODUCTS_TO_SEARCH:
-                term_results = []
+                term_results: list[SearchRow] = []
                 try:
                     print(f"Searching for: {item}")
 
-                    search_box = get_search_input()
+                    search_box: WebElement = get_search_input()
 
                     search_box.click()
                     time.sleep(1)
@@ -181,10 +196,13 @@ def scrape_zepto():
                     time.sleep(6) # Give the page a bit more time
 
                     # Extract top results for the current item
-                    cards = wait.until(
-                        EC.presence_of_all_elements_located(
-                            (By.XPATH, '//a[contains(@href, "/pn/")]')
-                        )
+                    cards: list[WebElement] = cast(
+                        list[WebElement],
+                        wait.until(
+                            EC.presence_of_all_elements_located(
+                                (By.XPATH, '//a[contains(@href, "/pn/")]')
+                            )
+                        ),
                     )
                     if len(cards) < MAX_RESULTS:
                         # Try a couple scrolls to load lazy cards
@@ -192,7 +210,7 @@ def scrape_zepto():
                             for _ in range(2):
                                 driver.execute_script("window.scrollBy(0, 600);")
                                 time.sleep(1)
-                                more = driver.find_elements(By.XPATH, '//a[contains(@href, "/pn/")]')
+                                more: list[WebElement] = driver.find_elements(By.XPATH, '//a[contains(@href, "/pn/")]')
                                 if len(more) > len(cards):
                                     cards = more
                                 if len(cards) >= MAX_RESULTS:
@@ -206,23 +224,23 @@ def scrape_zepto():
                         if count >= MAX_RESULTS:
                             break
                         try:
-                            name = ""
-                            price = ""
-                            quantity = ""
-                            raw_text = card.text.strip()
-                            href = card.get_attribute("href")
+                            name: str = ""
+                            price: str = ""
+                            quantity: str = ""
+                            raw_text: str = card.text.strip()
+                            href: str | None = cast(str | None, card.get_attribute("href"))
                             image_url = extract_image(card)
 
                             try:
-                                name = card.find_element(By.XPATH, './/h5').text.strip()
+                                name = cast(str, card.find_element(By.XPATH, './/h5').text.strip())
                             except Exception:
                                 pass
                             try:
-                                price = card.find_element(By.XPATH, './/h4[@data-testid="product-card-price"]').text.strip()
+                                price = cast(str, card.find_element(By.XPATH, './/h4[@data-testid="product-card-price"]').text.strip())
                             except Exception:
                                 pass
                             try:
-                                quantity = card.find_element(By.XPATH, './/span[@data-testid="product-card-quantity"]').text.strip()
+                                quantity = cast(str, card.find_element(By.XPATH, './/span[@data-testid="product-card-quantity"]').text.strip())
                             except Exception:
                                 pass
 
@@ -253,7 +271,7 @@ def scrape_zepto():
                                     slug = href.split("/pn/")[1].split("/pvid/")[0]
                                     name = slug.replace("-", " ").strip()
 
-                            row = {
+                            row: SearchRow = {
                                 "search_term": item,
                                 "product_name": name,
                                 "price": price,
@@ -289,15 +307,16 @@ def scrape_zepto():
         except OSError:
             pass
         if scraped_results:
-            existing = []
+            existing: list[SearchRow] = []
             if os.path.exists(OUTPUT_FILE):
                 try:
                     with open(OUTPUT_FILE, "r", encoding="utf-8") as f:
-                        existing = json.load(f) or []
+                        existing_raw = json.load(f) or []
+                    existing = [cast(SearchRow, rec) for rec in existing_raw if isinstance(rec, dict)]
                 except Exception:
                     existing = []
 
-            combined = existing + scraped_results
+            combined: list[SearchRow] = existing + scraped_results
             with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
                 json.dump(combined, f, indent=4, ensure_ascii=False)
             print(f"\n Data appended; total records now {len(combined)} in {OUTPUT_FILE}")
