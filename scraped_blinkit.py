@@ -1,25 +1,30 @@
+"""Blinkit scraper."""
+# pyright: reportUnknownMemberType=false
+
 import sys
 import io
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
-import undetected_chromedriver as uc
+import undetected_chromedriver as uc  # type: ignore
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chromium.webdriver import ChromiumDriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.remote.webelement import WebElement
 import time
 import json
 import os
-from typing import TYPE_CHECKING
+from typing import Any, Callable, List, Optional, cast
 from urllib.parse import quote, urljoin
 
 import mongo_client
 
-if TYPE_CHECKING:
-    from pymongo import MongoClient  # pragma: no cover
+SAVE_RECORDS = cast(Callable[[List[dict[str, Any]], Optional[str], Optional[str], Optional[str]], int], mongo_client.save_records)
 
-def load_search_terms():
+def load_search_terms() -> List[str]:
     """Load search terms from SEARCH_TERMS env (comma/newline-separated), search_terms.txt, or CLI args. No defaults."""
     env_terms = os.getenv("SEARCH_TERMS", "").strip()
     if env_terms:
@@ -62,7 +67,7 @@ def scrape_blinkit():
         print(" No search terms provided. Exiting without running browser.")
         return
 
-    options = uc.ChromeOptions()
+    options = Options()
     options.add_argument('--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36')
     options.add_argument('--disable-gpu')
     options.add_argument('--no-sandbox')
@@ -74,15 +79,15 @@ def scrape_blinkit():
     if os.getenv("HEADLESS", "1") != "0":
         options.add_argument('--headless=new')
 
-    driver = None
+    driver: ChromiumDriver
     try:
-        driver = uc.Chrome(options=options, version_main=144)
+        driver = cast(ChromiumDriver, uc.Chrome(options=options, version_main=144))
     except Exception as e:
         try:
             import traceback
             print("DRIVER_INIT_FAILED (retry without pin)", e)
             traceback.print_exc()
-            driver = uc.Chrome(options=options)
+            driver = cast(ChromiumDriver, uc.Chrome(options=options))
         except Exception as e2:
             print("DRIVER_INIT_FAILED final", e2)
             import traceback
@@ -90,12 +95,12 @@ def scrape_blinkit():
             return
 
     wait = WebDriverWait(driver, 25)
-    scraped_results = []
+    scraped_results: List[dict[str, Any]] = []
 
-    def extract_product_url(element, product_name: str = ""):
+    def extract_product_url(element: WebElement, product_name: str = "") -> Optional[str]:
         """Attempt to pull a product URL from the element, its children, or ancestors."""
         base = "https://www.blinkit.com"
-        candidates = []
+        candidates: List[str] = []
 
         direct_href = element.get_attribute("href")
         if direct_href:
@@ -107,7 +112,7 @@ def scrape_blinkit():
                 candidates.append(val)
 
         # Walk up a few ancestors to catch data-* on parent containers
-        parent = element
+        parent: Optional[WebElement] = element
         for _ in range(3):
             try:
                 parent = parent.find_element(By.XPATH, "..")
@@ -135,62 +140,6 @@ def scrape_blinkit():
         if product_name:
             return f"{base}/s/?q={quote(product_name)}"
         return None
-
-    def set_location(pin: str = "560001"):
-        """Handle Blinkit location modal: open, enter pin, select suggestion, confirm, wait for dialog to close."""
-        try:
-            # Open the location dialog/button if present
-            triggers = driver.find_elements(
-                By.XPATH,
-                "//button[contains(.,'Deliver') or contains(.,'Change') or contains(.,'Location') or contains(.,'Add address')]"
-            )
-            for trig in triggers:
-                try:
-                    driver.execute_script("arguments[0].click();", trig)
-                    time.sleep(0.5)
-                    break
-                except Exception:
-                    continue
-
-            input_xpath = (
-                "//input[contains(@placeholder,'address') or contains(@placeholder,'location') or"
-                " contains(@aria-label,'address') or contains(@aria-label,'location') or"
-                " contains(@name,'location') or contains(@name,'address')]"
-            )
-            loc_input = wait.until(EC.element_to_be_clickable((By.XPATH, input_xpath)))
-            driver.execute_script("arguments[0].click();", loc_input)
-            time.sleep(0.3)
-            loc_input.send_keys(Keys.CONTROL + "a")
-            loc_input.send_keys(Keys.BACKSPACE)
-            loc_input.send_keys(pin)
-            time.sleep(1.2)
-
-            suggestions = driver.find_elements(By.XPATH, "//li | //div[contains(@data-testid,'suggestion') or contains(@class,'suggestion')]")
-            if suggestions:
-                driver.execute_script("arguments[0].click();", suggestions[0])
-                time.sleep(1.0)
-            else:
-                loc_input.send_keys(Keys.ENTER)
-                time.sleep(1.0)
-
-            buttons = driver.find_elements(By.XPATH, "//button[contains(.,'Deliver') or contains(.,'Continue') or contains(.,'Save') or contains(.,'Confirm')]")
-            for btn in buttons:
-                try:
-                    driver.execute_script("arguments[0].click();", btn)
-                    time.sleep(0.8)
-                    break
-                except Exception:
-                    continue
-
-            # Wait briefly for any dialog to disappear
-            try:
-                WebDriverWait(driver, 8).until(EC.invisibility_of_element_located((By.XPATH, "//div[contains(@role,'dialog') or contains(@class,'modal')]") ))
-            except Exception:
-                pass
-
-            print(f" Location set attempt done for pin {pin}")
-        except Exception as e:
-            print(f" Location set skipped/failed: {e}")
 
     # Allow geolocation (fake) to reduce location prompts
     try:
@@ -254,16 +203,16 @@ def scrape_blinkit():
         except Exception as e:
             print(f" Location modal handling skipped: {e}")
 
-    def open_search(term: str):
+    def open_search(term: str) -> None:
         url = f"https://www.blinkit.com/s/?q={quote(term)}"
         driver.get(url)
         print(f" Opened search URL: {url}")
 
-    def save_to_mongo(records, collection_name: str):
+    def save_to_mongo(records: List[dict[str, Any]], collection_name: str) -> None:
         if not records:
             return
         try:
-            inserted = mongo_client.save_records(records, collection_name=collection_name, db_name=BLINKIT_DB, uri=BLINKIT_URI)
+            inserted = SAVE_RECORDS(records, collection_name, BLINKIT_DB, BLINKIT_URI)
             print(f" Saved {inserted} records to MongoDB collection '{collection_name}' in db '{BLINKIT_DB}'.")
         except Exception as e:
             print(f" MongoDB save failed for {collection_name}: {e}")
@@ -276,7 +225,7 @@ def scrape_blinkit():
         print(f"🔍 Search terms this run: {PRODUCTS_TO_SEARCH}")
 
         for item in PRODUCTS_TO_SEARCH:
-            term_results = []
+            term_results: List[dict[str, Any]] = []
             try:
                 print(f"Searching for: {item}")
                 open_search(item)
@@ -296,7 +245,7 @@ def scrape_blinkit():
                     " | //div[@role='button'][.//div[normalize-space()='ADD'] and @data-pf]"
                 )
                 try:
-                    cards = wait.until(
+                    cards: List[WebElement] = wait.until(
                         EC.presence_of_all_elements_located(
                             (By.XPATH, card_xpath)
                         )
@@ -310,7 +259,7 @@ def scrape_blinkit():
                     try:
                         driver.execute_script("window.scrollBy(0, document.body.scrollHeight);")
                         time.sleep(1.5)
-                        more_cards = driver.find_elements(By.XPATH, card_xpath)
+                        more_cards: List[WebElement] = driver.find_elements(By.XPATH, card_xpath)
                         if len(more_cards) > len(cards):
                             cards = more_cards
                         else:
@@ -319,7 +268,7 @@ def scrape_blinkit():
                         break
                 # If we still only have a container, fall back to ancestors of ADD buttons
                 if len(cards) <= 1:
-                    add_cards = driver.find_elements(
+                    add_cards: List[WebElement] = driver.find_elements(
                         By.XPATH,
                         "//button[contains(.,'ADD')]/ancestor::*[self::article or self::div or self::li][1]"
                     )
@@ -333,7 +282,7 @@ def scrape_blinkit():
                     if count >= MAX_RESULTS:
                         break
                     try:
-                        target = card
+                        target: WebElement = card
                         if card.tag_name.lower() == "button":
                             try:
                                 target = card.find_element(By.XPATH, "ancestor::*[self::article or self::div or self::li][1]")
@@ -387,7 +336,7 @@ def scrape_blinkit():
                         if name.strip().upper() == "ADD":
                             continue
 
-                        row = {
+                        row: dict[str, Any] = {
                             "search_term": item,
                             "product_name": name,
                             "price": price,
@@ -421,7 +370,7 @@ def scrape_blinkit():
             pass
 
         if scraped_results:
-            def _clean(rows):
+            def _clean(rows: List[dict[str, Any]]) -> List[dict[str, Any]]:
                 for r in rows:
                     if '_id' in r and not isinstance(r['_id'], str):
                         try:
@@ -430,7 +379,7 @@ def scrape_blinkit():
                             r['_id'] = None
                 return rows
 
-            existing = []
+            existing: List[dict[str, Any]] = []
             if os.path.exists(OUTPUT_FILE):
                 try:
                     with open(OUTPUT_FILE, "r", encoding="utf-8") as f:
@@ -438,7 +387,7 @@ def scrape_blinkit():
                 except Exception:
                     existing = []
 
-            combined = _clean(existing) + _clean(scraped_results)
+            combined: List[dict[str, Any]] = _clean(existing) + _clean(scraped_results)
             with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
                 json.dump(combined, f, indent=4, ensure_ascii=False)
             print(f"\n Data appended; total records now {len(combined)} in {OUTPUT_FILE}")

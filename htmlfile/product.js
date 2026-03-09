@@ -166,10 +166,52 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const normalizeName = (str = '') => str.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
 
+    const nameSimilarity = (a = '', b = '') => {
+        const ta = new Set(a.split(' ').filter(Boolean));
+        const tb = new Set(b.split(' ').filter(Boolean));
+        if (!ta.size || !tb.size) return 0;
+        let intersect = 0;
+        ta.forEach((t) => {
+            if (tb.has(t)) intersect += 1;
+        });
+        return (2 * intersect) / (ta.size + tb.size);
+    };
+
     const parsePrice = (value = '') => {
         const cleaned = String(value).replace(/[^0-9.]/g, '');
         const num = Number.parseFloat(cleaned);
         return Number.isNaN(num) ? null : num;
+    };
+
+    const parseQuantity = (value = '') => {
+        const cleaned = String(value).toLowerCase();
+        const match = cleaned.match(/([0-9]+(?:\.[0-9]+)?)\s*(kg|g|ml|l|pcs?)/);
+        if (!match) return null;
+        const amount = parseFloat(match[1]);
+        const unit = match[2];
+        if (Number.isNaN(amount)) return null;
+        return { amount, unit };
+    };
+
+    const computeComparablePrice = (row) => {
+        const price = parsePrice(row?.price);
+        const qtyInfo = parseQuantity(row?.quantity || row?.raw_text || '');
+        if (!price || !qtyInfo) {
+            return { price, unitPrice: null, unitLabel: null };
+        }
+        const { amount, unit } = qtyInfo;
+        if (!amount || amount <= 0) return { price, unitPrice: null, unitLabel: null };
+        if (unit === 'g' || unit === 'kg') {
+            const grams = unit === 'kg' ? amount * 1000 : amount;
+            const unitPrice = price * (100 / grams);
+            return { price, unitPrice, unitLabel: 'per 100g' };
+        }
+        if (unit === 'ml' || unit === 'l') {
+            const ml = unit === 'l' ? amount * 1000 : amount;
+            const unitPrice = price * (100 / ml);
+            return { price, unitPrice, unitLabel: 'per 100ml' };
+        }
+        return { price, unitPrice: null, unitLabel: null };
     };
 
     const loadSaved = () => {
@@ -238,13 +280,31 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const groups = new Map();
+        const groupNames = new Map(); // key -> canonical name
+
+        const chooseKey = (name) => {
+            const norm = normalizeName(name);
+            let bestKey = null;
+            let bestScore = 0;
+            for (const [k, storedName] of groupNames.entries()) {
+                const score = nameSimilarity(norm, k);
+                if (score > bestScore) {
+                    bestScore = score;
+                    bestKey = k;
+                }
+            }
+            if (bestScore >= 0.9 && bestKey) return bestKey;
+            groupNames.set(norm, name);
+            return norm;
+        };
+
         items.forEach((item) => {
             const name = item.product_name || item.search_term || 'Unknown';
-            const norm = normalizeName(name);
-            if (!groups.has(norm)) {
-                groups.set(norm, { name, term: item.search_term || '', zepto: [], blinkit: [], other: [] });
+            const key = chooseKey(name);
+            if (!groups.has(key)) {
+                groups.set(key, { name, term: item.search_term || '', zepto: [], blinkit: [], other: [] });
             }
-            const bucket = groups.get(norm);
+            const bucket = groups.get(key);
             // prefer the longest/most descriptive name for display
             if ((item.product_name || '').length > bucket.name.length) bucket.name = item.product_name;
             if (!bucket.term && item.search_term) bucket.term = item.search_term;
@@ -318,6 +378,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const { label, cls } = platformBadge(labelTxt);
                 const price = row?.price || '—';
                 const qty = row?.quantity || row?.raw_text || '';
+                const comp = computeComparablePrice(row);
+                const unitPriceStr = comp.unitPrice != null ? `₹${comp.unitPrice.toFixed(2)} ${comp.unitLabel}` : '';
                 const url = row?.url || '';
                 const col = document.createElement('div');
                 col.className = 'compare-col';
@@ -328,6 +390,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                     <div class="compare-price">${price}</div>
                     <div class="compare-qty">${qty || 'Not available'}</div>
+                    ${unitPriceStr ? `<div class="compare-unit">${unitPriceStr}</div>` : ''}
                 `;
                 if (hasRow && url && url !== '#') {
                     col.style.cursor = 'pointer';
@@ -347,15 +410,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         if (firstGroup && (firstGroup.zRow || firstGroup.bRow)) {
-            const zPrice = parsePrice(firstGroup.zRow?.price);
-            const bPrice = parsePrice(firstGroup.bRow?.price);
+            const zComp = computeComparablePrice(firstGroup.zRow);
+            const bComp = computeComparablePrice(firstGroup.bRow);
+            const zVal = zComp.unitPrice ?? zComp.price;
+            const bVal = bComp.unitPrice ?? bComp.price;
             let bestPrice = null;
             let saved = 0;
-            if (zPrice != null && bPrice != null) {
-                bestPrice = Math.min(zPrice, bPrice);
-                saved = Math.abs(zPrice - bPrice);
+            if (zVal != null && bVal != null) {
+                bestPrice = Math.min(zVal, bVal);
+                saved = Math.abs(zVal - bVal);
             } else {
-                bestPrice = zPrice ?? bPrice;
+                bestPrice = zVal ?? bVal;
             }
             addHistoryEntry({
                 term: priorityTerm || firstGroup.term || '',

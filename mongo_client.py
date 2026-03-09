@@ -1,7 +1,9 @@
 import os
-from typing import Optional, Dict
+from typing import Any, Dict, Iterable, List, Optional
 
 from pymongo import MongoClient
+from pymongo.collection import Collection
+from pymongo.database import Database
 
 # Configure via environment variables (defaults to local Mongo)
 MONGO_URI = os.getenv("MONGO_URI", "mongodb://localhost:27017")
@@ -10,7 +12,7 @@ MONGO_DB = os.getenv("MONGO_DB", "snapit_zepto")
 MONGO_COLLECTION = os.getenv("MONGO_COLLECTION", "prices")
 
 # Cache clients per URI so different sources can use separate DBs/URIs
-_clients: Dict[str, MongoClient] = {}
+_clients: Dict[str, MongoClient[Any]] = {}
 # Track indexes per uri.db.collection
 _indexes_created: Dict[str, bool] = {}
 
@@ -23,7 +25,7 @@ def normalize_collection_name(name: Optional[str]) -> str:
     return cleaned or MONGO_COLLECTION
 
 
-def _get_client_for_uri(uri: Optional[str]) -> MongoClient:
+def _get_client_for_uri(uri: Optional[str]) -> MongoClient[Any]:
     target_uri = uri or MONGO_URI
     if not target_uri:
         raise RuntimeError("MONGO_URI is not set. Please export your MongoDB connection string.")
@@ -32,15 +34,24 @@ def _get_client_for_uri(uri: Optional[str]) -> MongoClient:
     return _clients[target_uri]
 
 
-def get_collection(name: Optional[str] = None, db_name: Optional[str] = None, uri: Optional[str] = None):
+def get_collection(
+    name: Optional[str] = None,
+    db_name: Optional[str] = None,
+    uri: Optional[str] = None,
+) -> Collection[Dict[str, Any]]:
     """Return a collection; db_name defaults to env MONGO_DB; uri can override MONGO_URI."""
-    client = _get_client_for_uri(uri)
-    db = client[db_name or MONGO_DB]
+    client: MongoClient[Any] = _get_client_for_uri(uri)
+    db: Database[Any] = client[db_name or MONGO_DB]
     collection_name = normalize_collection_name(name)
     return db[collection_name]
 
 
-def ensure_indexes(col, collection_name: Optional[str] = None, db_name: Optional[str] = None, uri: Optional[str] = None):
+def ensure_indexes(
+    col: Collection[Dict[str, Any]],
+    collection_name: Optional[str] = None,
+    db_name: Optional[str] = None,
+    uri: Optional[str] = None,
+) -> None:
     name = normalize_collection_name(collection_name)
     key = f"{uri or MONGO_URI}.{db_name or MONGO_DB}.{name}"
     if _indexes_created.get(key):
@@ -51,15 +62,20 @@ def ensure_indexes(col, collection_name: Optional[str] = None, db_name: Optional
     _indexes_created[key] = True
 
 
-def save_records(records, collection_name: Optional[str] = None, db_name: Optional[str] = None, uri: Optional[str] = None):
+def save_records(
+    records: Iterable[Dict[str, Any]],
+    collection_name: Optional[str] = None,
+    db_name: Optional[str] = None,
+    uri: Optional[str] = None,
+) -> int:
     """Insert a list of dicts into the given collection and db."""
-    if not records:
+    materialized: List[Dict[str, Any]] = [dict(rec) for rec in records]
+    if not materialized:
         return 0
     col = get_collection(collection_name, db_name=db_name, uri=uri)
     ensure_indexes(col, collection_name, db_name=db_name, uri=uri)
     # Insert copies so the original records are not mutated with Mongo _id fields
-    docs = [dict(rec) for rec in records]
-    result = col.insert_many(docs)
+    result = col.insert_many(materialized)
     return len(result.inserted_ids)
 
 

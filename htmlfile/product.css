@@ -560,6 +560,34 @@ body {
     margin: 4px 0;
 }
 
+/* Actions row and buttons */
+.actions-row {
+    width: 92%;
+    max-width: 1200px;
+    margin: 8px auto 0;
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.load-latest-btn {
+    padding: 10px 14px;
+    border-radius: 12px;
+    border: none;
+    background: #7b5cff;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(123, 92, 255, 0.3);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.load-latest-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 12px 36px rgba(123, 92, 255, 0.35);
+}
+
 /* RESPONSIVE */
 @media (max-width: 900px) {
     .products-grid {

@@ -1,242 +1,362 @@
 [
     {
-        "search_term": "ice",
-        "product_name": "Go Zero Death By Chocolate Low Calorie Guilt Free Ice Cream Cone",
-        "price": "₹99",
-        "quantity": "Go Zero Death By Chocolate Low Calorie Guilt Free Ice Cream Cone",
+        "search_term": "milk",
+        "product_name": "Sunfeast Baked Creations Rich Choco Chip Cookies",
+        "price": "₹135",
+        "quantity": "120 g",
         "platform": "Blinkit",
         "location": "",
-        "url": "https://www.blinkit.com/s/?q=ice",
-        "raw_text": "10% OFF\n18 MINS\nGo Zero Death By Chocolate Low Calorie Guilt Free Ice Cream Cone\n120 ml\n₹99\n₹110\nADD"
+        "url": "https://www.blinkit.com/s/?q=milk",
+        "raw_text": "10% OFF\n16 MINS\nSunfeast Baked Creations Rich Choco Chip Cookies\n120 g\n₹135\n₹151\nADD"
     },
     {
-        "search_term": "ice",
-        "product_name": "Ice Cubes by Dras Ice",
+        "search_term": "milk",
+        "product_name": "Amul Taaza Toned Milk",
+        "price": "₹57",
+        "quantity": "Amul Taaza Toned Milk",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=milk",
+        "raw_text": "16 MINS\nAmul Taaza Toned Milk\n1 ltr\n₹57\nADD"
+    },
+    {
+        "search_term": "milk",
+        "product_name": "Amul Gold Full Cream Milk",
+        "price": "₹69",
+        "quantity": "Amul Gold Full Cream Milk",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=milk",
+        "raw_text": "16 MINS\nAmul Gold Full Cream Milk\n1 ltr\n₹69\nADD"
+    },
+    {
+        "search_term": "milk",
+        "product_name": "Amul Buffalo A2 Milk",
+        "price": "₹38",
+        "quantity": "Amul Buffalo A2 Milk",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=milk",
+        "raw_text": "16 MINS\nAmul Buffalo A2 Milk\n500 ml\n₹38\nADD"
+    },
+    {
+        "search_term": "milk",
+        "product_name": "Amul Taaza Homogenised Toned Milk",
         "price": "₹75",
-        "quantity": "1 kg",
+        "quantity": "Amul Taaza Homogenised Toned Milk",
         "platform": "Blinkit",
         "location": "",
-        "url": "https://www.blinkit.com/s/?q=ice",
-        "raw_text": "18 MINS\nIce Cubes by Dras Ice\n1 kg\n₹75\nADD"
+        "url": "https://www.blinkit.com/s/?q=milk",
+        "raw_text": "16 MINS\nAmul Taaza Homogenised Toned Milk\n1 ltr\n₹75\nADD"
     },
     {
-        "search_term": "ice",
-        "product_name": "Ice Cubes (Sparkling Supercubes) by Burrf",
-        "price": "₹85",
-        "quantity": "Ice Cubes (Sparkling Supercubes) by Burrf",
+        "search_term": "milk",
+        "product_name": "Amul Moti Toned Milk (90 Days Shelf Life)",
+        "price": "₹32",
+        "quantity": "Amul Moti Toned Milk (90 Days Shelf Life)",
         "platform": "Blinkit",
         "location": "",
-        "url": "https://www.blinkit.com/s/?q=ice",
-        "raw_text": "14% OFF\n18 MINS\nIce Cubes (Sparkling Supercubes) by Burrf\n16 pcs\n₹85\n₹99\nADD"
+        "url": "https://www.blinkit.com/s/?q=milk",
+        "raw_text": "16 MINS\nAmul Moti Toned Milk (90 Days Shelf Life)\n450 ml\n₹32\nADD"
     },
     {
-        "search_term": "ice",
-        "product_name": "Sparkling Ice Cubes by Burrf",
-        "price": "₹75",
-        "quantity": "Sparkling Ice Cubes by Burrf",
+        "search_term": "milk",
+        "product_name": "Amul Lactose Free Milk",
+        "price": "₹25",
+        "quantity": "Amul Lactose Free Milk",
         "platform": "Blinkit",
         "location": "",
-        "url": "https://www.blinkit.com/s/?q=ice",
-        "raw_text": "6% OFF\n18 MINS\nSparkling Ice Cubes by Burrf\n1 kg\n₹75\n₹80\nADD"
+        "url": "https://www.blinkit.com/s/?q=milk",
+        "raw_text": "16 MINS\nAmul Lactose Free Milk\n250 ml\n₹25\nADD"
     },
     {
-        "search_term": "ice",
-        "product_name": "Go Zero French Vanilla Guilt Free Ice Cream Tub",
-        "price": "₹304",
-        "quantity": "Go Zero French Vanilla Guilt Free Ice Cream Tub",
+        "search_term": "milk",
+        "product_name": "Amul Taaza Toned Milk - Pack of 2",
+        "price": "₹32",
+        "quantity": "Amul Taaza Toned Milk - Pack of 2",
         "platform": "Blinkit",
         "location": "",
-        "url": "https://www.blinkit.com/s/?q=ice",
-        "raw_text": "20% OFF\n18 MINS\nGo Zero French Vanilla Guilt Free Ice Cream Tub\n500 ml\n₹304\n₹380\nADD"
+        "url": "https://www.blinkit.com/s/?q=milk",
+        "raw_text": "16 MINS\nAmul Taaza Toned Milk - Pack of 2\n2 x 200 ml\n₹32\n₹33\nADD"
     },
     {
-        "search_term": "ice",
-        "product_name": "Crystal Jenga Ice Cubes (8 pcs) by Newclear Ice",
-        "price": "₹110",
-        "quantity": "Crystal Jenga Ice Cubes (8 pcs) by Newclear Ice",
+        "search_term": "milk",
+        "product_name": "Amul Gold Milk",
+        "price": "₹80",
+        "quantity": "Amul Gold Milk",
         "platform": "Blinkit",
         "location": "",
-        "url": "https://www.blinkit.com/s/?q=ice",
-        "raw_text": "26% OFF\n18 MINS\nCrystal Jenga Ice Cubes (8 pcs) by Newclear Ice\n450 g\n₹110\n₹150\nADD"
+        "url": "https://www.blinkit.com/s/?q=milk",
+        "raw_text": "16 MINS\nAmul Gold Milk\n1 ltr\n₹80\nADD"
     },
     {
-        "search_term": "ice",
-        "product_name": "Nestea Ice Tea Premix - Lemon Flavour",
-        "price": "₹220",
-        "quantity": "Nestea Ice Tea Premix - Lemon Flavour",
+        "search_term": "milk",
+        "product_name": "Mother Dairy FIT Life Homogenized Double Toned Milk (450 ml)",
+        "price": "₹32",
+        "quantity": "Mother Dairy FIT Life Homogenized Double Toned Milk (450 ml)",
         "platform": "Blinkit",
         "location": "",
-        "url": "https://www.blinkit.com/s/?q=ice",
-        "raw_text": "18 MINS\nNestea Ice Tea Premix - Lemon Flavour\n400 g\n₹220\nADD"
+        "url": "https://www.blinkit.com/s/?q=milk",
+        "raw_text": "16 MINS\nMother Dairy FIT Life Homogenized Double Toned Milk (450 ml)\n450 ml\n₹32\nADD"
     },
     {
-        "search_term": "ice",
-        "product_name": "ATLANTIS Instacup Ice Tea Premix",
+        "search_term": "milk",
+        "product_name": "Nestle a+ Toned Milk",
+        "price": "₹108",
+        "quantity": "Nestle a+ Toned Milk",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=milk",
+        "raw_text": "16 MINS\nNestle a+ Toned Milk\n1 ltr\n₹108\nADD"
+    },
+    {
+        "search_term": "milk",
+        "product_name": "Mother Dairy FIT Life Homogenized Double Toned Milk",
+        "price": "₹10",
+        "quantity": "Mother Dairy FIT Life Homogenized Double Toned Milk",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=milk",
+        "raw_text": "16 MINS\nMother Dairy FIT Life Homogenized Double Toned Milk\n115 ml\n₹10\nADD"
+    },
+    {
+        "search_term": "water",
+        "product_name": "Clear Premium Drinking Packaged Water with Added Minerals",
+        "price": "₹65",
+        "quantity": "Clear Premium Drinking Packaged Water with Added Minerals",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=water",
+        "raw_text": "16 MINS\nClear Premium Drinking Packaged Water with Added Minerals\n6 ltr\n₹65\nADD"
+    },
+    {
+        "search_term": "water",
+        "product_name": "Bisleri Packaged Water (1 l)",
+        "price": "₹18",
+        "quantity": "Bisleri Packaged Water (1 l)",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=water",
+        "raw_text": "16 MINS\nBisleri Packaged Water (1 l)\n1 ltr\n₹18\nADD"
+    },
+    {
+        "search_term": "water",
+        "product_name": "Aquafina Packaged Water",
+        "price": "₹18",
+        "quantity": "Aquafina Packaged Water",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=water",
+        "raw_text": "16 MINS\nAquafina Packaged Water\n1 ltr\n₹18\nADD"
+    },
+    {
+        "search_term": "water",
+        "product_name": "Bisleri Packaged Water - Pack of 24",
+        "price": "₹131",
+        "quantity": "Bisleri Packaged Water - Pack of 24",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=water",
+        "raw_text": "16 MINS\nBisleri Packaged Water - Pack of 24\n24 x 250 ml\n₹131\n₹132\nADD"
+    },
+    {
+        "search_term": "water",
+        "product_name": "Dasani Drinking Mineral Water",
+        "price": "₹18",
+        "quantity": "Dasani Drinking Mineral Water",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=water",
+        "raw_text": "16 MINS\nDasani Drinking Mineral Water\n1 ltr\n₹18\nADD"
+    },
+    {
+        "search_term": "water",
+        "product_name": "O'cean Mango & Passion Fruit Flavoured Water - Pack of 2",
+        "price": "₹128",
+        "quantity": "O'cean Mango & Passion Fruit Flavoured Water - Pack of 2",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=water",
+        "raw_text": "8% OFF\n16 MINS\nO'cean Mango & Passion Fruit Flavoured Water - Pack of 2\n2 x 500 ml\n₹128\n₹140\nADD"
+    },
+    {
+        "search_term": "water",
+        "product_name": "O'cean Peach & Passion Fruit Flavoured Water",
+        "price": "₹63",
+        "quantity": "O'cean Peach & Passion Fruit Flavoured Water",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=water",
+        "raw_text": "16 MINS\nO'cean Peach & Passion Fruit Flavoured Water\n500 ml\n₹63\n₹66\nADD"
+    },
+    {
+        "search_term": "water",
+        "product_name": "Clear Premium Packaged Water",
+        "price": "₹264",
+        "quantity": "Clear Premium Packaged Water",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=water",
+        "raw_text": "16 MINS\nClear Premium Packaged Water\n48 x 200 ml\n₹264\nADD"
+    },
+    {
+        "search_term": "water",
+        "product_name": "Bisleri Vedica Mineral Water - Pack of 2",
+        "price": "₹69",
+        "quantity": "Bisleri Vedica Mineral Water - Pack of 2",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=water",
+        "raw_text": "36% OFF\n16 MINS\nBisleri Vedica Mineral Water - Pack of 2\n2 x 1 ltr\n₹69\n₹108\nADD"
+    },
+    {
+        "search_term": "water",
+        "product_name": "O'cean Crispy Apple Flavoured Water",
+        "price": "₹66",
+        "quantity": "O'cean Crispy Apple Flavoured Water",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=water",
+        "raw_text": "5% OFF\n16 MINS\nO'cean Crispy Apple Flavoured Water\n500 ml\n₹66\n₹70\nADD"
+    },
+    {
+        "search_term": "water",
+        "product_name": "Bisleri Vedica Natural Mountain Mineral Water",
+        "price": "₹260",
+        "quantity": "Bisleri Vedica Natural Mountain Mineral Water",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=water",
+        "raw_text": "19% OFF\n16 MINS\nBisleri Vedica Natural Mountain Mineral Water\n24 x 250 ml\n₹260\n₹324\nADD"
+    },
+    {
+        "search_term": "water",
+        "product_name": "Himalayan Natural Mineral Water (Mildly Alkaline) - Pack of 2",
+        "price": "₹119",
+        "quantity": "Himalayan Natural Mineral Water (Mildly Alkaline) - Pack of 2",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=water",
+        "raw_text": "15% OFF\n16 MINS\nHimalayan Natural Mineral Water (Mildly Alkaline) - Pack of 2\n2 x 1 ltr\n₹119\n₹140\nADD"
+    },
+    {
+        "search_term": "water",
+        "product_name": "Clear Premium Packaged Water",
+        "price": "₹264",
+        "quantity": "Clear Premium Packaged Water",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=water",
+        "raw_text": "8 MINS\nClear Premium Packaged Water\n48 x 200 ml\n₹264\nADD"
+    },
+    {
+        "search_term": "water",
+        "product_name": "Bisleri Packaged Water (1 l)",
+        "price": "₹18",
+        "quantity": "Bisleri Packaged Water (1 l)",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=water",
+        "raw_text": "8 MINS\nBisleri Packaged Water (1 l)\n1 ltr\n₹18\nADD"
+    },
+    {
+        "search_term": "water",
+        "product_name": "Aquafina Packaged Water",
+        "price": "₹18",
+        "quantity": "Aquafina Packaged Water",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=water",
+        "raw_text": "8 MINS\nAquafina Packaged Water\n1 ltr\n₹18\nADD"
+    },
+    {
+        "search_term": "water",
+        "product_name": "Bisleri Packaged Water",
+        "price": "₹108",
+        "quantity": "Bisleri Packaged Water",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=water",
+        "raw_text": "8 MINS\nBisleri Packaged Water\n10 ltr\n₹108\nADD"
+    },
+    {
+        "search_term": "water",
+        "product_name": "O'cean Fruit Drink Tropic Pineapple Flavoured Water",
+        "price": "₹94",
+        "quantity": "O'cean Fruit Drink Tropic Pineapple Flavoured Water",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=water",
+        "raw_text": "41% OFF\n8 MINS\nO'cean Fruit Drink Tropic Pineapple Flavoured Water\n1 ltr\n₹94\n₹160\nADD"
+    },
+    {
+        "search_term": "water",
+        "product_name": "Bisleri Packaged Water - Pack of 24",
+        "price": "₹131",
+        "quantity": "Bisleri Packaged Water - Pack of 24",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=water",
+        "raw_text": "8 MINS\nBisleri Packaged Water - Pack of 24\n24 x 250 ml\n₹131\n₹132\nADD"
+    },
+    {
+        "search_term": "water",
+        "product_name": "O'cean Mango & Passion Fruit Flavoured Water",
+        "price": "₹68",
+        "quantity": "O'cean Mango & Passion Fruit Flavoured Water",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=water",
+        "raw_text": "8 MINS\nO'cean Mango & Passion Fruit Flavoured Water\n500 ml\n₹68\n₹70\nADD"
+    },
+    {
+        "search_term": "water",
+        "product_name": "O'cean Peach & Passion Fruit Flavoured Water",
+        "price": "₹64",
+        "quantity": "O'cean Peach & Passion Fruit Flavoured Water",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=water",
+        "raw_text": "8 MINS\nO'cean Peach & Passion Fruit Flavoured Water\n500 ml\n₹64\n₹66\nADD"
+    },
+    {
+        "search_term": "water",
+        "product_name": "Evian Natural Mineral Water",
         "price": "₹160",
-        "quantity": "400 g",
+        "quantity": "Evian Natural Mineral Water",
         "platform": "Blinkit",
         "location": "",
-        "url": "https://www.blinkit.com/s/?q=ice",
-        "raw_text": "20% OFF\n30 MINS\nATLANTIS Instacup Ice Tea Premix\n400 g\n₹160\n₹200\nADD"
+        "url": "https://www.blinkit.com/s/?q=water",
+        "raw_text": "8 MINS\nEvian Natural Mineral Water\n500 ml\n₹160\nADD"
     },
     {
-        "search_term": "ice",
-        "product_name": "Go Zero Simply Sitaphal Ice Cream Cup",
-        "price": "₹95",
-        "quantity": "Go Zero Simply Sitaphal Ice Cream Cup",
+        "search_term": "water",
+        "product_name": "O'cean Crispy Apple Flavoured Water",
+        "price": "₹68",
+        "quantity": "O'cean Crispy Apple Flavoured Water",
         "platform": "Blinkit",
         "location": "",
-        "url": "https://www.blinkit.com/s/?q=ice",
-        "raw_text": "9% OFF\n18 MINS\nGo Zero Simply Sitaphal Ice Cream Cup\n100 ml\n₹95\n₹105\nADD"
+        "url": "https://www.blinkit.com/s/?q=water",
+        "raw_text": "8 MINS\nO'cean Crispy Apple Flavoured Water\n500 ml\n₹68\n₹70\nADD"
     },
     {
-        "search_term": "ice",
-        "product_name": "Chaayos Instant Peach Ice Tea Premix",
-        "price": "₹99",
-        "quantity": "10 pcs",
+        "search_term": "water",
+        "product_name": "Himalayan Natural Mineral Water (Mildly Alkaline) - Pack of 2",
+        "price": "₹119",
+        "quantity": "Himalayan Natural Mineral Water (Mildly Alkaline) - Pack of 2",
         "platform": "Blinkit",
         "location": "",
-        "url": "https://www.blinkit.com/s/?q=ice",
-        "raw_text": "6% OFF\n18 MINS\nChaayos Instant Peach Ice Tea Premix\n10 pcs\n₹99\n₹106\nADD"
+        "url": "https://www.blinkit.com/s/?q=water",
+        "raw_text": "15% OFF\n8 MINS\nHimalayan Natural Mineral Water (Mildly Alkaline) - Pack of 2\n2 x 1 ltr\n₹119\n₹140\nADD"
     },
     {
-        "search_term": "ice",
-        "product_name": "Chaayos Instant Lemon Ice Tea Premix",
-        "price": "₹99",
-        "quantity": "10 pcs",
+        "search_term": "water",
+        "product_name": "Bisleri Vedica Natural Mountain Mineral Water",
+        "price": "₹260",
+        "quantity": "Bisleri Vedica Natural Mountain Mineral Water",
         "platform": "Blinkit",
         "location": "",
-        "url": "https://www.blinkit.com/s/?q=ice",
-        "raw_text": "6% OFF\n18 MINS\nChaayos Instant Lemon Ice Tea Premix\n10 pcs\n₹99\n₹106\nADD"
-    },
-    {
-        "search_term": "ice",
-        "product_name": "ATLANTIS Instacup Lemon Ice Tea Premix Single Serve Sachets",
-        "price": "₹180",
-        "quantity": "ATLANTIS Instacup Lemon Ice Tea Premix Single Serve Sachets",
-        "platform": "Blinkit",
-        "location": "",
-        "url": "https://www.blinkit.com/s/?q=ice",
-        "raw_text": "33% OFF\n30 MINS\nATLANTIS Instacup Lemon Ice Tea Premix Single Serve Sachets\n15 pcs\n₹180\n₹270\nADD"
-    },
-    {
-        "search_term": "bread",
-        "product_name": "The Health Factory Zero Maida Whole Wheat Bread",
-        "price": "₹54",
-        "quantity": "The Health Factory Zero Maida Whole Wheat Bread",
-        "platform": "Blinkit",
-        "location": "",
-        "url": "https://www.blinkit.com/s/?q=bread",
-        "raw_text": "17 MINS\nThe Health Factory Zero Maida Whole Wheat Bread\n250 g\n₹54\n₹55\nADD"
-    },
-    {
-        "search_term": "bread",
-        "product_name": "Harvest Gold White Bread",
-        "price": "₹30",
-        "quantity": "Harvest Gold White Bread",
-        "platform": "Blinkit",
-        "location": "",
-        "url": "https://www.blinkit.com/s/?q=bread",
-        "raw_text": "17 MINS\nHarvest Gold White Bread\n350 g\n₹30\nADD"
-    },
-    {
-        "search_term": "bread",
-        "product_name": "Harvest Gold 100% Atta Whole Wheat Bread",
-        "price": "₹60",
-        "quantity": "Harvest Gold 100% Atta Whole Wheat Bread",
-        "platform": "Blinkit",
-        "location": "",
-        "url": "https://www.blinkit.com/s/?q=bread",
-        "raw_text": "17 MINS\nHarvest Gold 100% Atta Whole Wheat Bread\n450 g\n₹60\nADD"
-    },
-    {
-        "search_term": "bread",
-        "product_name": "English Oven Premium White Bread 350 g",
-        "price": "₹30",
-        "quantity": "English Oven Premium White Bread 350 g",
-        "platform": "Blinkit",
-        "location": "",
-        "url": "https://www.blinkit.com/s/?q=bread",
-        "raw_text": "17 MINS\nEnglish Oven Premium White Bread 350 g\n350 g\n₹30\nADD"
-    },
-    {
-        "search_term": "bread",
-        "product_name": "Mother Dairy Ultimate White Bread",
-        "price": "₹34",
-        "quantity": "Mother Dairy Ultimate White Bread",
-        "platform": "Blinkit",
-        "location": "",
-        "url": "https://www.blinkit.com/s/?q=bread",
-        "raw_text": "15% OFF\n17 MINS\nMother Dairy Ultimate White Bread\n450 g\n₹34\n₹40\nADD"
-    },
-    {
-        "search_term": "bread",
-        "product_name": "English Oven Zero maida 100% Atta/ Wheat Bread",
-        "price": "₹55",
-        "quantity": "English Oven Zero maida 100% Atta/ Wheat Bread",
-        "platform": "Blinkit",
-        "location": "",
-        "url": "https://www.blinkit.com/s/?q=bread",
-        "raw_text": "17 MINS\nEnglish Oven Zero maida 100% Atta/ Wheat Bread\n400 g\n₹55\nADD"
-    },
-    {
-        "search_term": "bread",
-        "product_name": "English Oven Brown Bread",
-        "price": "₹55",
-        "quantity": "English Oven Brown Bread",
-        "platform": "Blinkit",
-        "location": "",
-        "url": "https://www.blinkit.com/s/?q=bread",
-        "raw_text": "17 MINS\nEnglish Oven Brown Bread\n400 g\n₹55\nADD"
-    },
-    {
-        "search_term": "bread",
-        "product_name": "Harvest Gold Hearty Brown Bread",
-        "price": "₹55",
-        "quantity": "Harvest Gold Hearty Brown Bread",
-        "platform": "Blinkit",
-        "location": "",
-        "url": "https://www.blinkit.com/s/?q=bread",
-        "raw_text": "17 MINS\nHarvest Gold Hearty Brown Bread\n400 g\n₹55\nADD"
-    },
-    {
-        "search_term": "bread",
-        "product_name": "Harvest Gold Milk Bread",
-        "price": "₹50",
-        "quantity": "Harvest Gold Milk Bread",
-        "platform": "Blinkit",
-        "location": "",
-        "url": "https://www.blinkit.com/s/?q=bread",
-        "raw_text": "17 MINS\nHarvest Gold Milk Bread\n400 g\n₹50\nADD"
-    },
-    {
-        "search_term": "bread",
-        "product_name": "English Oven Milk Bread",
-        "price": "₹50",
-        "quantity": "English Oven Milk Bread",
-        "platform": "Blinkit",
-        "location": "",
-        "url": "https://www.blinkit.com/s/?q=bread",
-        "raw_text": "17 MINS\nEnglish Oven Milk Bread\n400 g\n₹50\nADD"
-    },
-    {
-        "search_term": "bread",
-        "product_name": "English Oven Zero Maida Multigrain Bread",
-        "price": "₹70",
-        "quantity": "English Oven Zero Maida Multigrain Bread",
-        "platform": "Blinkit",
-        "location": "",
-        "url": "https://www.blinkit.com/s/?q=bread",
-        "raw_text": "17 MINS\nEnglish Oven Zero Maida Multigrain Bread\n400 g\n₹70\nADD"
-    },
-    {
-        "search_term": "bread",
-        "product_name": "Harvest Gold Multigrain Bread",
-        "price": "₹70",
-        "quantity": "Harvest Gold Multigrain Bread",
-        "platform": "Blinkit",
-        "location": "",
-        "url": "https://www.blinkit.com/s/?q=bread",
-        "raw_text": "17 MINS\nHarvest Gold Multigrain Bread\n450 g\n₹70\nADD"
+        "url": "https://www.blinkit.com/s/?q=water",
+        "raw_text": "19% OFF\n8 MINS\nBisleri Vedica Natural Mountain Mineral Water\n24 x 250 ml\n₹260\n₹324\nADD"
     }
 ]

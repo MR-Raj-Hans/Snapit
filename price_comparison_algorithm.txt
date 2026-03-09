@@ -1,0 +1,54 @@
+Price comparison algorithm overview
+===================================
+
+Primary file
+- htmlfile/product.js: client-side grouping, deduplication, unit parsing, unit-price computation, rendering, and best-price selection.
+
+Key steps
+1) Normalize names
+- Function: normalizeName(str)
+- Lowercases, strips non-alphanumerics, collapses spaces to build grouping keys.
+
+2) Similarity-based grouping
+- Function: nameSimilarity(a,b) uses token overlap (Sorensen-Dice style). Score >= 0.9 merges products to the same group so minor name differences stay together.
+- chooseKey(name) picks an existing group key if similarity threshold met, otherwise creates a new group.
+
+3) Bucketing by platform
+- Each group holds arrays: zepto, blinkit, other based on item.platform.
+- Deduplication per bucket via dedupeByKey (unique by platform|product_name|price|quantity|url).
+
+4) Price parsing
+- parsePrice(value): strips currency symbols, parses float; returns null if NaN.
+
+5) Quantity parsing and unit price
+- parseQuantity(value): extracts amount + unit (g, kg, ml, l, pcs). Returns null if missing.
+- computeComparablePrice(row): uses parsed price and quantity to compute unitPrice if possible:
+  * For weight: converts to grams, computes price per 100g.
+  * For volume: converts to ml, computes price per 100ml.
+  * Falls back to raw price when quantity absent.
+  Returns { price, unitPrice, unitLabel }.
+
+6) Rendering compare grid
+- For each group, takes first Zepto row and first Blinkit row.
+- buildCol() renders price, quantity/raw_text, and unit price (if computed). Click opens row.url.
+
+7) Best-price selection for history
+- Uses computeComparablePrice on the first group’s top rows.
+- Compares unitPrice when available, otherwise raw price.
+- Records history with best price and absolute savings difference.
+
+Entry points
+- renderProducts(items, priorityTerm): orchestrates grouping, ordering, rendering, and history logging.
+- fetchAndRender(term): fetches /results from Zepto (5000) and Blinkit (5001), then calls renderProducts.
+
+Server/API context
+- Data sources: Flask APIs
+  * server.py (Zepto) listens on 5000
+  * server_blinkit.py (Blinkit) listens on 5001
+- Scrapers: scraped.py (Zepto), scraped_blinkit.py (Blinkit) populate Mongo/JSON used by the APIs.
+
+Hot spots if you need to change behavior
+- Similarity threshold: nameSimilarity/chooseKey (>=0.9) in product.js
+- Unit-price baseline: computeComparablePrice (per 100g / per 100ml)
+- Platform pairing: currently just top Zepto vs top Blinkit rows (first in each bucket)
+- Deduping: dedupeByKey signature in product.js
