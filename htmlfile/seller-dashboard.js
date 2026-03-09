@@ -1,3 +1,5 @@
+const API_BASE = window.SNAPIT_API_BASE || localStorage.getItem("snapit_api_base") || "http://localhost:5000";
+
 document.addEventListener("DOMContentLoaded", () => {
   const user = getUser();
   hydrateProfile(user);
@@ -26,6 +28,50 @@ function hydrateProfile(user) {
   setText("waMini", d.whatsapp || "—");
   setText("phoneMini", d.phone || "—");
   setText("emailMini", d.sellerEmail || user.email || "—");
+}
+
+function showModal({ title, body, onSubmit, submitLabel = "Save" }) {
+  const backdrop = document.createElement("div");
+  backdrop.className = "modal-backdrop";
+
+  const modal = document.createElement("div");
+  modal.className = "modal";
+
+  const header = document.createElement("div");
+  header.className = "modal-head";
+  header.innerHTML = `<h3>${title}</h3><button class="ghost close-btn" aria-label="Close">✕</button>`;
+
+  const content = document.createElement("div");
+  content.className = "modal-body";
+  content.appendChild(body);
+
+  const footer = document.createElement("div");
+  footer.className = "modal-foot";
+  const submit = document.createElement("button");
+  submit.className = "primary";
+  submit.textContent = submitLabel;
+  footer.appendChild(submit);
+
+  modal.appendChild(header);
+  modal.appendChild(content);
+  modal.appendChild(footer);
+  backdrop.appendChild(modal);
+  document.body.appendChild(backdrop);
+
+  const close = () => backdrop.remove();
+  header.querySelector(".close-btn")?.addEventListener("click", close);
+  backdrop.addEventListener("click", (e) => {
+    if (e.target === backdrop) close();
+  });
+
+  submit.addEventListener("click", async () => {
+    try {
+      const ok = await onSubmit();
+      if (ok !== false) close();
+    } catch (err) {
+      console.error(err);
+    }
+  });
 }
 
 function bindControls(user) {
@@ -81,7 +127,7 @@ async function fetchProducts(user) {
 
   table.innerHTML = `<div class="row"><div class="empty">Loading products...</div></div>`;
   try {
-    const resp = await fetch(`/seller/products?seller_id=${encodeURIComponent(sellerId)}&include_contact=1`);
+    const resp = await fetch(`${API_BASE}/seller/products?seller_id=${encodeURIComponent(sellerId)}&include_contact=1`);
     if (!resp.ok) throw new Error("Failed to load products");
     const data = await resp.json();
     renderProducts(data.items || []);
@@ -131,7 +177,7 @@ async function addProductFlow(user) {
   const category = prompt("Category?") || "";
 
   try {
-    const resp = await fetch(`/seller/products`, {
+    const resp = await fetch(`${API_BASE}/seller/products`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -156,18 +202,102 @@ async function addProductFlow(user) {
 
 async function editProfileFlow(user) {
   if (!user?.id) return alert("Please login again.");
-  const shop = prompt("Store name?", user.sellerDetails?.shop || "") || "";
-  const address = prompt("Store address?", user.sellerDetails?.address || "") || "";
-  const gst = prompt("GST?", user.sellerDetails?.gst || "") || "";
-  await updateProfile(user, { ...user.sellerDetails, shop, address, gst });
+  const mount = document.getElementById("profileInlineEditor");
+  if (!mount) return;
+
+  const close = () => mount.classList.add("hidden");
+
+  mount.innerHTML = `
+    <div class="inline-card">
+      <div class="inline-head">
+        <h4>Edit store profile</h4>
+        <button class="ghost" id="inlineCloseBtn" type="button">✕</button>
+      </div>
+      <div class="form-grid">
+        <label>Store name<input id="shopInput" type="text" value="${escapeHtml(user.sellerDetails?.shop || "")}"></label>
+        <label>Store address<textarea id="addrInput" rows="3">${escapeHtml(user.sellerDetails?.address || "")}</textarea></label>
+        <label>GST (optional)<input id="gstInput" type="text" value="${escapeHtml(user.sellerDetails?.gst || "")}"></label>
+      </div>
+      <div class="inline-actions">
+        <button class="ghost" id="inlineCancelBtn" type="button">Cancel</button>
+        <button class="primary" id="inlineSaveBtn" type="button">Save changes</button>
+      </div>
+    </div>
+  `;
+
+  mount.classList.remove("hidden");
+
+  mount.querySelector("#inlineCloseBtn")?.addEventListener("click", close);
+  mount.querySelector("#inlineCancelBtn")?.addEventListener("click", close);
+
+  mount.querySelector("#inlineSaveBtn")?.addEventListener("click", async () => {
+    const shop = mount.querySelector("#shopInput")?.value.trim() || "";
+    const address = mount.querySelector("#addrInput")?.value.trim() || "";
+    const gst = mount.querySelector("#gstInput")?.value.trim() || "";
+    await updateProfile(user, { ...user.sellerDetails, shop, address, gst });
+    close();
+  });
 }
 
 async function editContactFlow(user) {
   if (!user?.id) return alert("Please login again.");
-  const sellerEmail = prompt("Contact email?", user.sellerDetails?.sellerEmail || user.email || "") || "";
-  const whatsapp = prompt("WhatsApp?", user.sellerDetails?.whatsapp || "") || "";
-  const phone = prompt("Phone?", user.sellerDetails?.phone || "") || "";
-  await updateProfile(user, { ...user.sellerDetails, sellerEmail, whatsapp, phone });
+  let otpCode = null;
+  const mount = document.getElementById("contactInlineEditor");
+  if (!mount) return;
+
+  const close = () => mount.classList.add("hidden");
+
+  mount.innerHTML = `
+    <div class="inline-card">
+      <div class="inline-head">
+        <h4>Update contacts</h4>
+        <button class="ghost" id="contactCloseBtn" type="button">✕</button>
+      </div>
+      <div class="form-grid">
+        <label>Email<input id="emailInput" type="email" value="${escapeHtml(user.sellerDetails?.sellerEmail || user.email || "")}"></label>
+        <label>WhatsApp<input id="waInput" type="tel" value="${escapeHtml(user.sellerDetails?.whatsapp || "")}" placeholder="Include country code"></label>
+        <label>Phone<input id="phoneInput" type="tel" value="${escapeHtml(user.sellerDetails?.phone || "")}"></label>
+        <div class="otp-row">
+          <div>
+            <label>OTP<input id="otpInput" type="text" placeholder="Enter OTP" maxlength="6"></label>
+          </div>
+          <button class="ghost" id="sendOtpBtn" type="button">Send OTP</button>
+        </div>
+        <div class="hint">For demo, OTP is shown after you click Send OTP.</div>
+      </div>
+      <div class="inline-actions">
+        <button class="ghost" id="contactCancelBtn" type="button">Cancel</button>
+        <button class="primary" id="contactSaveBtn" type="button">Verify & Save</button>
+      </div>
+    </div>
+  `;
+
+  mount.classList.remove("hidden");
+
+  mount.querySelector("#contactCloseBtn")?.addEventListener("click", close);
+  mount.querySelector("#contactCancelBtn")?.addEventListener("click", close);
+
+  mount.querySelector("#sendOtpBtn")?.addEventListener("click", () => {
+    otpCode = String(Math.floor(100000 + Math.random() * 900000));
+    alert(`OTP sent (demo): ${otpCode}`);
+  });
+
+  mount.querySelector("#contactSaveBtn")?.addEventListener("click", async () => {
+    const sellerEmail = mount.querySelector("#emailInput")?.value.trim() || "";
+    const whatsapp = mount.querySelector("#waInput")?.value.trim() || "";
+    const phone = mount.querySelector("#phoneInput")?.value.trim() || "";
+    const enteredOtp = mount.querySelector("#otpInput")?.value.trim();
+    if (!otpCode) {
+      alert("Send OTP first.");
+      return;
+    }
+    if (enteredOtp !== otpCode) {
+      alert("Invalid OTP.");
+      return;
+    }
+    await updateProfile(user, { ...user.sellerDetails, sellerEmail, whatsapp, phone });
+    close();
+  });
 }
 
 async function editOwnerFlow(user) {
@@ -178,7 +308,7 @@ async function editOwnerFlow(user) {
 
 async function updateProfile(user, sellerDetails) {
   try {
-    const resp = await fetch(`/seller/profile/update`, {
+    const resp = await fetch(`${API_BASE}/seller/profile/update`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ seller_id: user.id, sellerDetails }),
@@ -200,7 +330,7 @@ async function addNoticeFlow(user) {
   if (!title) return;
   const message = prompt("Notice message?") || "";
   try {
-    const resp = await fetch(`/seller/notices`, {
+    const resp = await fetch(`${API_BASE}/seller/notices`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ seller_id: user.id, title, message }),
@@ -222,7 +352,7 @@ async function fetchNotices(user) {
   }
   list.innerHTML = `<div class="empty">Loading notices...</div>`;
   try {
-    const resp = await fetch(`/seller/notices?seller_id=${encodeURIComponent(user.id)}`);
+    const resp = await fetch(`${API_BASE}/seller/notices?seller_id=${encodeURIComponent(user.id)}`);
     if (!resp.ok) throw new Error("Load failed");
     const data = await resp.json();
     const items = data.items || [];
@@ -240,7 +370,7 @@ async function fetchNotices(user) {
 async function viewHistory(user) {
   if (!user?.id) return alert("Please login again.");
   try {
-    const resp = await fetch(`/seller/history?seller_id=${encodeURIComponent(user.id)}`);
+    const resp = await fetch(`${API_BASE}/seller/history?seller_id=${encodeURIComponent(user.id)}`);
     if (!resp.ok) throw new Error("Load failed");
     const data = await resp.json();
     const lines = (data.items || []).map(h => `${h.created_at || ""} • ${h.action || ""}`);
