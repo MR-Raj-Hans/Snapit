@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snap It ⚡ Seller Sign Up</title>
+  <link rel="icon" type="image/svg+xml" href="images/snapit-bolt.svg">
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="sign-up-seller.css">
+</head>
+
+<body>
+
+  <div class="layout">
+    <div class="welcome">
+      <p class="badge">New</p>
+      <h1>Become a Seller with Snap It</h1>
+      <p class="lead">Launch your store, reach nearby customers, and manage orders in one clean dashboard.</p>
+      <ul class="benefits">
+        <li>Fast onboarding with OTP</li>
+        <li>Separate buyer and seller access</li>
+        <li>Secure payments-ready profile</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <p class="eyebrow">Seller Account</p>
+          <h2>Set up your profile</h2>
+          <p class="subtext">Tell us about you and your store so we can verify and route orders correctly.</p>
+        </div>
+        <div class="bolt">
+          <a href="landing.html" class="bolt-link" aria-label="Back to home">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+              <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" fill="white" />
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Account details</div>
+        <div class="top-grid">
+          <div class="field">
+            <label for="signupName">Full Name</label>
+            <input type="text" id="signupName" placeholder="Enter Full Name" autocomplete="name">
+          </div>
+
+          <div class="field">
+            <label for="signupEmail">Login Email</label>
+            <input type="email" id="signupEmail" placeholder="Enter Email" autocomplete="email">
+          </div>
+
+          <div class="field full">
+            <label for="pwd">Password</label>
+            <div class="input-wrapper">
+              <input type="password" id="pwd" placeholder="Create password" autocomplete="new-password">
+              <button type="button" class="eye" onclick="togglePwd()" aria-label="Toggle password visibility">👁</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Store info</div>
+        <div class="seller-form">
+          <div class="field">
+            <label for="sellerOwner">Owner Name</label>
+            <input type="text" id="sellerOwner" placeholder="Enter Owner Name">
+          </div>
+          <div class="field">
+            <label for="sellerShop">Shop Name</label>
+            <input type="text" id="sellerShop" placeholder="Enter Shop Name">
+          </div>
+          <div class="field">
+            <label for="sellerType">Type of Shop</label>
+            <select id="sellerType" class="select-input" aria-label="Type of Shop">
+              <option value="">Select type</option>
+              <option value="grocery">Grocery</option>
+              <option value="medical">Medical</option>
+              <option value="fruits">Fruits</option>
+              <option value="veggies">Veggies</option>
+              <option value="mart">Mart</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="sellerEmail">Shop Email</label>
+            <input type="email" id="sellerEmail" placeholder="Shop email (optional if same as login)">
+          </div>
+          <div class="field">
+            <label for="sellerWhatsapp">WhatsApp Contact</label>
+            <input type="tel" id="sellerWhatsapp" placeholder="WhatsApp number">
+          </div>
+          <div class="field">
+            <label for="sellerPhone">Phone Contact</label>
+            <input type="tel" id="sellerPhone" placeholder="Alternate contact number">
+          </div>
+          <div class="field full">
+            <label for="sellerAddress">Shop Address</label>
+            <textarea id="sellerAddress" class="textarea-input" rows="2" placeholder="Full address with city and pincode"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Verification</div>
+        <div class="seller-form compact">
+          <div class="field">
+            <label for="sellerGst">GST Number</label>
+            <input type="text" id="sellerGst" placeholder="GSTIN (optional)">
+          </div>
+          <div class="field full">
+            <label for="sellerOtp">OTP Verification</label>
+            <div class="otp-group">
+              <input type="text" id="sellerOtp" placeholder="Enter OTP">
+              <button class="otp-btn" type="button" onclick="sendOtp()">Send OTP</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <label class="checkbox" for="termsChk">
+        <input type="checkbox" id="termsChk">
+        <span>I agree to the processing of <strong>Personal data</strong></span>
+      </label>
+
+      <button class="btn" onclick="signupSeller()">Create Seller Account</button>
+
+      <div class="alt-link">
+        Want a buyer account? <a href="sign-up.html">Sign up as a user →</a>
+      </div>
+
+      <div class="footer footer-spaced">
+        <a href="landing.html">← Back to Home</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="theme-btn theme-floating" id="themeBtn">🌙</div>
+
+  <script src="theme.js"></script>
+  <script src="sign-up-seller.js"></script>
+</body>
+
+</html>

@@ -7,9 +7,15 @@ async function signup() {
     const name = document.getElementById("signupName")?.value.trim();
     const email = document.getElementById("signupEmail")?.value.trim();
     const password = document.getElementById("pwd")?.value;
+    const terms = document.getElementById("termsChk")?.checked;
 
     if (!name || !email || !password) {
         alert("Please fill in name, email, and password.");
+        return;
+    }
+
+    if (!terms) {
+        alert("Please accept the terms to continue.");
         return;
     }
 
@@ -17,13 +23,14 @@ async function signup() {
         const res = await fetch("http://localhost:5000/auth/signup", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ name, email, password })
+            body: JSON.stringify({ name, email, password, role: "customer" })
         });
         const body = await res.json();
         if (!res.ok) {
             alert(body.error || "Sign up failed.");
             return;
         }
+        localStorage.setItem("snapit_role", "customer");
         localStorage.setItem("snapit_user", JSON.stringify(body.user));
         window.location.href = "sign in.html";
     } catch (err) {

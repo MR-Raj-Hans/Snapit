@@ -597,6 +597,185 @@ document.addEventListener('DOMContentLoaded', () => {
     const locationPill = document.getElementById('locationPill');
     const locationDropdown = document.getElementById('locationDropdown');
     const locationText = document.getElementById('locationText');
+    const addrPinInput = document.getElementById('addrPin');
+    const addrAreaInput = document.getElementById('addrArea');
+    const addrRoadInput = document.getElementById('addrRoad');
+    const addrFlatInput = document.getElementById('addrFlat');
+
+    const setLocationDisplay = (label) => {
+        if (locationText) locationText.innerText = label;
+    };
+
+    const fillAddressInputs = ({ area, road, pin, flat }) => {
+        if (addrAreaInput && area) addrAreaInput.value = area;
+        if (addrRoadInput && road) addrRoadInput.value = road;
+        if (addrPinInput && pin) addrPinInput.value = pin;
+        if (addrFlatInput && flat) addrFlatInput.value = flat;
+    };
+
+    const formatGeoLabel = (geo, coords) => {
+        const parts = [];
+        if (geo?.locality) parts.push(geo.locality);
+        else if (geo?.city) parts.push(geo.city);
+        if (geo?.principalSubdivision) parts.push(geo.principalSubdivision);
+        if (!parts.length && geo?.countryName) parts.push(geo.countryName);
+        if (!parts.length && coords) parts.push(`${coords.latitude.toFixed(3)}, ${coords.longitude.toFixed(3)}`);
+        return parts.join(', ') || 'Current location';
+    };
+
+    const reverseGeocode = async (coords) => {
+        const url = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${coords.latitude}&longitude=${coords.longitude}&localityLanguage=en`;
+        const resp = await fetch(url);
+        if (!resp.ok) throw new Error('Reverse geocode failed');
+        return resp.json();
+    };
+
+    const ipGeocode = async () => {
+        const resp = await fetch('https://ipapi.co/json/');
+        if (!resp.ok) throw new Error('IP geocode failed');
+        return resp.json();
+    };
+
+    const formatIpLabel = (ipGeo) => {
+        const parts = [];
+        if (ipGeo?.city) parts.push(ipGeo.city);
+        if (ipGeo?.region) parts.push(ipGeo.region);
+        if (ipGeo?.country_name) parts.push(ipGeo.country_name);
+        return parts.join(', ') || 'Approximate location';
+    };
+
+    const applyLocation = ({ label, geo, coords }) => {
+        setLocationDisplay(label);
+        fillAddressInputs({
+            area: geo?.locality || geo?.city || '',
+            road: '',
+            pin: geo?.postcode || geo?.postCode || geo?.postal || '',
+            flat: ''
+        });
+        persistLocation({ label, coords, geo, ts: Date.now() });
+        if (locationDropdown) locationDropdown.classList.remove('active');
+    };
+
+    const fallbackToIpLocation = async () => {
+        try {
+            setLocationDisplay('Detecting via network...');
+            const ipGeo = await ipGeocode();
+            const label = formatIpLabel(ipGeo);
+            applyLocation({ label, geo: { ...ipGeo, city: ipGeo.city, postcode: ipGeo.postal }, coords: null });
+            return label;
+        } catch (e) {
+            setLocationDisplay('Location unavailable');
+            throw e;
+        }
+    };
+
+    const persistLocation = (payload) => {
+        try {
+            localStorage.setItem('snapit_geo', JSON.stringify(payload));
+        } catch (e) {
+            // ignore storage failures
+        }
+    };
+
+    const readPersistedLocation = () => {
+        try {
+            const raw = localStorage.getItem('snapit_geo');
+            if (!raw) return null;
+            return JSON.parse(raw);
+        } catch (e) {
+            return null;
+        }
+    };
+
+    const detectAndSetLocation = async ({ auto = false } = {}) => {
+        if (!navigator.geolocation) {
+            try {
+                return await fallbackToIpLocation();
+            } catch (e) {
+                return;
+            }
+        }
+
+        setLocationDisplay(auto ? 'Detecting...' : 'Detecting current location...');
+
+        return new Promise((resolve, reject) => {
+            navigator.geolocation.getCurrentPosition(async (position) => {
+                try {
+                    const coords = position.coords;
+                    let geo = null;
+                    try {
+                        geo = await reverseGeocode(coords);
+                    } catch (e) {
+                        // reverse geocode is best-effort
+                    }
+
+                    const label = formatGeoLabel(geo, coords);
+                    applyLocation({ label, geo, coords });
+                    resolve(label);
+                } catch (err) {
+                    setLocationDisplay('Location available');
+                    try {
+                        const label = await fallbackToIpLocation();
+                        resolve(label);
+                    } catch (fallbackErr) {
+                        reject(err);
+                    }
+                }
+            }, async (error) => {
+                let msg = 'Location unavailable';
+                if (error.code === error.PERMISSION_DENIED) msg = 'Permission denied';
+                if (error.code === error.POSITION_UNAVAILABLE) msg = 'Position unavailable';
+                if (error.code === error.TIMEOUT) msg = 'Request timed out';
+                setLocationDisplay(msg);
+                if (!auto) alert(msg);
+                try {
+                    const label = await fallbackToIpLocation();
+                    resolve(label);
+                } catch (fallbackErr) {
+                    reject(error);
+                }
+            }, {
+                enableHighAccuracy: true,
+                timeout: 7000,
+                maximumAge: 0
+            });
+        });
+    };
+
+    const hydrateLocationFromCache = () => {
+        const cached = readPersistedLocation();
+        if (!cached || !cached.label) return { hydrated: false, stale: false };
+
+        const ageMs = Date.now() - (cached.ts || 0);
+        const freshWindowMs = 30 * 60 * 1000; // treat cache older than 30 min as stale
+
+        // Always surface the cached label immediately for a snappy UI
+        setLocationDisplay(cached.label);
+        fillAddressInputs({
+            area: cached.geo?.locality || cached.geo?.city || '',
+            road: '',
+            pin: cached.geo?.postcode || cached.geo?.postCode || '',
+            flat: ''
+        });
+
+        const isFresh = Number.isFinite(ageMs) && ageMs < freshWindowMs;
+        return { hydrated: true, stale: !isFresh };
+    };
+
+    const autoDetectLocation = async () => {
+        const { hydrated, stale } = hydrateLocationFromCache();
+        // If we have a recent cached location, keep it; otherwise refresh in background
+        if (hydrated && !stale) return;
+        try {
+            await detectAndSetLocation({ auto: true });
+        } catch (e) {
+            try {
+                await fallbackToIpLocation();
+            } catch (err) {
+                // silent failure for auto
+            }
+        }
+    };
 
     if (locationPill && locationDropdown) {
         // Toggle
@@ -647,41 +826,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentLocBtn = document.getElementById('currentLocationBtn');
     if (currentLocBtn) {
         currentLocBtn.addEventListener('click', () => {
-            if (!navigator.geolocation) {
-                alert("Geolocation is not supported by your browser.");
-                return;
-            }
-
-            if (locationText) locationText.innerText = "Detecting...";
-
-            navigator.geolocation.getCurrentPosition((position) => {
-                // Success
-                setTimeout(() => {
-                    if (locationText) locationText.innerText = "Indiranagar, Bangalore";
-                    if (locationDropdown) locationDropdown.classList.remove('active');
-
-                    // Optional fill
-                    const areaField = document.getElementById('addrArea');
-                    const roadField = document.getElementById('addrRoad');
-                    if (areaField) areaField.value = "Indiranagar";
-                    if (roadField) roadField.value = "100 Feet Road";
-                }, 800);
-
-            }, (error) => {
-                // Error
-                console.error("Error getting location:", error);
-                let msg = "Location error.";
-                switch (error.code) {
-                    case error.PERMISSION_DENIED: msg = "Permission denied."; break;
-                    case error.POSITION_UNAVAILABLE: msg = "Position unavailable."; break;
-                    case error.TIMEOUT: msg = "Request timed out."; break;
-                }
-                if (locationText) locationText.innerText = msg;
-            }, {
-                enableHighAccuracy: true,
-                timeout: 5000,
-                maximumAge: 0
-            });
+            detectAndSetLocation({ auto: false });
         });
     }
 
@@ -694,9 +839,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const saveAddrBtn = document.getElementById('saveAddrBtn');
     if (saveAddrBtn) {
         saveAddrBtn.addEventListener('click', () => {
-            const area = document.getElementById('addrArea').value.trim();
-            const pin = document.getElementById('addrPin').value.trim();
-            const road = document.getElementById('addrRoad').value.trim();
+            const area = (addrAreaInput?.value || '').trim();
+            const pin = (addrPinInput?.value || '').trim();
+            const road = (addrRoadInput?.value || '').trim();
 
             if (area && pin) {
                 const formattedArea = capitalize(area);
@@ -704,12 +849,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const displayLoc = formattedRoad ? `${formattedArea}, ${formattedRoad}` : `${formattedArea}, ${pin}`;
 
-                if (locationText) locationText.innerText = displayLoc;
+                setLocationDisplay(displayLoc);
+                persistLocation({ label: displayLoc, coords: null, geo: { locality: formattedArea, postcode: pin }, ts: Date.now() });
                 if (locationDropdown) locationDropdown.classList.remove('active');
             } else {
                 alert("Please enter at least Area and Pincode");
             }
         });
     }
+
+    // Auto-detect on load so the location pill updates immediately
+    autoDetectLocation();
 
 });

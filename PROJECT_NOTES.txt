@@ -1,0 +1,27 @@
+SnapIt project notes (quick reference)
+
+Scope
+- Scrapers: Zepto (scraped.py) and Blinkit (scraped_blinkit.py), store to Mongo with JSON fallbacks.
+- Backends: Flask APIs server.py (Zepto + seller features) on 5000, server_blinkit.py (Blinkit) on 5001.
+- Frontend: product.html for comparisons, seller-dashboard.html for seller ops, sign-up-seller.html for onboarding, updated sign-in/up pages with roles.
+
+Quick run
+- Activate venv: .\.venv\Scripts\activate
+- Install: pip install -r requirements.txt
+- Start APIs: python server.py  (5000), python server_blinkit.py  (5001)
+- Open UI: htmlfile/product.html (customers), htmlfile/seller-dashboard.html (sellers)
+
+Environment knobs
+- MONGO_URI (default mongodb://localhost:27017), MONGO_DB/BLINKIT_DB for DB names.
+- ZEPTO_MAX_RESULTS / BLINKIT_MAX_RESULTS to cap items.
+- SEARCH_TERMS env or search_terms.txt to seed scraper terms.
+
+Seller endpoints (server.py)
+- POST /seller/products | GET /seller/products | PATCH /seller/products/<id> | GET /seller/product/<id>
+- POST/GET /seller/notices | POST/GET /seller/feedback | GET /seller/history
+- POST /seller/profile/update
+
+Troubleshooting
+- If scrapes empty: HEADLESS=0 and re-run to inspect selectors.
+- If Mongo absent: data writes to JSON fallbacks (scraped_data.json, scraped_blinkit.json).
+- Ensure Chrome installed for undetected-chromedriver.

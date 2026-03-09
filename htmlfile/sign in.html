@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Snap It ⚡ Sign In</title>
   <link rel="icon" type="image/svg+xml" href="images/snapit-bolt.svg">
   <link rel="stylesheet" href="theme.css">
@@ -11,67 +12,78 @@
 
 <body>
 
-  <!-- CARD -->
-  <div class="card">
-
-    <div class="card-title">Snap It <span>⚡</span></div>
-
-    <div class="bolt">
-      <a href="landing.html" style="display:block; text-decoration:none;">
-        <svg width="36" height="36" viewBox="0 0 24 24" fill="none">
-          <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" fill="white" />
-        </svg>
-      </a>
+  <div class="layout">
+    <div class="hero">
+      <p class="hero-kicker">Welcome back</p>
+      <h1>
+        Sign in to keep<br>
+        grabbing the <span>best deals.</span>
+      </h1>
+      <p class="hero-copy">Switch between customer and seller in one tap and pick up where you left off.</p>
     </div>
 
-    <div class="field">
-      <input type="email" id="signinEmail">
-      <label>Email</label>
+    <!-- CARD -->
+    <div class="card">
+
+      <div class="card-title">Snap It <span>⚡</span></div>
+
+      <div class="bolt">
+        <a href="landing.html" class="bolt-link" aria-label="Back to home">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none">
+            <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" fill="white" />
+          </svg>
+        </a>
+      </div>
+
+      <div class="field">
+        <label for="signinEmail">Email</label>
+        <input type="email" id="signinEmail" aria-label="Email" placeholder="Enter email" autocomplete="email">
+      </div>
+
+      <div class="field">
+        <label for="pwd">Password</label>
+        <div class="input-wrapper">
+          <input type="password" id="pwd" aria-label="Password" placeholder="Enter password" autocomplete="current-password">
+          <button type="button" class="eye" onclick="togglePwd()" aria-label="Toggle password visibility">👁</button>
+        </div>
+      </div>
+
+      <div class="role-group" aria-label="Login role">
+        <span class="role-label">Login as</span>
+        <label><input type="radio" name="signinRole" value="customer" checked> Customer</label>
+        <label><input type="radio" name="signinRole" value="seller_offline"> Seller</label>
+      </div>
+
+      <div class="forgot">Forgot password?</div>
+
+      <button class="btn" id="signinBtn" type="button">Sign in</button>
+
+      <div class="or">Sign in with</div>
+
+      <div class="socials">
+        <div class="social google" aria-label="Sign in with Google">G</div>
+        <div class="social facebook" aria-label="Sign in with Facebook">f</div>
+        <div class="social apple" aria-label="Sign in with Apple"></div>
+      </div>
+
+      <div class="signup">
+        Don't have an account?
+        <a href="sign-up.html" class="link-accent">
+          Sign up
+        </a>
+      </div>
+
+      <div class="signup signup-spaced">
+        <a href="landing.html" class="link-accent">
+          ← Back to Home
+        </a>
+      </div>
+
     </div>
-
-    <div class="field">
-      <input type="password" id="pwd">
-      <label>Password</label>
-      <div class="eye" onclick="togglePwd()">👁</div>
-    </div>
-
-    <div class="forgot">Forgot password?</div>
-
-    <button class="btn" id="signinBtn">Sign in</button>
-
-    <div class="or">Sign in with</div>
-
-    <div class="socials">
-      <div class="social google">G</div>
-      <div class="social facebook">f</div>
-      <div class="social apple"></div>
-    </div>
-    <div class="signup">
-      Don't have an account?
-      <a href="sign-up.html" style="color:#a77bff; text-decoration:none;">
-        Sign up
-      </a>
-    </div>
-
-    <div class="signup" style="margin-top:12px;">
-      <a href="landing.html" style="color:#a77bff; text-decoration:none;">
-        ← Back to Home
-      </a>
-    </div>
-
-  </div>
-
-  <!-- TEXT -->
-  <div class="hero">
-    <h1>
-      Let’s find<br>
-      you the<br>
-      <span>best deal.</span>
-    </h1>
   </div>
 
   <!-- Theme Toggle Button -->
-  <div class="theme-btn" id="themeBtn" style="position: absolute; top: 20px; left: 20px; z-index: 100;">🌙</div>
+  <div class="theme-btn theme-floating" id="themeBtn">🌙</div>
 
   <script src="theme.js"></script>
   <script src="sign-in.js"></script>

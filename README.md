@@ -11,6 +11,17 @@ End-to-end setup to scrape products from Zepto and Blinkit, store them in MongoD
 - `mongo_client.py` — Mongo helpers (per-collection indexes, connection handling).
 - `requirements.txt` — Pinned Python deps.
 
+### New seller + auth flows (Mar 2026)
+- `server.py` now includes seller-facing endpoints:
+	- `POST /seller/products` (create), `GET /seller/products` (list), `PATCH /seller/products/<id>` (update), `GET /seller/product/<id>` (detail) with optional contact enrichment.
+	- `POST/GET /seller/notices` for seller announcements; `POST/GET /seller/feedback` for ratings; `GET /seller/history` for activity log.
+	- `POST /seller/profile/update` to persist seller contact/profile fields; `_now()` uses timezone-aware timestamps.
+- Frontend additions under `htmlfile/`:
+	- `seller-dashboard.html/css/js` for seller catalog, notices, and quick actions (reads from new APIs).
+	- `sign-up-seller.html/css/js` for onboarding sellers with contact/store details.
+	- Updated `sign-in`/`sign-up` pages to include role selection and responsive layout improvements.
+- Typing/IDE quality: `scraped.py` now typed with `SearchRow` and Pyright suppressions for third-party stubs; Mongo URI defaults to `mongodb://localhost:27017`.
+
 ## Requirements
 - Python 3.10+ (venv recommended)
 - Google Chrome installed (undetected-chromedriver will download a matching driver)

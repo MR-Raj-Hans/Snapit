@@ -1,0 +1,266 @@
+document.addEventListener("DOMContentLoaded", () => {
+  const user = getUser();
+  hydrateProfile(user);
+  bindControls(user);
+  fetchProducts(user);
+  fetchNotices(user);
+});
+
+function getUser() {
+  try {
+    return JSON.parse(localStorage.getItem("snapit_user") || "null");
+  } catch (e) {
+    return null;
+  }
+}
+
+function hydrateProfile(user) {
+  if (!user || !user.sellerDetails) return;
+  const d = user.sellerDetails;
+  setText("storeName", d.shop || "—");
+  setText("ownerName", d.owner || "—");
+  setText("whatsapp", d.whatsapp || "—");
+  setText("storeEmail", d.sellerEmail || user.email || "—");
+  setText("storeAddress", d.address || "—");
+  setText("ownerMini", d.owner || "—");
+  setText("waMini", d.whatsapp || "—");
+  setText("phoneMini", d.phone || "—");
+  setText("emailMini", d.sellerEmail || user.email || "—");
+}
+
+function bindControls(user) {
+  document.getElementById("logoutBtn")?.addEventListener("click", () => {
+    localStorage.clear();
+    window.location.href = "sign in.html";
+  });
+
+  document.getElementById("refreshBtn")?.addEventListener("click", () => {
+    window.location.reload();
+  });
+
+  document.getElementById("addProductBtn")?.addEventListener("click", () => {
+    addProductFlow(user);
+  });
+
+  document.getElementById("bulkUploadBtn")?.addEventListener("click", () => {
+    alert("Bulk upload coming soon. For now, add products one by one.");
+  });
+
+  document.getElementById("priceHistoryBtn")?.addEventListener("click", () => {
+    alert("Price history view is not wired yet.");
+  });
+
+  document.getElementById("ordersAllBtn")?.addEventListener("click", () => {
+    alert("Orders list is not wired yet.");
+  });
+
+  document.getElementById("ratingsBtn")?.addEventListener("click", () => {
+    alert("Feedback list is not wired yet.");
+  });
+
+  document.getElementById("addNoticeBtn")?.addEventListener("click", () => {
+    addNoticeFlow(user);
+  });
+
+  document.getElementById("editProfileBtn")?.addEventListener("click", () => editProfileFlow(user));
+  document.getElementById("updateContactBtn")?.addEventListener("click", () => editContactFlow(user));
+  document.getElementById("editOwnerBtn")?.addEventListener("click", () => editOwnerFlow(user));
+  document.getElementById("priceHistoryBtn")?.addEventListener("click", () => viewHistory(user));
+  document.getElementById("ordersAllBtn")?.addEventListener("click", () => viewHistory(user));
+  document.getElementById("ratingsBtn")?.addEventListener("click", () => viewHistory(user));
+}
+
+async function fetchProducts(user) {
+  const table = document.getElementById("productsTable");
+  if (!table) return;
+  const sellerId = user?.id;
+  if (!sellerId) {
+    table.innerHTML = `<div class="row"><div class="empty">Login again to load products.</div></div>`;
+    return;
+  }
+
+  table.innerHTML = `<div class="row"><div class="empty">Loading products...</div></div>`;
+  try {
+    const resp = await fetch(`/seller/products?seller_id=${encodeURIComponent(sellerId)}&include_contact=1`);
+    if (!resp.ok) throw new Error("Failed to load products");
+    const data = await resp.json();
+    renderProducts(data.items || []);
+  } catch (err) {
+    table.innerHTML = `<div class="row"><div class="empty">Could not load products.</div></div>`;
+    console.error(err);
+  }
+}
+
+function renderProducts(items) {
+  const table = document.getElementById("productsTable");
+  if (!table) return;
+
+  if (!items.length) {
+    table.innerHTML = `<div class="row"><div class="empty">No products yet.</div></div>`;
+    return;
+  }
+
+  const head = `<div class="row head"><div>Name</div><div>Category</div><div>Price</div><div>Stock</div><div>Status</div></div>`;
+  const rows = items.map((p) => {
+    const contact = p.seller_contact?.whatsapp || p.seller_contact?.phone;
+    const waLink = contact ? `<a href="https://wa.me/${encodeURIComponent(contact)}?text=Hi%20I%20want%20to%20order%20${encodeURIComponent(p.name || "product")}" target="_blank" rel="noreferrer">WhatsApp</a>` : "—";
+    return `<div class="row">
+      <div>${escapeHtml(p.name || "—")}<div class="meta">${waLink}</div><div class="meta">Expiry: ${escapeHtml(p.expiry_date || "-")}</div><div class="meta">Quality: ${escapeHtml(p.quality_condition || "-")}</div></div>
+      <div>${escapeHtml(p.category || "-")}</div>
+      <div>${p.price ?? "-"}</div>
+      <div>${p.stock ?? "-"}</div>
+      <div>${p.status || "Live"}</div>
+    </div>`;
+  }).join("");
+
+  table.innerHTML = head + rows;
+}
+
+async function addProductFlow(user) {
+  if (!user?.id) {
+    alert("Please login again.");
+    return;
+  }
+  const name = prompt("Product name?");
+  if (!name) return;
+  const price = Number(prompt("Price? (number)"));
+  const stock = Number(prompt("Stock quantity? (number)"));
+  const description = prompt("Description?") || "";
+  const expiry_date = prompt("Expiry date? (e.g., 2026-12-31)") || "";
+  const quality_condition = prompt("Quality condition? (e.g., Fresh, Good, Damaged)") || "";
+  const category = prompt("Category?") || "";
+
+  try {
+    const resp = await fetch(`/seller/products`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        seller_id: user.id,
+        name,
+        price: Number.isFinite(price) ? price : undefined,
+        stock: Number.isFinite(stock) ? stock : undefined,
+        description,
+        expiry_date,
+        quality_condition,
+        category,
+      }),
+    });
+    if (!resp.ok) throw new Error("Add failed");
+    await fetchProducts(user);
+    alert("Product added.");
+  } catch (err) {
+    console.error(err);
+    alert("Could not add product.");
+  }
+}
+
+async function editProfileFlow(user) {
+  if (!user?.id) return alert("Please login again.");
+  const shop = prompt("Store name?", user.sellerDetails?.shop || "") || "";
+  const address = prompt("Store address?", user.sellerDetails?.address || "") || "";
+  const gst = prompt("GST?", user.sellerDetails?.gst || "") || "";
+  await updateProfile(user, { ...user.sellerDetails, shop, address, gst });
+}
+
+async function editContactFlow(user) {
+  if (!user?.id) return alert("Please login again.");
+  const sellerEmail = prompt("Contact email?", user.sellerDetails?.sellerEmail || user.email || "") || "";
+  const whatsapp = prompt("WhatsApp?", user.sellerDetails?.whatsapp || "") || "";
+  const phone = prompt("Phone?", user.sellerDetails?.phone || "") || "";
+  await updateProfile(user, { ...user.sellerDetails, sellerEmail, whatsapp, phone });
+}
+
+async function editOwnerFlow(user) {
+  if (!user?.id) return alert("Please login again.");
+  const owner = prompt("Owner name?", user.sellerDetails?.owner || "") || "";
+  await updateProfile(user, { ...user.sellerDetails, owner });
+}
+
+async function updateProfile(user, sellerDetails) {
+  try {
+    const resp = await fetch(`/seller/profile/update`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ seller_id: user.id, sellerDetails }),
+    });
+    if (!resp.ok) throw new Error("Update failed");
+    const newUser = { ...user, sellerDetails };
+    localStorage.setItem("snapit_user", JSON.stringify(newUser));
+    hydrateProfile(newUser);
+    alert("Profile updated.");
+  } catch (err) {
+    console.error(err);
+    alert("Could not update profile.");
+  }
+}
+
+async function addNoticeFlow(user) {
+  if (!user?.id) return alert("Please login again.");
+  const title = prompt("Notice title?") || "";
+  if (!title) return;
+  const message = prompt("Notice message?") || "";
+  try {
+    const resp = await fetch(`/seller/notices`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ seller_id: user.id, title, message }),
+    });
+    if (!resp.ok) throw new Error("Add failed");
+    await fetchNotices(user);
+  } catch (err) {
+    console.error(err);
+    alert("Could not add notice.");
+  }
+}
+
+async function fetchNotices(user) {
+  const list = document.getElementById("updatesList");
+  if (!list) return;
+  if (!user?.id) {
+    list.innerHTML = `<div class="empty">Login again to load notices.</div>`;
+    return;
+  }
+  list.innerHTML = `<div class="empty">Loading notices...</div>`;
+  try {
+    const resp = await fetch(`/seller/notices?seller_id=${encodeURIComponent(user.id)}`);
+    if (!resp.ok) throw new Error("Load failed");
+    const data = await resp.json();
+    const items = data.items || [];
+    if (!items.length) {
+      list.innerHTML = `<div class="empty">No notices yet.</div>`;
+      return;
+    }
+    list.innerHTML = items.map(n => `<div class="item"><div class="title">${escapeHtml(n.title || "")}</div><div class="meta">${escapeHtml(n.message || "")}</div></div>`).join("");
+  } catch (err) {
+    console.error(err);
+    list.innerHTML = `<div class="empty">Could not load notices.</div>`;
+  }
+}
+
+async function viewHistory(user) {
+  if (!user?.id) return alert("Please login again.");
+  try {
+    const resp = await fetch(`/seller/history?seller_id=${encodeURIComponent(user.id)}`);
+    if (!resp.ok) throw new Error("Load failed");
+    const data = await resp.json();
+    const lines = (data.items || []).map(h => `${h.created_at || ""} • ${h.action || ""}`);
+    alert(lines.slice(0, 20).join("\n") || "No history yet.");
+  } catch (err) {
+    console.error(err);
+    alert("Could not load history.");
+  }
+}
+
+function setText(id, value) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = value;
+}
+
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
