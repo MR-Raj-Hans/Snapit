@@ -509,9 +509,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 return [];
             }
 
-            renderProducts(items, term);
+            const termKey = (term || '').trim().toLowerCase();
+            const filtered = items.filter((it) => (it.search_term || '').trim().toLowerCase() === termKey);
+            const finalItems = filtered.length ? filtered : [];
+
+            if (!finalItems.length) {
+                setStatus('No exact matches for this term yet.');
+                return [];
+            }
+
+            renderProducts(finalItems, term);
             setStatus('');
-            return items;
+            return finalItems;
         } catch (err) {
             console.error(err);
             setStatus('Could not load results.');

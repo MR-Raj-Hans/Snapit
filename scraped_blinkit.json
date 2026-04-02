@@ -1,43 +1,13 @@
 [
     {
         "search_term": "milk",
-        "product_name": "Sunfeast Baked Creations Rich Choco Chip Cookies",
-        "price": "₹135",
-        "quantity": "120 g",
+        "product_name": "Sofit Almond Beverage",
+        "price": "₹206",
+        "quantity": "Sofit Almond Beverage",
         "platform": "Blinkit",
         "location": "",
         "url": "https://www.blinkit.com/s/?q=milk",
-        "raw_text": "10% OFF\n16 MINS\nSunfeast Baked Creations Rich Choco Chip Cookies\n120 g\n₹135\n₹151\nADD"
-    },
-    {
-        "search_term": "milk",
-        "product_name": "Amul Taaza Toned Milk",
-        "price": "₹57",
-        "quantity": "Amul Taaza Toned Milk",
-        "platform": "Blinkit",
-        "location": "",
-        "url": "https://www.blinkit.com/s/?q=milk",
-        "raw_text": "16 MINS\nAmul Taaza Toned Milk\n1 ltr\n₹57\nADD"
-    },
-    {
-        "search_term": "milk",
-        "product_name": "Amul Gold Full Cream Milk",
-        "price": "₹69",
-        "quantity": "Amul Gold Full Cream Milk",
-        "platform": "Blinkit",
-        "location": "",
-        "url": "https://www.blinkit.com/s/?q=milk",
-        "raw_text": "16 MINS\nAmul Gold Full Cream Milk\n1 ltr\n₹69\nADD"
-    },
-    {
-        "search_term": "milk",
-        "product_name": "Amul Buffalo A2 Milk",
-        "price": "₹38",
-        "quantity": "Amul Buffalo A2 Milk",
-        "platform": "Blinkit",
-        "location": "",
-        "url": "https://www.blinkit.com/s/?q=milk",
-        "raw_text": "16 MINS\nAmul Buffalo A2 Milk\n500 ml\n₹38\nADD"
+        "raw_text": "29% OFF\n9 MINS\nSofit Almond Beverage\n1 ltr\n₹206\n₹293\nADD"
     },
     {
         "search_term": "milk",
@@ -47,7 +17,7 @@
         "platform": "Blinkit",
         "location": "",
         "url": "https://www.blinkit.com/s/?q=milk",
-        "raw_text": "16 MINS\nAmul Taaza Homogenised Toned Milk\n1 ltr\n₹75\nADD"
+        "raw_text": "9 MINS\nAmul Taaza Homogenised Toned Milk\n1 ltr\n₹75\nADD"
     },
     {
         "search_term": "milk",
@@ -57,7 +27,7 @@
         "platform": "Blinkit",
         "location": "",
         "url": "https://www.blinkit.com/s/?q=milk",
-        "raw_text": "16 MINS\nAmul Moti Toned Milk (90 Days Shelf Life)\n450 ml\n₹32\nADD"
+        "raw_text": "9 MINS\nAmul Moti Toned Milk (90 Days Shelf Life)\n450 ml\n₹32\nADD"
     },
     {
         "search_term": "milk",
@@ -67,7 +37,7 @@
         "platform": "Blinkit",
         "location": "",
         "url": "https://www.blinkit.com/s/?q=milk",
-        "raw_text": "16 MINS\nAmul Lactose Free Milk\n250 ml\n₹25\nADD"
+        "raw_text": "9 MINS\nAmul Lactose Free Milk\n250 ml\n₹25\nADD"
     },
     {
         "search_term": "milk",
@@ -77,7 +47,7 @@
         "platform": "Blinkit",
         "location": "",
         "url": "https://www.blinkit.com/s/?q=milk",
-        "raw_text": "16 MINS\nAmul Taaza Toned Milk - Pack of 2\n2 x 200 ml\n₹32\n₹33\nADD"
+        "raw_text": "9 MINS\nAmul Taaza Toned Milk - Pack of 2\n2 x 200 ml\n₹32\n₹33\nADD"
     },
     {
         "search_term": "milk",
@@ -87,7 +57,17 @@
         "platform": "Blinkit",
         "location": "",
         "url": "https://www.blinkit.com/s/?q=milk",
-        "raw_text": "16 MINS\nAmul Gold Milk\n1 ltr\n₹80\nADD"
+        "raw_text": "9 MINS\nAmul Gold Milk\n1 ltr\n₹80\nADD"
+    },
+    {
+        "search_term": "milk",
+        "product_name": "Amul Slim 'n' Trim Skimmed Milk (Zero Cholesterol)",
+        "price": "₹82",
+        "quantity": "Amul Slim 'n' Trim Skimmed Milk (Zero Cholesterol)",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=milk",
+        "raw_text": "9 MINS\nAmul Slim 'n' Trim Skimmed Milk (Zero Cholesterol)\n1 ltr\n₹82\nADD"
     },
     {
         "search_term": "milk",
@@ -97,7 +77,7 @@
         "platform": "Blinkit",
         "location": "",
         "url": "https://www.blinkit.com/s/?q=milk",
-        "raw_text": "16 MINS\nMother Dairy FIT Life Homogenized Double Toned Milk (450 ml)\n450 ml\n₹32\nADD"
+        "raw_text": "9 MINS\nMother Dairy FIT Life Homogenized Double Toned Milk (450 ml)\n450 ml\n₹32\nADD"
     },
     {
         "search_term": "milk",
@@ -107,7 +87,27 @@
         "platform": "Blinkit",
         "location": "",
         "url": "https://www.blinkit.com/s/?q=milk",
-        "raw_text": "16 MINS\nNestle a+ Toned Milk\n1 ltr\n₹108\nADD"
+        "raw_text": "9 MINS\nNestle a+ Toned Milk\n1 ltr\n₹108\nADD"
+    },
+    {
+        "search_term": "milk",
+        "product_name": "Nestle a+ Slim Skimmed Milk",
+        "price": "₹87",
+        "quantity": "Nestle a+ Slim Skimmed Milk",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=milk",
+        "raw_text": "10% OFF\n9 MINS\nNestle a+ Slim Skimmed Milk\n1 ltr\n₹87\n₹97\nADD"
+    },
+    {
+        "search_term": "milk",
+        "product_name": "Mother Dairy Toned Milk",
+        "price": "₹75",
+        "quantity": "Mother Dairy Toned Milk",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=milk",
+        "raw_text": "9 MINS\nMother Dairy Toned Milk\n1 ltr\n₹75\nADD"
     },
     {
         "search_term": "milk",
@@ -117,17 +117,617 @@
         "platform": "Blinkit",
         "location": "",
         "url": "https://www.blinkit.com/s/?q=milk",
-        "raw_text": "16 MINS\nMother Dairy FIT Life Homogenized Double Toned Milk\n115 ml\n₹10\nADD"
+        "raw_text": "9 MINS\nMother Dairy FIT Life Homogenized Double Toned Milk\n115 ml\n₹10\nADD"
+    },
+    {
+        "search_term": "bread",
+        "product_name": "Harvest Gold 100% Atta Whole Wheat Bread",
+        "price": "₹60",
+        "quantity": "Harvest Gold 100% Atta Whole Wheat Bread",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=bread",
+        "raw_text": "8 MINS\nHarvest Gold 100% Atta Whole Wheat Bread\n450 g\n₹60\nADD"
+    },
+    {
+        "search_term": "bread",
+        "product_name": "Harvest Gold White Bread",
+        "price": "₹30",
+        "quantity": "Harvest Gold White Bread",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=bread",
+        "raw_text": "8 MINS\nHarvest Gold White Bread\n350 g\n₹30\nADD"
+    },
+    {
+        "search_term": "bread",
+        "product_name": "Harvest Gold Hearty Brown Bread",
+        "price": "₹55",
+        "quantity": "Harvest Gold Hearty Brown Bread",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=bread",
+        "raw_text": "8 MINS\nHarvest Gold Hearty Brown Bread\n400 g\n₹55\nADD"
+    },
+    {
+        "search_term": "bread",
+        "product_name": "English Oven Brown Bread",
+        "price": "₹55",
+        "quantity": "English Oven Brown Bread",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=bread",
+        "raw_text": "8 MINS\nEnglish Oven Brown Bread\n400 g\n₹55\nADD"
+    },
+    {
+        "search_term": "bread",
+        "product_name": "Baker's Loaf Zero Preservatives Multigrain Bread",
+        "price": "₹73",
+        "quantity": "Baker's Loaf Zero Preservatives Multigrain Bread",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=bread",
+        "raw_text": "14% OFF\n8 MINS\nBaker's Loaf Zero Preservatives Multigrain Bread\n350 g\n₹73\n₹85\nADD"
+    },
+    {
+        "search_term": "bread",
+        "product_name": "English Oven Zero Maida Multigrain Bread",
+        "price": "₹70",
+        "quantity": "English Oven Zero Maida Multigrain Bread",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=bread",
+        "raw_text": "8 MINS\nEnglish Oven Zero Maida Multigrain Bread\n400 g\n₹70\nADD"
+    },
+    {
+        "search_term": "bread",
+        "product_name": "The Health Factory Zero Maida Whole Wheat Bread",
+        "price": "₹54",
+        "quantity": "The Health Factory Zero Maida Whole Wheat Bread",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=bread",
+        "raw_text": "8 MINS\nThe Health Factory Zero Maida Whole Wheat Bread\n250 g\n₹54\n₹55\nADD"
+    },
+    {
+        "search_term": "bread",
+        "product_name": "English Oven Milk Bread",
+        "price": "₹50",
+        "quantity": "English Oven Milk Bread",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=bread",
+        "raw_text": "8 MINS\nEnglish Oven Milk Bread\n400 g\n₹50\nADD"
+    },
+    {
+        "search_term": "bread",
+        "product_name": "Baker's Loaf Whole Wheat Bread",
+        "price": "₹64",
+        "quantity": "Baker's Loaf Whole Wheat Bread",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=bread",
+        "raw_text": "14% OFF\n8 MINS\nBaker's Loaf Whole Wheat Bread\n350 g\n₹64\n₹75\nADD"
+    },
+    {
+        "search_term": "bread",
+        "product_name": "Harvest Gold Multigrain Bread",
+        "price": "₹70",
+        "quantity": "Harvest Gold Multigrain Bread",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=bread",
+        "raw_text": "8 MINS\nHarvest Gold Multigrain Bread\n450 g\n₹70\nADD"
+    },
+    {
+        "search_term": "bread",
+        "product_name": "English Oven Premium White Bread",
+        "price": "₹60",
+        "quantity": "English Oven Premium White Bread",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=bread",
+        "raw_text": "8 MINS\nEnglish Oven Premium White Bread\n700 g\n₹60\nADD"
+    },
+    {
+        "search_term": "bread",
+        "product_name": "Suchali's Artisan Bakehouse Buttercrust Milk Bread",
+        "price": "₹200",
+        "quantity": "Suchali's Artisan Bakehouse Buttercrust Milk Bread",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=bread",
+        "raw_text": "8 MINS\nSuchali's Artisan Bakehouse Buttercrust Milk Bread\n470 g\n₹200\nADD"
+    },
+    {
+        "search_term": "eggs",
+        "product_name": "Licious Farm Fresh Classic White Protein Rich Eggs",
+        "price": "₹81",
+        "quantity": "Licious Farm Fresh Classic White Protein Rich Eggs",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=eggs",
+        "raw_text": "10% OFF\n9 MINS\nLicious Farm Fresh Classic White Protein Rich Eggs\n6 pcs\n₹81\n₹90\nADD"
+    },
+    {
+        "search_term": "eggs",
+        "product_name": "Table White White Eggs",
+        "price": "₹83",
+        "quantity": "Table White White Eggs",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=eggs",
+        "raw_text": "40% OFF\n9 MINS\nTable White White Eggs\n10 pcs\n₹83\n₹140\nADD"
+    },
+    {
+        "search_term": "eggs",
+        "product_name": "Table White Eggs (6 pcs)",
+        "price": "₹55",
+        "quantity": "Table White Eggs (6 pcs)",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=eggs",
+        "raw_text": "35% OFF\n9 MINS\nTable White Eggs (6 pcs)\n6 pcs\n₹55\n₹85\nADD"
+    },
+    {
+        "search_term": "eggs",
+        "product_name": "Licious Brown Eggs",
+        "price": "₹114",
+        "quantity": "Licious Brown Eggs",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=eggs",
+        "raw_text": "9 MINS\nLicious Brown Eggs\n6 pcs\n₹114\nADD"
+    },
+    {
+        "search_term": "eggs",
+        "product_name": "Eggoz Nutrition White Protein Rich Eggs (10 pieces)",
+        "price": "₹130",
+        "quantity": "Eggoz Nutrition White Protein Rich Eggs (10 pieces)",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=eggs",
+        "raw_text": "10% OFF\n9 MINS\nEggoz Nutrition White Protein Rich Eggs (10 pieces)\n10 pcs\n₹130\n₹145\nADD"
+    },
+    {
+        "search_term": "eggs",
+        "product_name": "Nature Good White Eggs (30 pieces)",
+        "price": "₹215",
+        "quantity": "Nature Good White Eggs (30 pieces)",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=eggs",
+        "raw_text": "41% OFF\n9 MINS\nNature Good White Eggs (30 pieces)\n30 pcs\n₹215\n₹370\nADD"
+    },
+    {
+        "search_term": "eggs",
+        "product_name": "Licious White Protein Rich Eggs",
+        "price": "₹160",
+        "quantity": "Licious White Protein Rich Eggs",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=eggs",
+        "raw_text": "9% OFF\n9 MINS\nLicious White Protein Rich Eggs\n12 pcs\n₹160\n₹177\nADD"
+    },
+    {
+        "search_term": "eggs",
+        "product_name": "Eggoz Nutrition White Protein Rich Eggs (30 pieces)",
+        "price": "₹335",
+        "quantity": "Eggoz Nutrition White Protein Rich Eggs (30 pieces)",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=eggs",
+        "raw_text": "18% OFF\n9 MINS\nEggoz Nutrition White Protein Rich Eggs (30 pieces)\n30 pcs\n₹335\n₹409\nADD"
+    },
+    {
+        "search_term": "eggs",
+        "product_name": "Nature Good White Eggs",
+        "price": "₹79",
+        "quantity": "Nature Good White Eggs",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=eggs",
+        "raw_text": "45% OFF\n9 MINS\nNature Good White Eggs\n10 pcs\n₹79\n₹145\nADD"
+    },
+    {
+        "search_term": "eggs",
+        "product_name": "Eggee provita+ White Protein Rich Eggs",
+        "price": "₹145",
+        "quantity": "Eggee provita+ White Protein Rich Eggs",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=eggs",
+        "raw_text": "17% OFF\n9 MINS\nEggee provita+ White Protein Rich Eggs\n10 pcs\n₹145\n₹175\nADD"
+    },
+    {
+        "search_term": "eggs",
+        "product_name": "Eggland Farms White Eggs",
+        "price": "₹52",
+        "quantity": "Eggland Farms White Eggs",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=eggs",
+        "raw_text": "42% OFF\n9 MINS\nEggland Farms White Eggs\n6 pcs\n₹52\n₹90\nADD"
+    },
+    {
+        "search_term": "eggs",
+        "product_name": "Eggland Farms White Eggs",
+        "price": "₹88",
+        "quantity": "Eggland Farms White Eggs",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=eggs",
+        "raw_text": "41% OFF\n9 MINS\nEggland Farms White Eggs\n10 pcs\n₹88\n₹150\nADD"
+    },
+    {
+        "search_term": "milk",
+        "product_name": "Sofit Almond Beverage",
+        "price": "₹206",
+        "quantity": "Sofit Almond Beverage",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=milk",
+        "raw_text": "29% OFF\n9 MINS\nSofit Almond Beverage\n1 ltr\n₹206\n₹293\nADD"
+    },
+    {
+        "search_term": "milk",
+        "product_name": "Amul Taaza Homogenised Toned Milk",
+        "price": "₹75",
+        "quantity": "Amul Taaza Homogenised Toned Milk",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=milk",
+        "raw_text": "9 MINS\nAmul Taaza Homogenised Toned Milk\n1 ltr\n₹75\nADD"
+    },
+    {
+        "search_term": "milk",
+        "product_name": "Amul Moti Toned Milk (90 Days Shelf Life)",
+        "price": "₹32",
+        "quantity": "Amul Moti Toned Milk (90 Days Shelf Life)",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=milk",
+        "raw_text": "9 MINS\nAmul Moti Toned Milk (90 Days Shelf Life)\n450 ml\n₹32\nADD"
+    },
+    {
+        "search_term": "milk",
+        "product_name": "Amul Lactose Free Milk",
+        "price": "₹25",
+        "quantity": "Amul Lactose Free Milk",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=milk",
+        "raw_text": "9 MINS\nAmul Lactose Free Milk\n250 ml\n₹25\nADD"
+    },
+    {
+        "search_term": "milk",
+        "product_name": "Amul Taaza Toned Milk - Pack of 2",
+        "price": "₹32",
+        "quantity": "Amul Taaza Toned Milk - Pack of 2",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=milk",
+        "raw_text": "9 MINS\nAmul Taaza Toned Milk - Pack of 2\n2 x 200 ml\n₹32\n₹33\nADD"
+    },
+    {
+        "search_term": "milk",
+        "product_name": "Amul Gold Milk",
+        "price": "₹80",
+        "quantity": "Amul Gold Milk",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=milk",
+        "raw_text": "9 MINS\nAmul Gold Milk\n1 ltr\n₹80\nADD"
+    },
+    {
+        "search_term": "milk",
+        "product_name": "Amul Slim 'n' Trim Skimmed Milk (Zero Cholesterol)",
+        "price": "₹82",
+        "quantity": "Amul Slim 'n' Trim Skimmed Milk (Zero Cholesterol)",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=milk",
+        "raw_text": "9 MINS\nAmul Slim 'n' Trim Skimmed Milk (Zero Cholesterol)\n1 ltr\n₹82\nADD"
+    },
+    {
+        "search_term": "milk",
+        "product_name": "Mother Dairy FIT Life Homogenized Double Toned Milk (450 ml)",
+        "price": "₹32",
+        "quantity": "Mother Dairy FIT Life Homogenized Double Toned Milk (450 ml)",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=milk",
+        "raw_text": "9 MINS\nMother Dairy FIT Life Homogenized Double Toned Milk (450 ml)\n450 ml\n₹32\nADD"
+    },
+    {
+        "search_term": "milk",
+        "product_name": "Nestle a+ Toned Milk",
+        "price": "₹108",
+        "quantity": "Nestle a+ Toned Milk",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=milk",
+        "raw_text": "9 MINS\nNestle a+ Toned Milk\n1 ltr\n₹108\nADD"
+    },
+    {
+        "search_term": "milk",
+        "product_name": "Nestle a+ Slim Skimmed Milk",
+        "price": "₹87",
+        "quantity": "Nestle a+ Slim Skimmed Milk",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=milk",
+        "raw_text": "10% OFF\n9 MINS\nNestle a+ Slim Skimmed Milk\n1 ltr\n₹87\n₹97\nADD"
+    },
+    {
+        "search_term": "milk",
+        "product_name": "Mother Dairy Toned Milk",
+        "price": "₹75",
+        "quantity": "Mother Dairy Toned Milk",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=milk",
+        "raw_text": "9 MINS\nMother Dairy Toned Milk\n1 ltr\n₹75\nADD"
+    },
+    {
+        "search_term": "milk",
+        "product_name": "Mother Dairy FIT Life Homogenized Double Toned Milk",
+        "price": "₹10",
+        "quantity": "Mother Dairy FIT Life Homogenized Double Toned Milk",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=milk",
+        "raw_text": "9 MINS\nMother Dairy FIT Life Homogenized Double Toned Milk\n115 ml\n₹10\nADD"
+    },
+    {
+        "search_term": "bread",
+        "product_name": "Harvest Gold 100% Atta Whole Wheat Bread",
+        "price": "₹60",
+        "quantity": "Harvest Gold 100% Atta Whole Wheat Bread",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=bread",
+        "raw_text": "9 MINS\nHarvest Gold 100% Atta Whole Wheat Bread\n450 g\n₹60\nADD"
+    },
+    {
+        "search_term": "bread",
+        "product_name": "Harvest Gold White Bread",
+        "price": "₹30",
+        "quantity": "Harvest Gold White Bread",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=bread",
+        "raw_text": "9 MINS\nHarvest Gold White Bread\n350 g\n₹30\nADD"
+    },
+    {
+        "search_term": "bread",
+        "product_name": "Harvest Gold Hearty Brown Bread",
+        "price": "₹55",
+        "quantity": "Harvest Gold Hearty Brown Bread",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=bread",
+        "raw_text": "9 MINS\nHarvest Gold Hearty Brown Bread\n400 g\n₹55\nADD"
+    },
+    {
+        "search_term": "bread",
+        "product_name": "English Oven Brown Bread",
+        "price": "₹55",
+        "quantity": "English Oven Brown Bread",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=bread",
+        "raw_text": "9 MINS\nEnglish Oven Brown Bread\n400 g\n₹55\nADD"
+    },
+    {
+        "search_term": "bread",
+        "product_name": "Baker's Loaf Zero Preservatives Multigrain Bread",
+        "price": "₹73",
+        "quantity": "Baker's Loaf Zero Preservatives Multigrain Bread",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=bread",
+        "raw_text": "14% OFF\n9 MINS\nBaker's Loaf Zero Preservatives Multigrain Bread\n350 g\n₹73\n₹85\nADD"
+    },
+    {
+        "search_term": "bread",
+        "product_name": "English Oven Zero Maida Multigrain Bread",
+        "price": "₹70",
+        "quantity": "English Oven Zero Maida Multigrain Bread",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=bread",
+        "raw_text": "9 MINS\nEnglish Oven Zero Maida Multigrain Bread\n400 g\n₹70\nADD"
+    },
+    {
+        "search_term": "bread",
+        "product_name": "The Health Factory Zero Maida Whole Wheat Bread",
+        "price": "₹54",
+        "quantity": "The Health Factory Zero Maida Whole Wheat Bread",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=bread",
+        "raw_text": "9 MINS\nThe Health Factory Zero Maida Whole Wheat Bread\n250 g\n₹54\n₹55\nADD"
+    },
+    {
+        "search_term": "bread",
+        "product_name": "English Oven Milk Bread",
+        "price": "₹50",
+        "quantity": "English Oven Milk Bread",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=bread",
+        "raw_text": "9 MINS\nEnglish Oven Milk Bread\n400 g\n₹50\nADD"
+    },
+    {
+        "search_term": "bread",
+        "product_name": "Baker's Loaf Whole Wheat Bread",
+        "price": "₹64",
+        "quantity": "Baker's Loaf Whole Wheat Bread",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=bread",
+        "raw_text": "14% OFF\n9 MINS\nBaker's Loaf Whole Wheat Bread\n350 g\n₹64\n₹75\nADD"
+    },
+    {
+        "search_term": "bread",
+        "product_name": "Harvest Gold Multigrain Bread",
+        "price": "₹70",
+        "quantity": "Harvest Gold Multigrain Bread",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=bread",
+        "raw_text": "9 MINS\nHarvest Gold Multigrain Bread\n450 g\n₹70\nADD"
+    },
+    {
+        "search_term": "bread",
+        "product_name": "English Oven Premium White Bread",
+        "price": "₹60",
+        "quantity": "English Oven Premium White Bread",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=bread",
+        "raw_text": "9 MINS\nEnglish Oven Premium White Bread\n700 g\n₹60\nADD"
+    },
+    {
+        "search_term": "bread",
+        "product_name": "Suchali's Artisan Bakehouse Buttercrust Milk Bread",
+        "price": "₹200",
+        "quantity": "Suchali's Artisan Bakehouse Buttercrust Milk Bread",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=bread",
+        "raw_text": "9 MINS\nSuchali's Artisan Bakehouse Buttercrust Milk Bread\n470 g\n₹200\nADD"
+    },
+    {
+        "search_term": "eggs",
+        "product_name": "Licious Farm Fresh Classic White Protein Rich Eggs",
+        "price": "₹81",
+        "quantity": "Licious Farm Fresh Classic White Protein Rich Eggs",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=eggs",
+        "raw_text": "10% OFF\n9 MINS\nLicious Farm Fresh Classic White Protein Rich Eggs\n6 pcs\n₹81\n₹90\nADD"
+    },
+    {
+        "search_term": "eggs",
+        "product_name": "Table White White Eggs",
+        "price": "₹83",
+        "quantity": "Table White White Eggs",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=eggs",
+        "raw_text": "40% OFF\n9 MINS\nTable White White Eggs\n10 pcs\n₹83\n₹140\nADD"
+    },
+    {
+        "search_term": "eggs",
+        "product_name": "Table White Eggs (6 pcs)",
+        "price": "₹55",
+        "quantity": "Table White Eggs (6 pcs)",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=eggs",
+        "raw_text": "35% OFF\n9 MINS\nTable White Eggs (6 pcs)\n6 pcs\n₹55\n₹85\nADD"
+    },
+    {
+        "search_term": "eggs",
+        "product_name": "Licious Brown Eggs",
+        "price": "₹114",
+        "quantity": "Licious Brown Eggs",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=eggs",
+        "raw_text": "9 MINS\nLicious Brown Eggs\n6 pcs\n₹114\nADD"
+    },
+    {
+        "search_term": "eggs",
+        "product_name": "Eggoz Nutrition White Protein Rich Eggs (10 pieces)",
+        "price": "₹130",
+        "quantity": "Eggoz Nutrition White Protein Rich Eggs (10 pieces)",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=eggs",
+        "raw_text": "10% OFF\n9 MINS\nEggoz Nutrition White Protein Rich Eggs (10 pieces)\n10 pcs\n₹130\n₹145\nADD"
+    },
+    {
+        "search_term": "eggs",
+        "product_name": "Nature Good White Eggs (30 pieces)",
+        "price": "₹215",
+        "quantity": "Nature Good White Eggs (30 pieces)",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=eggs",
+        "raw_text": "41% OFF\n9 MINS\nNature Good White Eggs (30 pieces)\n30 pcs\n₹215\n₹370\nADD"
+    },
+    {
+        "search_term": "eggs",
+        "product_name": "Licious White Protein Rich Eggs",
+        "price": "₹160",
+        "quantity": "Licious White Protein Rich Eggs",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=eggs",
+        "raw_text": "9% OFF\n9 MINS\nLicious White Protein Rich Eggs\n12 pcs\n₹160\n₹177\nADD"
+    },
+    {
+        "search_term": "eggs",
+        "product_name": "Eggoz Nutrition White Protein Rich Eggs (30 pieces)",
+        "price": "₹335",
+        "quantity": "Eggoz Nutrition White Protein Rich Eggs (30 pieces)",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=eggs",
+        "raw_text": "18% OFF\n9 MINS\nEggoz Nutrition White Protein Rich Eggs (30 pieces)\n30 pcs\n₹335\n₹409\nADD"
+    },
+    {
+        "search_term": "eggs",
+        "product_name": "Nature Good White Eggs",
+        "price": "₹79",
+        "quantity": "Nature Good White Eggs",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=eggs",
+        "raw_text": "45% OFF\n9 MINS\nNature Good White Eggs\n10 pcs\n₹79\n₹145\nADD"
+    },
+    {
+        "search_term": "eggs",
+        "product_name": "Eggee provita+ White Protein Rich Eggs",
+        "price": "₹145",
+        "quantity": "Eggee provita+ White Protein Rich Eggs",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=eggs",
+        "raw_text": "17% OFF\n9 MINS\nEggee provita+ White Protein Rich Eggs\n10 pcs\n₹145\n₹175\nADD"
+    },
+    {
+        "search_term": "eggs",
+        "product_name": "Eggland Farms White Eggs",
+        "price": "₹52",
+        "quantity": "Eggland Farms White Eggs",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=eggs",
+        "raw_text": "42% OFF\n9 MINS\nEggland Farms White Eggs\n6 pcs\n₹52\n₹90\nADD"
+    },
+    {
+        "search_term": "eggs",
+        "product_name": "Eggland Farms White Eggs",
+        "price": "₹88",
+        "quantity": "Eggland Farms White Eggs",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=eggs",
+        "raw_text": "41% OFF\n9 MINS\nEggland Farms White Eggs\n10 pcs\n₹88\n₹150\nADD"
     },
     {
         "search_term": "water",
-        "product_name": "Clear Premium Drinking Packaged Water with Added Minerals",
-        "price": "₹65",
-        "quantity": "Clear Premium Drinking Packaged Water with Added Minerals",
+        "product_name": "Clear Premium Packaged Water",
+        "price": "₹264",
+        "quantity": "Clear Premium Packaged Water",
         "platform": "Blinkit",
         "location": "",
         "url": "https://www.blinkit.com/s/?q=water",
-        "raw_text": "16 MINS\nClear Premium Drinking Packaged Water with Added Minerals\n6 ltr\n₹65\nADD"
+        "raw_text": "9 MINS\nClear Premium Packaged Water\n48 x 200 ml\n₹264\nADD"
     },
     {
         "search_term": "water",
@@ -137,7 +737,7 @@
         "platform": "Blinkit",
         "location": "",
         "url": "https://www.blinkit.com/s/?q=water",
-        "raw_text": "16 MINS\nBisleri Packaged Water (1 l)\n1 ltr\n₹18\nADD"
+        "raw_text": "9 MINS\nBisleri Packaged Water (1 l)\n1 ltr\n₹18\nADD"
     },
     {
         "search_term": "water",
@@ -147,7 +747,7 @@
         "platform": "Blinkit",
         "location": "",
         "url": "https://www.blinkit.com/s/?q=water",
-        "raw_text": "16 MINS\nAquafina Packaged Water\n1 ltr\n₹18\nADD"
+        "raw_text": "9 MINS\nAquafina Packaged Water\n1 ltr\n₹18\nADD"
     },
     {
         "search_term": "water",
@@ -157,157 +757,27 @@
         "platform": "Blinkit",
         "location": "",
         "url": "https://www.blinkit.com/s/?q=water",
-        "raw_text": "16 MINS\nBisleri Packaged Water - Pack of 24\n24 x 250 ml\n₹131\n₹132\nADD"
+        "raw_text": "9 MINS\nBisleri Packaged Water - Pack of 24\n24 x 250 ml\n₹131\n₹132\nADD"
     },
     {
         "search_term": "water",
-        "product_name": "Dasani Drinking Mineral Water",
-        "price": "₹18",
-        "quantity": "Dasani Drinking Mineral Water",
+        "product_name": "Himalayan Natural Mineral Water",
+        "price": "₹321",
+        "quantity": "Himalayan Natural Mineral Water",
         "platform": "Blinkit",
         "location": "",
         "url": "https://www.blinkit.com/s/?q=water",
-        "raw_text": "16 MINS\nDasani Drinking Mineral Water\n1 ltr\n₹18\nADD"
+        "raw_text": "25% OFF\n9 MINS\nHimalayan Natural Mineral Water\n24 x 200 ml\n₹321\n₹432\nADD"
     },
     {
         "search_term": "water",
         "product_name": "O'cean Mango & Passion Fruit Flavoured Water - Pack of 2",
-        "price": "₹128",
+        "price": "₹131",
         "quantity": "O'cean Mango & Passion Fruit Flavoured Water - Pack of 2",
         "platform": "Blinkit",
         "location": "",
         "url": "https://www.blinkit.com/s/?q=water",
-        "raw_text": "8% OFF\n16 MINS\nO'cean Mango & Passion Fruit Flavoured Water - Pack of 2\n2 x 500 ml\n₹128\n₹140\nADD"
-    },
-    {
-        "search_term": "water",
-        "product_name": "O'cean Peach & Passion Fruit Flavoured Water",
-        "price": "₹63",
-        "quantity": "O'cean Peach & Passion Fruit Flavoured Water",
-        "platform": "Blinkit",
-        "location": "",
-        "url": "https://www.blinkit.com/s/?q=water",
-        "raw_text": "16 MINS\nO'cean Peach & Passion Fruit Flavoured Water\n500 ml\n₹63\n₹66\nADD"
-    },
-    {
-        "search_term": "water",
-        "product_name": "Clear Premium Packaged Water",
-        "price": "₹264",
-        "quantity": "Clear Premium Packaged Water",
-        "platform": "Blinkit",
-        "location": "",
-        "url": "https://www.blinkit.com/s/?q=water",
-        "raw_text": "16 MINS\nClear Premium Packaged Water\n48 x 200 ml\n₹264\nADD"
-    },
-    {
-        "search_term": "water",
-        "product_name": "Bisleri Vedica Mineral Water - Pack of 2",
-        "price": "₹69",
-        "quantity": "Bisleri Vedica Mineral Water - Pack of 2",
-        "platform": "Blinkit",
-        "location": "",
-        "url": "https://www.blinkit.com/s/?q=water",
-        "raw_text": "36% OFF\n16 MINS\nBisleri Vedica Mineral Water - Pack of 2\n2 x 1 ltr\n₹69\n₹108\nADD"
-    },
-    {
-        "search_term": "water",
-        "product_name": "O'cean Crispy Apple Flavoured Water",
-        "price": "₹66",
-        "quantity": "O'cean Crispy Apple Flavoured Water",
-        "platform": "Blinkit",
-        "location": "",
-        "url": "https://www.blinkit.com/s/?q=water",
-        "raw_text": "5% OFF\n16 MINS\nO'cean Crispy Apple Flavoured Water\n500 ml\n₹66\n₹70\nADD"
-    },
-    {
-        "search_term": "water",
-        "product_name": "Bisleri Vedica Natural Mountain Mineral Water",
-        "price": "₹260",
-        "quantity": "Bisleri Vedica Natural Mountain Mineral Water",
-        "platform": "Blinkit",
-        "location": "",
-        "url": "https://www.blinkit.com/s/?q=water",
-        "raw_text": "19% OFF\n16 MINS\nBisleri Vedica Natural Mountain Mineral Water\n24 x 250 ml\n₹260\n₹324\nADD"
-    },
-    {
-        "search_term": "water",
-        "product_name": "Himalayan Natural Mineral Water (Mildly Alkaline) - Pack of 2",
-        "price": "₹119",
-        "quantity": "Himalayan Natural Mineral Water (Mildly Alkaline) - Pack of 2",
-        "platform": "Blinkit",
-        "location": "",
-        "url": "https://www.blinkit.com/s/?q=water",
-        "raw_text": "15% OFF\n16 MINS\nHimalayan Natural Mineral Water (Mildly Alkaline) - Pack of 2\n2 x 1 ltr\n₹119\n₹140\nADD"
-    },
-    {
-        "search_term": "water",
-        "product_name": "Clear Premium Packaged Water",
-        "price": "₹264",
-        "quantity": "Clear Premium Packaged Water",
-        "platform": "Blinkit",
-        "location": "",
-        "url": "https://www.blinkit.com/s/?q=water",
-        "raw_text": "8 MINS\nClear Premium Packaged Water\n48 x 200 ml\n₹264\nADD"
-    },
-    {
-        "search_term": "water",
-        "product_name": "Bisleri Packaged Water (1 l)",
-        "price": "₹18",
-        "quantity": "Bisleri Packaged Water (1 l)",
-        "platform": "Blinkit",
-        "location": "",
-        "url": "https://www.blinkit.com/s/?q=water",
-        "raw_text": "8 MINS\nBisleri Packaged Water (1 l)\n1 ltr\n₹18\nADD"
-    },
-    {
-        "search_term": "water",
-        "product_name": "Aquafina Packaged Water",
-        "price": "₹18",
-        "quantity": "Aquafina Packaged Water",
-        "platform": "Blinkit",
-        "location": "",
-        "url": "https://www.blinkit.com/s/?q=water",
-        "raw_text": "8 MINS\nAquafina Packaged Water\n1 ltr\n₹18\nADD"
-    },
-    {
-        "search_term": "water",
-        "product_name": "Bisleri Packaged Water",
-        "price": "₹108",
-        "quantity": "Bisleri Packaged Water",
-        "platform": "Blinkit",
-        "location": "",
-        "url": "https://www.blinkit.com/s/?q=water",
-        "raw_text": "8 MINS\nBisleri Packaged Water\n10 ltr\n₹108\nADD"
-    },
-    {
-        "search_term": "water",
-        "product_name": "O'cean Fruit Drink Tropic Pineapple Flavoured Water",
-        "price": "₹94",
-        "quantity": "O'cean Fruit Drink Tropic Pineapple Flavoured Water",
-        "platform": "Blinkit",
-        "location": "",
-        "url": "https://www.blinkit.com/s/?q=water",
-        "raw_text": "41% OFF\n8 MINS\nO'cean Fruit Drink Tropic Pineapple Flavoured Water\n1 ltr\n₹94\n₹160\nADD"
-    },
-    {
-        "search_term": "water",
-        "product_name": "Bisleri Packaged Water - Pack of 24",
-        "price": "₹131",
-        "quantity": "Bisleri Packaged Water - Pack of 24",
-        "platform": "Blinkit",
-        "location": "",
-        "url": "https://www.blinkit.com/s/?q=water",
-        "raw_text": "8 MINS\nBisleri Packaged Water - Pack of 24\n24 x 250 ml\n₹131\n₹132\nADD"
-    },
-    {
-        "search_term": "water",
-        "product_name": "O'cean Mango & Passion Fruit Flavoured Water",
-        "price": "₹68",
-        "quantity": "O'cean Mango & Passion Fruit Flavoured Water",
-        "platform": "Blinkit",
-        "location": "",
-        "url": "https://www.blinkit.com/s/?q=water",
-        "raw_text": "8 MINS\nO'cean Mango & Passion Fruit Flavoured Water\n500 ml\n₹68\n₹70\nADD"
+        "raw_text": "6% OFF\n9 MINS\nO'cean Mango & Passion Fruit Flavoured Water - Pack of 2\n2 x 500 ml\n₹131\n₹140\nADD"
     },
     {
         "search_term": "water",
@@ -317,17 +787,7 @@
         "platform": "Blinkit",
         "location": "",
         "url": "https://www.blinkit.com/s/?q=water",
-        "raw_text": "8 MINS\nO'cean Peach & Passion Fruit Flavoured Water\n500 ml\n₹64\n₹66\nADD"
-    },
-    {
-        "search_term": "water",
-        "product_name": "Evian Natural Mineral Water",
-        "price": "₹160",
-        "quantity": "Evian Natural Mineral Water",
-        "platform": "Blinkit",
-        "location": "",
-        "url": "https://www.blinkit.com/s/?q=water",
-        "raw_text": "8 MINS\nEvian Natural Mineral Water\n500 ml\n₹160\nADD"
+        "raw_text": "9 MINS\nO'cean Peach & Passion Fruit Flavoured Water\n500 ml\n₹64\n₹66\nADD"
     },
     {
         "search_term": "water",
@@ -337,7 +797,17 @@
         "platform": "Blinkit",
         "location": "",
         "url": "https://www.blinkit.com/s/?q=water",
-        "raw_text": "8 MINS\nO'cean Crispy Apple Flavoured Water\n500 ml\n₹68\n₹70\nADD"
+        "raw_text": "9 MINS\nO'cean Crispy Apple Flavoured Water\n500 ml\n₹68\n₹70\nADD"
+    },
+    {
+        "search_term": "water",
+        "product_name": "Evian Natural Mineral Water",
+        "price": "₹160",
+        "quantity": "Evian Natural Mineral Water",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=water",
+        "raw_text": "9 MINS\nEvian Natural Mineral Water\n500 ml\n₹160\nADD"
     },
     {
         "search_term": "water",
@@ -347,7 +817,7 @@
         "platform": "Blinkit",
         "location": "",
         "url": "https://www.blinkit.com/s/?q=water",
-        "raw_text": "15% OFF\n8 MINS\nHimalayan Natural Mineral Water (Mildly Alkaline) - Pack of 2\n2 x 1 ltr\n₹119\n₹140\nADD"
+        "raw_text": "15% OFF\n9 MINS\nHimalayan Natural Mineral Water (Mildly Alkaline) - Pack of 2\n2 x 1 ltr\n₹119\n₹140\nADD"
     },
     {
         "search_term": "water",
@@ -357,6 +827,16 @@
         "platform": "Blinkit",
         "location": "",
         "url": "https://www.blinkit.com/s/?q=water",
-        "raw_text": "19% OFF\n8 MINS\nBisleri Vedica Natural Mountain Mineral Water\n24 x 250 ml\n₹260\n₹324\nADD"
+        "raw_text": "19% OFF\n9 MINS\nBisleri Vedica Natural Mountain Mineral Water\n24 x 250 ml\n₹260\n₹324\nADD"
+    },
+    {
+        "search_term": "water",
+        "product_name": "Catch Clear Lemon N Lime Flavoured Water - Pack of 2",
+        "price": "₹109",
+        "quantity": "Catch Clear Lemon N Lime Flavoured Water - Pack of 2",
+        "platform": "Blinkit",
+        "location": "",
+        "url": "https://www.blinkit.com/s/?q=water",
+        "raw_text": "9 MINS\nCatch Clear Lemon N Lime Flavoured Water - Pack of 2\n2 x 750 ml\n₹109\n₹110\nADD"
     }
 ]

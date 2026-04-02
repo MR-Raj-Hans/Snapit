@@ -66,10 +66,10 @@ def load_search_terms() -> list[str]:
 PRODUCTS_TO_SEARCH: list[str] = load_search_terms()
 
 # Optional MongoDB settings (set environment variables to enable)
-MONGO_URI = os.getenv("MONGO_URI", "mongodb://localhost:27017")
-# Default Zepto DB under the snapit connection
-MONGO_DB = os.getenv("MONGO_DB", "snapit_zepto")
-MONGO_COLLECTION = os.getenv("MONGO_COLLECTION", "prices")
+# Prefer Zepto-specific overrides; fall back to generic envs, then localhost defaults.
+ZEPTO_MONGO_URI = os.getenv("ZEPTO_MONGO_URI", os.getenv("MONGO_URI", "mongodb://localhost:27017"))
+ZEPTO_DB = os.getenv("ZEPTO_DB", os.getenv("MONGO_DB", "snapit_zepto"))
+ZEPTO_COLLECTION = os.getenv("ZEPTO_COLLECTION", os.getenv("MONGO_COLLECTION", "prices"))
 ZEPTO_LOCATION = os.getenv("ZEPTO_LOCATION", "")
 ZEPTO_LOCATIONS = [loc.strip() for loc in os.getenv("ZEPTO_LOCATIONS", "").split(",") if loc.strip()]
 OUTPUT_FILE = os.getenv("OUTPUT_FILE", "scraped_data.json")
@@ -149,10 +149,10 @@ def scrape_zepto() -> None:
             inserted = mongo_client.save_records(
                 cast(Sequence[dict[str, Any]], records),
                 collection_name=collection_name,
-                db_name=MONGO_DB,
-                uri=MONGO_URI,
+                db_name=ZEPTO_DB,
+                uri=ZEPTO_MONGO_URI,
             )
-            print(f" Saved {inserted} records to MongoDB collection '{collection_name}' in db '{MONGO_DB}'.")
+            print(f" Saved {inserted} records to MongoDB collection '{collection_name}' in db '{ZEPTO_DB}'.")
         except Exception as e:
             print(f" MongoDB save failed for {collection_name}: {e}")
 
